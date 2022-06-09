@@ -13,5 +13,6 @@ class LoginRepositoryImpl @Inject constructor(
     suspend fun login(loginRequest: LoginRequest) {
         val response = loginApi.login(loginRequest = loginRequest)
         Log.i("tag rep log", response.code().toString())
+        Log.i("tag rep log", response.body().toString())
     }
 }

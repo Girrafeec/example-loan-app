@@ -10,6 +10,6 @@ import retrofit2.http.POST
 interface RegistrationApi {
 
     @POST(ApiUrlConfig.REGISTRATION_API_URL)
-    fun registration(@Body registrationRequest: RegistrationRequest): Response<RegistrationResponse>
+    suspend fun registration(@Body registrationRequest: RegistrationRequest): Response<RegistrationResponse>
 
 }

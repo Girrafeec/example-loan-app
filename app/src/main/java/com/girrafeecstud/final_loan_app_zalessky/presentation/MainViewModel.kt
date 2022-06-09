@@ -28,11 +28,11 @@ class MainViewModel @Inject constructor(
     private fun request() {
 
         viewModelScope.launch {
-            //val loginRequest = LoginRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
-            //loginRepositoryImpl.login(loginRequest = loginRequest)
+            val loginRequest = LoginRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
+            loginRepositoryImpl.login(loginRequest = loginRequest)
 
-            val registrationRequest = RegistrationRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
-            registrationRepositoryImpl.registration(registrationRequest = registrationRequest)
+            //val registrationRequest = RegistrationRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
+            //registrationRepositoryImpl.registration(registrationRequest = registrationRequest)
         }
     }
 
