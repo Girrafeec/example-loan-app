@@ -5,7 +5,13 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, LoginModule::class, DataModule::class, AppModule::class])
+@Component(modules = [
+    NetworkModule::class,
+    LoginModule::class,
+    RegistrationModule::class,
+    DataModule::class,
+    AppModule::class
+])
 interface AppComponent {
 
     fun mainViewModelFactory(): MainViewModelFactory

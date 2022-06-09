@@ -20,5 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mainViewModel.getResult().observe(this, {
+            print(it)
+        })
     }
 }
