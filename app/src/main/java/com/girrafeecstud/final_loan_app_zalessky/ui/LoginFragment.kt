@@ -7,12 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
+import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.presentation.LoginViewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
 
     private lateinit var enterLoginName: EditText
     private lateinit var enterLoginPassword: EditText
+
+    private val loginViewModel: LoginViewModel by viewModels {
+        (activity?.applicationContext as App).appComponent.mainViewModelFactory()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +39,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
         val loginBtn = view.findViewById<Button>(R.id.loginBtn)
 
         loginBtn.setOnClickListener(this)
+
+        // TODO тост выбрасывается в самом начале
+        loginViewModel.getToken().observe(viewLifecycleOwner, {
+            Toast.makeText(activity?.applicationContext, it, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun onClick(view: View) {
@@ -41,6 +54,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     private fun login() {
         if (!enterLoginName.text.isEmpty() && !enterLoginPassword.text.isEmpty())
-            TODO()
+            loginViewModel.login(
+                userName = enterLoginName.text.toString(),
+                userPassword = enterLoginPassword.text.toString()
+            )
     }
 }
