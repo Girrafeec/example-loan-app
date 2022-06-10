@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoginViewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -46,7 +46,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         loginViewModel.getLoginResult().observe(viewLifecycleOwner, { loginResult ->
             when (loginResult) {
                 is ApiResult.Success -> {
-                    loginViewModel.setUserAuthorizedStatus()
+                    loginViewModel.setUserAuthorizedStatusWithToken(userBearerToken = loginResult.data.toString())
                     startMainActivity()
                 }
                 is ApiResult.Error -> {

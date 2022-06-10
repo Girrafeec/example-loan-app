@@ -1,4 +1,4 @@
-package com.girrafeecstud.final_loan_app_zalessky.data.network.registration
+package com.girrafeecstud.final_loan_app_zalessky.data.network
 
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiStatus
 

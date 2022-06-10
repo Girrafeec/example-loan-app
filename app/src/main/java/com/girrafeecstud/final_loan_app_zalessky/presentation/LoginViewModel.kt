@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiStatus
-import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.BearerTokenParserRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
 import kotlinx.coroutines.async
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
+    private val bearerTokenParserRepository: BearerTokenParserRepository
 ): ViewModel() {
 
     private val isConnecting = MutableLiveData<Boolean>()
@@ -52,15 +54,24 @@ class LoginViewModel @Inject constructor(
                 }
                 .collect { result ->
                     loginResult.value = result
-                    makeConnectionStatusFalse()
+                    if (result is ApiResult.Error)
+                        makeConnectionStatusFalse()
                 }
         }
     }
 
-    fun setUserAuthorizedStatus() {
+    fun setUserAuthorizedStatusWithToken(userBearerToken: String) {
         viewModelScope.launch {
-            loginSharedPreferencesRepositoryImpl.setUserAuthorized()
-            Log.i("tag log vm", "save")
+            async {
+                loginSharedPreferencesRepositoryImpl.setUserAuthorized()
+                Log.i("tag log vm", "save")
+            }
+            async {
+                loginSharedPreferencesRepositoryImpl.setUserBearerToken(
+                    userBearerToken = bearerTokenParserRepository.parseBearerToken(userBearerToken = userBearerToken)
+                )
+                // TODO СОХРАНЯТЬ ИМЯ В shared
+            }
         }
     }
 
