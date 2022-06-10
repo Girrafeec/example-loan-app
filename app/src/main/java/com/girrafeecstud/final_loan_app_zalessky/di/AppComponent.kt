@@ -10,7 +10,8 @@ import javax.inject.Singleton
     LoginModule::class,
     RegistrationModule::class,
     DataModule::class,
-    ViewModelModule::class
+    ViewModelModule::class,
+    AppModule::class
 ])
 interface AppComponent {
 

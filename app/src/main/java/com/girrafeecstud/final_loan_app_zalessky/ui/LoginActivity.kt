@@ -2,6 +2,7 @@ package com.girrafeecstud.final_loan_app_zalessky.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.google.android.material.tabs.TabLayout
@@ -36,6 +37,11 @@ class LoginActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("tag log act", "dest")
     }
 
     private fun initUiValues() {

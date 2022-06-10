@@ -6,23 +6,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiStatus
+import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ): ViewModel() {
 
     private val isConnecting = MutableLiveData<Boolean>()
 
-    private val token = MutableLiveData<String>()
+    private val loginResult = MutableLiveData<ApiResult<Any>>()
 
     init {
-        isConnecting.value = false
-        token.value = ""
+        //isConnecting.value = false
     }
 
     private fun makeConnectionStatusTrue() {
@@ -37,8 +40,8 @@ class LoginViewModel @Inject constructor(
         return isConnecting
     }
 
-    fun getToken(): LiveData<String> {
-        return token
+    fun getLoginResult(): LiveData<ApiResult<Any>> {
+        return loginResult
     }
 
     fun login(userName: String, userPassword: String) {
@@ -48,14 +51,16 @@ class LoginViewModel @Inject constructor(
                     makeConnectionStatusTrue()
                 }
                 .collect { result ->
+                    loginResult.value = result
                     makeConnectionStatusFalse()
-                    when (result.status) {
-                        ApiStatus.SUCCESS -> {token.value = result.data.toString()}
-                        ApiStatus.ERROR -> {
-                            Log.i("tag vm", result.message.toString())
-                        }
-                    }
                 }
+        }
+    }
+
+    fun setUserAuthorizedStatus() {
+        viewModelScope.launch {
+            loginSharedPreferencesRepositoryImpl.setUserAuthorized()
+            Log.i("tag log vm", "save")
         }
     }
 

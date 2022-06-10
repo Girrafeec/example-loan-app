@@ -1,16 +1,16 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoginViewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -37,12 +37,38 @@ class LoginFragment : Fragment(), View.OnClickListener {
         enterLoginName = view.findViewById<EditText>(R.id.loginNameEdtTxt)
         enterLoginPassword = view.findViewById<EditText>(R.id.loginPasswordEdtTxt)
         val loginBtn = view.findViewById<Button>(R.id.loginBtn)
+        val loginProgressBar = view.findViewById<ProgressBar>(R.id.loginProgressBar)
+        val loginLayout = view.findViewById<LinearLayout>(R.id.loginLinLay)
 
         loginBtn.setOnClickListener(this)
 
-        // TODO тост выбрасывается в самом начале
-        loginViewModel.getToken().observe(viewLifecycleOwner, {
-            Toast.makeText(activity?.applicationContext, it, Toast.LENGTH_SHORT).show()
+        // Login result
+        loginViewModel.getLoginResult().observe(viewLifecycleOwner, { loginResult ->
+            when (loginResult) {
+                is ApiResult.Success -> {
+                    loginViewModel.setUserAuthorizedStatus()
+                    startMainActivity()
+                }
+                is ApiResult.Error -> {
+                    Toast.makeText(activity?.applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        // Cconnecting status
+        loginViewModel.getConnectiongStatus().observe(viewLifecycleOwner, { isConnecting ->
+            when (isConnecting) {
+                false -> {
+                    loginLayout.alpha = (1).toFloat()
+                    loginLayout.isEnabled = true
+                    loginProgressBar.alpha = (0).toFloat()
+                }
+                true -> {
+                    loginLayout.alpha = (0).toFloat()
+                    loginLayout.isEnabled = false
+                    loginProgressBar.alpha = (1).toFloat()
+                }
+            }
         })
     }
 
@@ -58,5 +84,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 userName = enterLoginName.text.toString(),
                 userPassword = enterLoginPassword.text.toString()
             )
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(activity, MainActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 }
