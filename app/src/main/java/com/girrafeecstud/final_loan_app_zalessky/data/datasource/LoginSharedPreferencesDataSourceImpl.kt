@@ -70,6 +70,17 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
+    fun clearUserBearerToken() {
+        context
+            .getSharedPreferences(
+                SharedPreferencesConfig.SHARED_PREFS,
+                AppCompatActivity.MODE_PRIVATE
+            )
+            .edit()
+            .putString(USER_BEARER_TOKEN, "")
+            .apply()
+    }
+
     // TODO оставлять ли так знак вопроса?
     fun getUserName(): String? {
         return context
@@ -88,6 +99,17 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             )
             .edit()
             .putString(USER_NAME, userName)
+            .apply()
+    }
+
+    fun clearUserName() {
+        context
+            .getSharedPreferences(
+                SharedPreferencesConfig.SHARED_PREFS,
+                AppCompatActivity.MODE_PRIVATE
+            )
+            .edit()
+            .putString(USER_NAME, "")
             .apply()
     }
 

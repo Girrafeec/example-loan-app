@@ -74,4 +74,20 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun saveLoginData(userBearerToken: String, userName: String) {
+        viewModelScope.launch {
+            async {
+                loginSharedPreferencesRepositoryImpl.setUserAuthorized()
+            }
+            async {
+                loginSharedPreferencesRepositoryImpl.setUserBearerToken(
+                    userBearerToken = bearerTokenParserRepository.parseBearerToken(userBearerToken = userBearerToken)
+                )
+            }
+            async {
+                loginSharedPreferencesRepositoryImpl.setUserName(userName = userName)
+            }
+        }
+    }
+
 }

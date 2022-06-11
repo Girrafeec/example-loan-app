@@ -27,12 +27,20 @@ class LoginSharedPreferencesRepositoryImpl @Inject constructor(
         loginSharedPreferencesDataSourceImpl.setUserBearerToken(userBearerToken = userBearerToken)
     }
 
+    suspend fun clearUserBearerToken() {
+        loginSharedPreferencesDataSourceImpl.clearUserBearerToken()
+    }
+
     suspend fun getUserName(): String? {
         return loginSharedPreferencesDataSourceImpl.getUserName()
     }
 
     suspend fun setUserName(userName: String) {
         loginSharedPreferencesDataSourceImpl.setUserName(userName = userName)
+    }
+
+    suspend fun clearUserName() {
+        loginSharedPreferencesDataSourceImpl.clearUserName()
     }
 
 }

@@ -46,7 +46,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
         loginViewModel.getLoginResult().observe(viewLifecycleOwner, { loginResult ->
             when (loginResult) {
                 is ApiResult.Success -> {
-                    loginViewModel.setUserAuthorizedStatusWithToken(userBearerToken = loginResult.data.toString())
+                    loginViewModel.saveLoginData(
+                        userBearerToken = loginResult.data.toString(),
+                        userName = enterLoginName.text.toString()
+                    )
                     startMainActivity()
                 }
                 is ApiResult.Error -> {

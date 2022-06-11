@@ -2,9 +2,7 @@ package com.girrafeecstud.final_loan_app_zalessky.di
 
 import androidx.lifecycle.ViewModel
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.ViewModelKey
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoginViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.RegistrationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -26,5 +24,15 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(RegistrationViewModel::class)
     fun bindRegistrationViewModel(impl: RegistrationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserProfileViewModel::class)
+    fun bindUserProfileViewModel(impl: UserProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AuthorizationViewModel::class)
+    fun bindAuthorizationViewModel(impl: AuthorizationViewModel): ViewModel
 
 }

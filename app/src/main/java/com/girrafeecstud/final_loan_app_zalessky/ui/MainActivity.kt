@@ -25,5 +25,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getResult().observe(this, {
             print(it)
         })
+
+        supportFragmentManager.beginTransaction().replace(R.id.mainActivityFragmentContainer, UserProfileFragment()).commit()
     }
 }
