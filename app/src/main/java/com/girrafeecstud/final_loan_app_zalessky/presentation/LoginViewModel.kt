@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiStatus
-import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.BearerTokenParserRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
@@ -38,7 +37,7 @@ class LoginViewModel @Inject constructor(
         isConnecting.value = false
     }
 
-    fun getConnectiongStatus(): LiveData<Boolean> {
+    fun getConnectionStatus(): LiveData<Boolean> {
         return isConnecting
     }
 

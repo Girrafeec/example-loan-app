@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoginViewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -50,13 +50,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     startMainActivity()
                 }
                 is ApiResult.Error -> {
-                    Toast.makeText(activity?.applicationContext, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity?.applicationContext, "Login error", Toast.LENGTH_SHORT).show()
                 }
             }
         })
 
-        // Cconnecting status
-        loginViewModel.getConnectiongStatus().observe(viewLifecycleOwner, { isConnecting ->
+        // Connection status
+        loginViewModel.getConnectionStatus().observe(viewLifecycleOwner, { isConnecting ->
             when (isConnecting) {
                 false -> {
                     loginLayout.alpha = (1).toFloat()

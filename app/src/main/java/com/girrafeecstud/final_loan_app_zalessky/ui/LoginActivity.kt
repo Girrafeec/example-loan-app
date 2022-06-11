@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
         val loginFragmentsAdapter = LoginFragmentsAdapter(this)
         loginViewPager.adapter = loginFragmentsAdapter
+        loginViewPager.isUserInputEnabled = false
 
         loginTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {

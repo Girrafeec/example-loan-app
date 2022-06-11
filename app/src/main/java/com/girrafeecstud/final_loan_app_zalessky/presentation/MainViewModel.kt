@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.final_loan_app_zalessky.data.network.login.dto.LoginRequest
-import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.dto.RegistrationRequest
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.RegistrationRepositoryImpl
 import kotlinx.coroutines.launch
