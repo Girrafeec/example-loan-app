@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoanConditionsUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
@@ -18,6 +19,8 @@ class LoanConditionsViewModel @Inject constructor(
     private val getLoanConditionsUseCase: GetLoanConditionsUseCase,
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ) : ViewModel() {
+
+    private val state = MutableLiveData<LoanConditionsFragmentState>()
 
     private val requestResult = MutableLiveData<ApiResult<Any>>()
 
@@ -31,16 +34,44 @@ class LoanConditionsViewModel @Inject constructor(
                 async {
                     loginSharedPreferencesRepositoryImpl.getUserBearerToken()
                 }
-            Log.i("tag l c vm", bearerToken.await().toString())
             getLoanConditionsUseCase(bearerToken = bearerToken.await())
+                .onStart {
+                    setLoading()
+                }
                 .collect { result ->
+                    hideLoading()
                     requestResult.value = result
+                    if (result is ApiResult.Success)
+                        setSuccessStateValue(result.data as LoanConditions)
                 }
         }
     }
 
+    private fun setLoading() {
+        state.value = LoanConditionsFragmentState.IsLoading(isLoading = true)
+    }
+
+    private fun hideLoading() {
+        state.value = LoanConditionsFragmentState.IsLoading(isLoading = false)
+    }
+
+    private fun setSuccessStateValue(loanConditions: LoanConditions) {
+        state.value = LoanConditionsFragmentState.SuccessResult(loanConditions = loanConditions)
+    }
+
+    fun getState(): LiveData<LoanConditionsFragmentState> {
+        return state
+    }
+
     fun getLoanConditionsRequestResult(): LiveData<ApiResult<Any>> {
         return requestResult
+    }
+
+    sealed class LoanConditionsFragmentState {
+        data class IsLoading(val isLoading: Boolean): LoanConditionsFragmentState()
+        data class SuccessResult(val loanConditions: LoanConditions): LoanConditionsFragmentState()
+        // TODO Провайдить тип ошибки через специальный класс
+        data class ErrorResult(val errorMessage: String): LoanConditionsFragmentState()
     }
 
 }

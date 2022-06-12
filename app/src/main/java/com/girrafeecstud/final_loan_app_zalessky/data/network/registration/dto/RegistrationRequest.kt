@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RegistrationRequest(
     @SerializedName("name")
-    var userName: String? = null,
+    val userName: String,
     @SerializedName("password")
-    var userPassword: String? = null
+    val userPassword: String
 )
