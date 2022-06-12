@@ -21,7 +21,7 @@ class AuthorizationViewModel @Inject constructor(
 
     private fun getUserAuthorizationStatus() {
         viewModelScope.launch {
-            
+
             val authStatus = async {
                 loginSharedPreferencesRepositoryImpl.getUserAuthorizedStatus()
             }

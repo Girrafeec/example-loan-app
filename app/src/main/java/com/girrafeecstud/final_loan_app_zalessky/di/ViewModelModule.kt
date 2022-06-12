@@ -35,4 +35,9 @@ interface ViewModelModule {
     @ViewModelKey(AuthorizationViewModel::class)
     fun bindAuthorizationViewModel(impl: AuthorizationViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanConditionsViewModel::class)
+    fun bindLoanConditionsViewModel(impl: LoanConditionsViewModel): ViewModel
+
 }

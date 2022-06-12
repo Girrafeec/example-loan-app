@@ -2,14 +2,14 @@ package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
 import com.girrafeecstud.final_loan_app_zalessky.data.BearerTokenParser
+import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoanDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.RegistrationDataSourceImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.api.LoginApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.api.RegistrationApi
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.BearerTokenParserRepository
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -35,6 +35,14 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun provideLoanDataSourceImpl(
+        loanApi: LoanApi
+    ): LoanDataSourceImpl {
+        return LoanDataSourceImpl(loanApi = loanApi)
+    }
+
+    @Provides
+    @Singleton
     fun provideLoginSharedPreferencesDataSourceImpl(
         context: Context
     ): LoginSharedPreferencesDataSourceImpl {
@@ -43,8 +51,20 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideLoginRepositoryImpl(loginDataSourceImpl: LoginDataSourceImpl): LoginRepositoryImpl {
-        return LoginRepositoryImpl(loginDataSourceImpl = loginDataSourceImpl)
+    fun provideLoginRepositoryImpl(dataSource: LoginDataSourceImpl): LoginRepositoryImpl {
+        return LoginRepositoryImpl(dataSource = dataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRegistrationRepositoryImpl(dataSource: RegistrationDataSourceImpl): RegistrationRepositoryImpl {
+        return RegistrationRepositoryImpl(dataSource = dataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoanRepositoryImpl(loanDataSourceImpl: LoanDataSourceImpl): LoanRepositoryImpl {
+        return LoanRepositoryImpl(dataSource = loanDataSourceImpl)
     }
 
     @Provides

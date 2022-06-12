@@ -18,7 +18,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
         this.context = context
     }
 
-    fun getUserAuthorizedStatus(): Boolean {
+    suspend fun getUserAuthorizedStatus(): Boolean {
         return context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -27,7 +27,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .getBoolean(USER_AUTHORIZED, false)
     }
 
-    fun setUserAuthorized() {
+    suspend fun setUserAuthorized() {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -38,7 +38,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
-    fun setUserUnauthorized() {
+    suspend fun setUserUnauthorized() {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -50,7 +50,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
     }
 
     // TODO оставлять ли так знак вопроса?
-    fun getUserBearerToken(): String? {
+    suspend fun getUserBearerToken(): String? {
         return context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -59,7 +59,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .getString(USER_BEARER_TOKEN, "")
     }
 
-    fun setUserBearerToken(userBearerToken: String) {
+    suspend fun setUserBearerToken(userBearerToken: String) {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -70,7 +70,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
-    fun clearUserBearerToken() {
+    suspend fun clearUserBearerToken() {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -82,7 +82,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
     }
 
     // TODO оставлять ли так знак вопроса?
-    fun getUserName(): String? {
+    suspend fun getUserName(): String? {
         return context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -91,7 +91,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .getString(USER_NAME, "")
     }
 
-    fun setUserName(userName: String) {
+    suspend fun setUserName(userName: String) {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,
@@ -102,7 +102,7 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
-    fun clearUserName() {
+    suspend fun clearUserName() {
         context
             .getSharedPreferences(
                 SharedPreferencesConfig.SHARED_PREFS,

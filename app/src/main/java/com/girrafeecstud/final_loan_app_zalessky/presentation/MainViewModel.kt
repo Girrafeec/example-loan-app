@@ -11,31 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val loginRepositoryImpl: LoginRepositoryImpl,
-    private val registrationRepositoryImpl: RegistrationRepositoryImpl
+
 ): ViewModel() {
-
-    private val result = MutableLiveData<String>()
-
-    init {
-        result.value = ""
-        Log.i("tag", "vm init")
-        request()
-    }
-
-    private fun request() {
-
-        viewModelScope.launch {
-            //val loginRequest = LoginRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
-            //loginRepositoryImpl.login(loginRequest = loginRequest)
-
-            //val registrationRequest = RegistrationRequest(userName = "ivan_zal", userPassword = "qwertyuiop")
-            //registrationRepositoryImpl.registration(registrationRequest = registrationRequest)
-        }
-    }
-
-    fun getResult(): LiveData<String> {
-        return result
-    }
 
 }

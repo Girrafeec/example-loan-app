@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
-    private val loginDataSourceImpl: LoginDataSourceImpl
+    private val dataSource: LoginDataSourceImpl
 ) {
     suspend fun login(userName: String, userPassword: String): Flow<ApiResult<Any>> {
-        return loginDataSourceImpl.login(userName = userName, userPassword = userPassword)
+        return dataSource.login(userName = userName, userPassword = userPassword)
     }
 }

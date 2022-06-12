@@ -2,9 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/homeMainMenuItem"
+        android:title="Главная"
+        android:icon="@drawable/ic_home_menu_icon"/>
+
+    <item
+        android:id="@+id/loansMainMenuItem"
+        android:title="Займы"
+        android:icon="@drawable/ic_loan_menu_icon"/>
+
+    <item
         android:id="@+id/userProfileMainMenuItem"
         android:title="Профиль"
-        android:icon="@drawable/ic_baseline_account_box"
-        />
+        android:icon="@drawable/ic_user_profile_icon"/>
 
 </menu>

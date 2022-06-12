@@ -6,14 +6,14 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RegistrationUseCase @Inject constructor(
-    private val registrationRepositoryImpl: RegistrationRepositoryImpl
+    private val repository: RegistrationRepositoryImpl
 ) {
 
     suspend operator fun invoke(
         userName: String,
         userPassword: String
     ): Flow<ApiResult<Any>> {
-        return registrationRepositoryImpl.registration(
+        return repository.registration(
             userName = userName,
             userPassword = userPassword
         )

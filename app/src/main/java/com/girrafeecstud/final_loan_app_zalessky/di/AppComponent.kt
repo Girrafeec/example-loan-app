@@ -9,7 +9,9 @@ import javax.inject.Singleton
     NetworkModule::class,
     LoginModule::class,
     RegistrationModule::class,
+    LoanModule::class,
     DataModule::class,
+    UseCaseModule::class,
     ViewModelModule::class,
     AppModule::class
 ])
