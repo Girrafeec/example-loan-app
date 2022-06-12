@@ -21,7 +21,6 @@ import org.w3c.dom.Text
 class LoanConditionsFragment : Fragment(), View.OnClickListener {
 
     private lateinit var amountSeekBar: SeekBar
-    private lateinit var periodSeekBar: SeekBar
 
     private val loanConditionsViewModel: LoanConditionsViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
@@ -38,7 +37,6 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         amountSeekBar = view.findViewById(R.id.loanConditionsAmountSeekBar)
-        periodSeekBar = view.findViewById(R.id.loanConditionsPeriodSeekBar)
         val loanPerCent = view.findViewById<TextView>(R.id.loanConditionsPerCentValueTxt)
         val loanAmount = view.findViewById<TextView>(R.id.loanConditionsAmountValueTxt)
         val loanPeriod = view.findViewById<TextView>(R.id.loanConditionsPeriodValueTxt)

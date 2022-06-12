@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.BearerTokenParserRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
 import kotlinx.coroutines.async
@@ -17,8 +16,7 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
-    private val bearerTokenParserRepository: BearerTokenParserRepository
+    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ): ViewModel() {
 
     private val isConnecting = MutableLiveData<Boolean>()
@@ -59,21 +57,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun setUserAuthorizedStatusWithToken(userBearerToken: String) {
-        viewModelScope.launch {
-            async {
-                loginSharedPreferencesRepositoryImpl.setUserAuthorized()
-                Log.i("tag log vm", "save")
-            }
-            async {
-                loginSharedPreferencesRepositoryImpl.setUserBearerToken(
-                    userBearerToken = bearerTokenParserRepository.parseBearerToken(userBearerToken = userBearerToken)
-                )
-                // TODO СОХРАНЯТЬ ИМЯ В shared
-            }
-        }
-    }
-
     fun saveLoginData(userBearerToken: String, userName: String) {
         viewModelScope.launch {
             async {
@@ -81,7 +64,7 @@ class LoginViewModel @Inject constructor(
             }
             async {
                 loginSharedPreferencesRepositoryImpl.setUserBearerToken(
-                    userBearerToken = bearerTokenParserRepository.parseBearerToken(userBearerToken = userBearerToken)
+                    userBearerToken = userBearerToken
                 )
             }
             async {

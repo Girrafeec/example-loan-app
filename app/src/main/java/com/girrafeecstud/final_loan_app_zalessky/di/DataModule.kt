@@ -1,7 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
-import com.girrafeecstud.final_loan_app_zalessky.data.BearerTokenParser
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoanDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSourceImpl
@@ -75,18 +74,6 @@ class DataModule {
         return LoginSharedPreferencesRepositoryImpl(
             loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl
         )
-    }
-
-    @Provides
-    @Singleton
-    fun provideBearerTokenParserRepository(bearerTokenParser: BearerTokenParser): BearerTokenParserRepository {
-        return BearerTokenParserRepository(bearerTokenParser = bearerTokenParser)
-    }
-
-    @Provides
-    @Singleton
-    fun provideBearerTokenParser(): BearerTokenParser {
-        return BearerTokenParser()
     }
 
 }
