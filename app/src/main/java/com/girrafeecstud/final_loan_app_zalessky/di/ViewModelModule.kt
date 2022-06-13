@@ -40,4 +40,19 @@ interface ViewModelModule {
     @ViewModelKey(LoanConditionsViewModel::class)
     fun bindLoanConditionsViewModel(impl: LoanConditionsViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanPersonalDataViewModel::class)
+    fun bindLoanPersonalDataViewModel(impl: LoanPersonalDataViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanConfirmationViewModel::class)
+    fun bindLoanConfirmationViewModel(impl: LoanConfirmationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanRequestActivityViewModel::class)
+    fun bindLoanRequestActivityViewModel(impl: LoanRequestActivityViewModel): ViewModel
+
 }

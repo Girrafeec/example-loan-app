@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LoanConditionsResponse(
     @SerializedName("maxAmount")
-    val maxLoanAmount: Int,
+    val maxLoanAmount: Double,
     @SerializedName("percent")
     val loanPercent: Double,
     @SerializedName("period")

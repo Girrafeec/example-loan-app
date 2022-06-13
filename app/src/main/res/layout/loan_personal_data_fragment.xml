@@ -4,34 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.LoanConditionsFragment">
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loanConditionsProgressBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:alpha="0"/>
+    tools:context=".ui.LoanPersonalDataFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/loanConditionsScrollView"
+        android:id="@+id/loanPersonalDataScrollView"
         android:scrollbars="none"
         android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loanConditionsAmountLinLay"
                 android:orientation="vertical"
                 android:elevation="2dp"
                 android:background="@color/white"
@@ -40,28 +29,23 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsAmountTxt"
-                    android:text="Сумма займа"
+                    android:id="@+id/loanPersonalDataFirstNameTxt"
+                    android:text="Введите имя"
                     android:textSize="20sp"
                     android:gravity="start"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsAmountValueTxt"
-                    android:text="10000"
-                    android:textSize="40sp"
-                    android:gravity="start"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"/>
-
-                <SeekBar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsAmountSeekBar"
-                    android:min="100"
+                    android:id="@+id/loanPersonalDateEnterFirstNameEdtTxt"
+                    android:hint="First name"
+                    android:textSize="25sp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -72,7 +56,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loanConditionsPeriodLinLay"
                 android:orientation="vertical"
                 android:elevation="2dp"
                 android:background="@color/white"
@@ -81,30 +64,33 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsPeriodTxt"
-                    android:text="Срок займа"
+                    android:id="@+id/loanPErsonalDataLastNameTxt"
+                    android:text="Введите фамилию"
                     android:textSize="20sp"
                     android:gravity="start"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsPeriodValueTxt"
-                    android:text="10000"
-                    android:textSize="40sp"
-                    android:gravity="start"
+                    android:id="@+id/loanPersonalDateEnterLastNameEdtTxt"
+                    android:hint="Second name"
+                    android:textSize="25sp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/loanConditionsPerCentLinLay"
                 android:orientation="vertical"
                 android:elevation="2dp"
                 android:background="@color/white"
@@ -113,23 +99,27 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsPercentTxt"
-                    android:text="Процентная ставка"
+                    android:id="@+id/loanPersonalDataPhoneNumberTxt"
+                    android:text="Введите номер телефона"
                     android:textSize="20sp"
                     android:gravity="start"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"/>
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanConditionsPercentValueTxt"
-                    android:text="10%"
-                    android:textSize="40sp"
-                    android:gravity="start"
+                    android:id="@+id/loanPersonalDateEnterPhoneNumberEdtTxt"
+                    android:hint="Phone number"
+                    android:textSize="25sp"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:inputType="phone"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="30dp"/>
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"/>
 
             </LinearLayout>
 

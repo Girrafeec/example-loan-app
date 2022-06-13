@@ -24,6 +24,8 @@ class LoanConditionsViewModel @Inject constructor(
 
     private val requestResult = MutableLiveData<ApiResult<Any>>()
 
+    private val chosenAmountValue = MutableLiveData<Double>()
+
     init {
         getLoanConditions()
     }
@@ -67,6 +69,14 @@ class LoanConditionsViewModel @Inject constructor(
         return requestResult
     }
 
+    fun setChosenAmountValue(amountValue: Double) {
+        chosenAmountValue.value = amountValue
+    }
+
+    fun getChosenAmountValue(): LiveData<Double> {
+        return chosenAmountValue
+    }
+
     sealed class LoanConditionsFragmentState {
         data class IsLoading(val isLoading: Boolean): LoanConditionsFragmentState()
         data class SuccessResult(val loanConditions: LoanConditions): LoanConditionsFragmentState()
@@ -74,4 +84,8 @@ class LoanConditionsViewModel @Inject constructor(
         data class ErrorResult(val errorMessage: String): LoanConditionsFragmentState()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("tag", "succcer")
+    }
 }
