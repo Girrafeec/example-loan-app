@@ -18,6 +18,7 @@ class LoanDataSourceImpl @Inject constructor(
         return flow {
             val response = loanApi.getLoanConditions(authorizationToken = bearerToken)
             val responseBody = response.body()
+
             if (response.isSuccessful && responseBody != null) {
                 val loanConditions = LoanConditions(
                     maxAmount = responseBody.maxLoanAmount,
@@ -31,10 +32,12 @@ class LoanDataSourceImpl @Inject constructor(
                 response.errorBody()?.close()
                 emit(ApiResult.Error(exception = errorMsg.toString()))
             }
+
         }
     }
 
     suspend fun applyLoan(bearerToken: String?, loanRequest: LoanRequest): Flow<ApiResult<Any>> {
+
         val loanApiRequest = LoanApiRequest(
             loanAmount = loanRequest.loanAmount,
             loanPeriod = loanRequest.loanPeriod,
@@ -49,7 +52,6 @@ class LoanDataSourceImpl @Inject constructor(
                 authorizationToken = bearerToken,
                 loanApiRequest = loanApiRequest
             )
-
             val responseBody = response.body()
 
             if (response.isSuccessful && responseBody != null) {
@@ -70,6 +72,43 @@ class LoanDataSourceImpl @Inject constructor(
                 val errorMsg = response.errorBody()?.string()
                 response.errorBody()?.close()
                 emit(ApiResult.Error(exception = errorMsg.toString()))
+            }
+        }
+    }
+
+    // TODO доделать метод
+    suspend fun getLoansList(bearerToken: String?) : Flow<ApiResult<Any>> {
+        return flow {
+            val response = loanApi.getLoansList(authorizationToken = bearerToken)
+            val responseBody = response.body()
+
+            if (response.isSuccessful && responseBody != null) {
+                val loansList = listOf<Loan>()
+            }
+            else {
+
+            }
+
+        }
+    }
+
+    // TODO доделать метод
+    suspend fun getLoanById(bearerToken: String?, loanId: Long): Flow<ApiResult<Any>> {
+
+        val stringLoanId = loanId.toString()
+
+        return flow {
+            val response = loanApi.getLoanById(
+                authorizationToken = bearerToken,
+                loanId = stringLoanId
+            )
+            val responseBody = response.body()
+
+            if (response.isSuccessful && responseBody != null) {
+
+            }
+            else {
+
             }
         }
     }

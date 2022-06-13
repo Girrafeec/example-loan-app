@@ -9,6 +9,7 @@ class ApiUrlConfig {
         const val MAIN_LOANS_API_URL = "loans"
         const val LOANS_CONDITIONS_API_URL = "$MAIN_LOANS_API_URL/conditions"
         const val LOANS_LIST_API_URL = "$MAIN_LOANS_API_URL/list"
+        const val LOAN_ID_API_URL = "$MAIN_LOANS_API_URL/{id}"
     }
 
 }

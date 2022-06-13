@@ -5,10 +5,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanApiRe
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanConditionsResponse
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface LoanApi {
 
@@ -21,5 +18,16 @@ interface LoanApi {
     suspend fun applyLoan(
         @Header("Authorization") authorizationToken: String?,
         @Body loanApiRequest: LoanApiRequest
+    ): Response<LoanResponse>
+
+    @GET(ApiUrlConfig.LOANS_LIST_API_URL)
+    suspend fun getLoansList(
+        @Header("Authorization") authorizationToken: String?
+    ): Response<List<LoanResponse>>
+
+    @GET(ApiUrlConfig.LOAN_ID_API_URL)
+    suspend fun getLoanById(
+        @Header("Authorization") authorizationToken: String?,
+        @Path("id") loanId: String
     ): Response<LoanResponse>
 }

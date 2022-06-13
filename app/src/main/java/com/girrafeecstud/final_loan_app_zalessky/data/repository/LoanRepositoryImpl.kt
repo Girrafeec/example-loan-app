@@ -19,4 +19,15 @@ class LoanRepositoryImpl @Inject constructor(
             loanRequest = loanRequest
         )
     }
+
+    suspend fun getLoansList(bearerToken: String?): Flow<ApiResult<Any>> {
+        return dataSource.getLoansList(bearerToken = bearerToken)
+    }
+
+    suspend fun getLoanById(bearerToken: String?, loanId: Long): Flow<ApiResult<Any>> {
+        return dataSource.getLoanById(
+            bearerToken = bearerToken,
+            loanId = loanId
+        )
+    }
 }

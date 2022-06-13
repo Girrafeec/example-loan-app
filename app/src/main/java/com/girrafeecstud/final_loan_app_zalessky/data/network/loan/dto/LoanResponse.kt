@@ -23,6 +23,5 @@ data class LoanResponse(
     @SerializedName("phoneNumber")
     val borrowerPhoneNumber: String,
     @SerializedName("state")
-    //val loanState: LoanState
     val loanState: String
 )
