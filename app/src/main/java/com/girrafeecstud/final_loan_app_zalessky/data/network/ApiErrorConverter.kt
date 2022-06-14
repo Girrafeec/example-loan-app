@@ -1,5 +1,7 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network
 
+import java.lang.NullPointerException
+
 class ApiErrorConverter {
 
     fun convertHttpError(
@@ -30,8 +32,12 @@ class ApiErrorConverter {
         )
     }
 
-    fun convertConnectionError() {
-
+    fun convertConnectionError(exceptionMessage: String): ApiError {
+        return ApiError(
+            statusCode = null,
+            errorMessage = exceptionMessage,
+            errorType = ApiErrorType.NO_CONNECTION_ERROR
+        )
     }
 
 }

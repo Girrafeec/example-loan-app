@@ -1,12 +1,15 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
+import android.content.Context
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiUrlConfig
+import com.girrafeecstud.final_loan_app_zalessky.data.network.NetworkConnectionInterceptor
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.BaseApiUrl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -31,15 +34,32 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideNetworkConnectionInterceptor(context: Context): NetworkConnectionInterceptor {
+        return NetworkConnectionInterceptor(context = context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        networkConnectionInterceptor: NetworkConnectionInterceptor
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
+            .build()
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
         scalarsConverterFactory: ScalarsConverterFactory,
         gsonConverterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient,
         @BaseApiUrl baseApiUrl: String
     ): Retrofit =
         Retrofit.Builder()
             .baseUrl(baseApiUrl)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(gsonConverterFactory)
+            .client(okHttpClient)
             .build()
 
     @Provides
