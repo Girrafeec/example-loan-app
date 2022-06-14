@@ -15,8 +15,8 @@ import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanConditionsViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConditionsViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanConditionsConfig
 
 class LoanConditionsFragment : Fragment(), View.OnClickListener {

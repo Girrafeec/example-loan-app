@@ -17,8 +17,8 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanConfirmationViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConfirmationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
 import kotlinx.android.synthetic.main.activity_loan_request.*
 

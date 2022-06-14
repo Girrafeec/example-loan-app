@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.activity.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 
 class LoanRequestActivity :
     AppCompatActivity(),

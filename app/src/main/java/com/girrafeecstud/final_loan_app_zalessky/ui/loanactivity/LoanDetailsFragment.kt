@@ -1,22 +1,20 @@
-package com.girrafeecstud.final_loan_app_zalessky.ui
+package com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
-import kotlinx.android.synthetic.main.layout_loan_details.*
+import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 
-class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
+class LoanDetailsFragment: Fragment() {
 
     private lateinit var amountValue: TextView
     private lateinit var periodValue: TextView
@@ -27,36 +25,30 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
     private lateinit var idValue: TextView
     private lateinit var stateValue: TextView
     private lateinit var dateTimeValue: TextView
+    private lateinit var progressBar: ProgressBar
 
-    private lateinit var listener: LoanRequestSuccessFragmentListener
-
-    private val loanRequestActivityViewModel: LoanRequestActivityViewModel by viewModels {
+    private val loanItemViewModel: LoanItemViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        when (context) {
-            is LoanRequestSuccessFragmentListener -> {
-                listener = context
-            }
-        }
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_loan_request_success, container, false)
+        var id = this.arguments?.getLong("LOAN_ID")
+        if (id == null)
+            id = 0
+        loanItemViewModel.setLoanId(loanId = id)
+        return inflater.inflate(R.layout.layout_loan_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Enable activity ok button
-        listener.enableOkButton()
+        loanItemViewModel.loadLoanData()
 
-        val okButton = requireActivity().findViewById<Button>(R.id.loanRequestOkBtn)
+        progressBar = requireActivity().findViewById(R.id.loanActivityProressBar)
         amountValue = view.findViewById(R.id.loanDetailsAmountValueTxt)
         periodValue = view.findViewById(R.id.loanDetailsPeriodValueTxt)
         percentValue = view.findViewById(R.id.loanDetailsPercentValueTxt)
@@ -67,30 +59,15 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         stateValue = view.findViewById(R.id.loanDetailsStateValueTxt)
         dateTimeValue = view.findViewById(R.id.loanDetailsDateTimeValueTxt)
 
-        okButton.setOnClickListener(this)
-
-        loanRequestActivityViewModel.getLoan().observe(viewLifecycleOwner, { loan ->
-            setLoanValues(loan = loan)
+        loanItemViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is LoanItemViewModel.LoanActivityState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is LoanItemViewModel.LoanActivityState.SuccessResult -> handleSuccessResult(loan = state.loan)
+            }
         })
-
-        // Finish activity when press back button
-        val backPressCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activity?.finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
     }
 
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.loanRequestOkBtn -> {
-                activity?.finish()
-            }
-        }
-    }
-
-    private fun setLoanValues(loan: Loan) {
+    private fun handleSuccessResult(loan: Loan) {
         amountValue.setText(loan.loanAmount.toString())
         percentValue.setText(loan.loanPercent.toString())
         periodValue.setText(loan.loanPeriod.toString())
@@ -102,7 +79,18 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         stateValue.setText(loan.loanState.name)
     }
 
-    interface LoanRequestSuccessFragmentListener {
-        fun enableOkButton()
+    private fun handleLoading(isLoading: Boolean) {
+        when (isLoading) {
+            false -> {
+                view?.alpha = (1).toFloat()
+                view?.isEnabled = !isLoading
+                progressBar.alpha = (0).toFloat()
+            }
+            true -> {
+                view?.alpha = (0).toFloat()
+                view?.isEnabled = !isLoading
+                progressBar.alpha = (1).toFloat()
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.presentation.AuthorizationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.AuthorizationViewModel
 import com.google.android.material.tabs.TabLayout
 
 class AuthorizationActivity : AppCompatActivity() {

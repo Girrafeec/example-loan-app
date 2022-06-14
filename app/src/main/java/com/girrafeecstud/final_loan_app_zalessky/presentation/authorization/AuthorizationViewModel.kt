@@ -1,4 +1,4 @@
-package com.girrafeecstud.final_loan_app_zalessky.presentation
+package com.girrafeecstud.final_loan_app_zalessky.presentation.authorization
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

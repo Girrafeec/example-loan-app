@@ -20,9 +20,11 @@ class LoanItemViewModel @Inject constructor(
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ): ViewModel() {
 
+    private var loanId: Long = 0
+
     private val state = MutableLiveData<LoanActivityState>()
 
-    fun loadLoanData(loanId: Long) {
+    fun loadLoanData() {
         viewModelScope.launch {
             val bearerToken = async {
                 loginSharedPreferencesRepositoryImpl.getUserBearerToken()
@@ -55,6 +57,10 @@ class LoanItemViewModel @Inject constructor(
 
     fun getState(): LiveData<LoanActivityState> {
         return state
+    }
+
+    fun setLoanId(loanId: Long) {
+        this.loanId = loanId
     }
 
     sealed class LoanActivityState {

@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
-import com.girrafeecstud.final_loan_app_zalessky.presentation.RegistrationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
 

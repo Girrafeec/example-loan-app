@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalLoanAppzalessky">
-        <activity android:name=".ui.LoanActivity"></activity>
+        <activity android:name=".ui.loanactivity.LoanActivity"></activity>
         <activity android:name=".ui.LoanRequestActivity" />
         <activity
             android:name=".ui.AuthorizationActivity"

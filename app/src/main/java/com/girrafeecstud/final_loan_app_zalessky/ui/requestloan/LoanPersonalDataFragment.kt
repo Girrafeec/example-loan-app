@@ -14,8 +14,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanPersonalDataViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanPersonalDataViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
 import kotlinx.android.synthetic.*
 

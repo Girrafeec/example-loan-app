@@ -2,7 +2,6 @@ package com.girrafeecstud.final_loan_app_zalessky.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoansViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity.LoanActivity
 
 class LoansFragment :
     Fragment(),
