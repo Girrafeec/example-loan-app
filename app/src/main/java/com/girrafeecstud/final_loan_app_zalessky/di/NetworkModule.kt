@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiUrlConfig
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.BaseApiUrl
 import com.google.gson.Gson
@@ -40,5 +41,11 @@ class NetworkModule {
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(gsonConverterFactory)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideApiErrorConverter(): ApiErrorConverter {
+        return ApiErrorConverter()
+    }
 
 }

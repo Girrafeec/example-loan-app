@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network.login
 
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiStatus
 
 sealed class ApiResult <out T> (
@@ -12,9 +13,9 @@ sealed class ApiResult <out T> (
         data = _data,
         message = null
     )
-    data class Error (val exception: String): ApiResult<Nothing>(
+    data class Error <out ApiError> (val apiError: ApiError): ApiResult<ApiError>(
         status = ApiStatus.ERROR,
-        data = null,
-        message = exception
+        data = apiError,
+        message = null
     )
 }

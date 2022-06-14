@@ -12,6 +12,7 @@ class LoanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loan)
 
+        // TODO ВЫНЕСТИ КОНСТАНТУ ОТДЕЛЬНО В КОНФИГ
         val loanId = intent.getLongExtra("LOAN_ID", 0)
 
         val fragmentBundle = Bundle()

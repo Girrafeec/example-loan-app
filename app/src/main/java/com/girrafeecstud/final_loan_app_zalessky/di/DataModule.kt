@@ -5,6 +5,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoanDataSourceI
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.RegistrationDataSourceImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.api.LoginApi
@@ -21,8 +22,14 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideLoginDataSourceImpl(loginApi: LoginApi): LoginDataSourceImpl {
-        return LoginDataSourceImpl(loginApi = loginApi)
+    fun provideLoginDataSourceImpl(
+        loginApi: LoginApi,
+        apiErrorConverter: ApiErrorConverter
+    ): LoginDataSourceImpl {
+        return LoginDataSourceImpl(
+            loginApi = loginApi,
+            apiErrorConverter = apiErrorConverter
+        )
     }
 
     @Provides

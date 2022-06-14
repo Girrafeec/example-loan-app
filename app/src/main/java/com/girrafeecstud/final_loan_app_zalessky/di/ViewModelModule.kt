@@ -2,7 +2,17 @@ package com.girrafeecstud.final_loan_app_zalessky.di
 
 import androidx.lifecycle.ViewModel
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.ViewModelKey
-import com.girrafeecstud.final_loan_app_zalessky.presentation.*
+import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.LoansViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.UserProfileViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.AuthorizationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConditionsViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConfirmationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanPersonalDataViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

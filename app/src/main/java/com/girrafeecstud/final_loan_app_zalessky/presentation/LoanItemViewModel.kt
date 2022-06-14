@@ -37,8 +37,8 @@ class LoanItemViewModel @Inject constructor(
                     hideLoading()
                     if (result is ApiResult.Success)
                         setSuccessResult(loan = result.data as Loan)
-                    if (result is ApiResult.Error)
-                        Log.i("tag", result.exception)
+                    //if (result is ApiResult.Error)
+                        //Log.i("tag", result.exception)
                 }
         }
     }

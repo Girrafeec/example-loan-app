@@ -22,7 +22,7 @@ class RegistrationDataSourceImpl @Inject constructor(
             else {
                 val errorMsg = response.errorBody()?.string()
                 response.errorBody()?.close()
-                emit(ApiResult.Error(exception = errorMsg.toString()))
+                //emit(ApiResult.Error(exception = errorMsg.toString()))
             }
         }
     }

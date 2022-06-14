@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
 
@@ -17,6 +19,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     private lateinit var enterLoginName: EditText
     private lateinit var enterLoginPassword: EditText
+    private lateinit var loginLayout: LinearLayout
+    private lateinit var loginProgressBar: ProgressBar
+    private lateinit var loginBtn: Button
 
     private val loginViewModel: LoginViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
@@ -36,41 +41,17 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         enterLoginName = view.findViewById<EditText>(R.id.loginNameEdtTxt)
         enterLoginPassword = view.findViewById<EditText>(R.id.loginPasswordEdtTxt)
-        val loginBtn = view.findViewById<Button>(R.id.loginBtn)
-        val loginProgressBar = view.findViewById<ProgressBar>(R.id.loginProgressBar)
-        val loginLayout = view.findViewById<LinearLayout>(R.id.loginLinLay)
+        loginBtn = view.findViewById<Button>(R.id.loginBtn)
+        loginProgressBar = view.findViewById<ProgressBar>(R.id.loginProgressBar)
+        loginLayout = view.findViewById<LinearLayout>(R.id.loginLinLay)
 
         loginBtn.setOnClickListener(this)
 
-        // Login result
-        loginViewModel.getLoginResult().observe(viewLifecycleOwner, { loginResult ->
-            when (loginResult) {
-                is ApiResult.Success -> {
-                    loginViewModel.saveLoginData(
-                        userBearerToken = loginResult.data.toString(),
-                        userName = enterLoginName.text.toString()
-                    )
-                    startMainActivity()
-                }
-                is ApiResult.Error -> {
-                    Toast.makeText(activity?.applicationContext, "Login error", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-
-        // Connection status
-        loginViewModel.getConnectionStatus().observe(viewLifecycleOwner, { isConnecting ->
-            when (isConnecting) {
-                false -> {
-                    loginLayout.alpha = (1).toFloat()
-                    loginLayout.isEnabled = true
-                    loginProgressBar.alpha = (0).toFloat()
-                }
-                true -> {
-                    loginLayout.alpha = (0).toFloat()
-                    loginLayout.isEnabled = false
-                    loginProgressBar.alpha = (1).toFloat()
-                }
+        loginViewModel.getState().observe(viewLifecycleOwner, { state->
+            when (state) {
+                is LoginViewModel.LoginFragmentState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is LoginViewModel.LoginFragmentState.SuccessResult -> handleSuccessResult(token = state.token)
+                is LoginViewModel.LoginFragmentState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
     }
@@ -94,4 +75,58 @@ class LoginFragment : Fragment(), View.OnClickListener {
         startActivity(intent)
         activity?.finish()
     }
+
+    private fun handleLoading(isLoading: Boolean) {
+        when (isLoading) {
+            false -> {
+                loginLayout.alpha = (1).toFloat()
+                loginLayout.isEnabled = true
+                loginProgressBar.alpha = (0).toFloat()
+            }
+            true -> {
+                loginLayout.alpha = (0).toFloat()
+                loginLayout.isEnabled = false
+                loginProgressBar.alpha = (1).toFloat()
+            }
+        }
+    }
+
+    private fun handleError(apiError: ApiError) {
+
+        var errorMessage = apiError.errorType.name
+
+        when (apiError.errorType) {
+            ApiErrorType.BAD_REQUEST_ERROR -> {
+
+            }
+            ApiErrorType.UNAUTHORIZED_ERROR -> {
+
+            }
+            ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
+
+            }
+            ApiErrorType.NOT_FOUND_ERROR -> {
+
+            }
+            ApiErrorType.NO_CONNECTION_ERROR -> {
+
+            }
+            ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
+
+            }
+            ApiErrorType.UNKNOWN_ERROR -> {
+
+            }
+        }
+        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleSuccessResult(token: String) {
+        loginViewModel.saveLoginData(
+            userBearerToken = token,
+            userName = enterLoginName.text.toString()
+        )
+        startMainActivity()
+    }
+
 }
