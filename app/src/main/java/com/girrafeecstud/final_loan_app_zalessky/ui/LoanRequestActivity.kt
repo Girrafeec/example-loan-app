@@ -12,10 +12,12 @@ import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivit
 class LoanRequestActivity :
     AppCompatActivity(),
     LoanConditionsFragment.LoanConditionsFragmentListener,
-    LoanConfirmationFragment.LoanConfirmationFragmentListener {
+    LoanConfirmationFragment.LoanConfirmationFragmentListener,
+    LoanRequestSuccessFragment.LoanRequestSuccessFragmentListener {
 
     private lateinit var continueBtn: Button
     private lateinit var applyLoanBtn: Button
+    private lateinit var okButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class LoanRequestActivity :
     private fun initUiValues() {
         continueBtn = findViewById(R.id.loanRequestContinueBtn)
         applyLoanBtn = findViewById(R.id.applyLoanBtn)
+        okButton = findViewById(R.id.loanRequestOkBtn)
     }
 
     override fun enableContinueLoanRequestButton() {
@@ -44,5 +47,14 @@ class LoanRequestActivity :
         continueBtn.isEnabled = false
         applyLoanBtn.visibility = View.VISIBLE
         applyLoanBtn.isEnabled = true
+    }
+
+    override fun enableOkButton() {
+        continueBtn.visibility = View.INVISIBLE
+        continueBtn.isEnabled = false
+        applyLoanBtn.visibility = View.INVISIBLE
+        applyLoanBtn.isEnabled = false
+        okButton.visibility = View.VISIBLE
+        okButton.isEnabled = true
     }
 }

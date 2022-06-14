@@ -57,6 +57,7 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Enable activity continue loan request button
         listener.enableContinueLoanRequestButton()
 
         enterFirstName = view.findViewById(R.id.loanPersonalDateEnterFirstNameEdtTxt)

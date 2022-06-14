@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -60,16 +61,26 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Enable activity apply loan request button
         listener.enableApplyLoanRequestButton()
+
+        val loanIdLayout = view.findViewById<LinearLayout>(R.id.loanDetailsIdValueLinLay)
+        val loanDateTimeLayout = view.findViewById<LinearLayout>(R.id.loanDetailsDateTimeValueLinLay)
+        val loanStateLayout = view.findViewById<LinearLayout>(R.id.loanDetailsStateValueLinLay)
+
+        // Make unnecessary layots gone
+        loanIdLayout.visibility = View.GONE
+        loanDateTimeLayout.visibility = View.GONE
+        loanStateLayout.visibility = View.GONE
 
         progressBar = requireActivity().findViewById(R.id.requestActivityProgressBar)
         val applyLoanBtn = requireActivity().findViewById<Button>(R.id.applyLoanBtn)
-        amountValue = view.findViewById(R.id.loanRequestAmountValueTxt)
-        periodValue = view.findViewById(R.id.loanRequestPeriodValueTxt)
-        percentValue = view.findViewById(R.id.loanRequestPercentValueTxt)
-        firstNameValue = view.findViewById(R.id.loanRequestFirstNameValueTxt)
-        lastNameValue = view.findViewById(R.id.loanRequestLastNameValueTxt)
-        phoneNumberValue = view.findViewById(R.id.loanRequestPhoneNumberValueTxt)
+        amountValue = view.findViewById(R.id.loanDetailsAmountValueTxt)
+        periodValue = view.findViewById(R.id.loanDetailsPeriodValueTxt)
+        percentValue = view.findViewById(R.id.loanDetailsPercentValueTxt)
+        firstNameValue = view.findViewById(R.id.loanDetailsFirstNameValueTxt)
+        lastNameValue = view.findViewById(R.id.loanDetailsLastNameValueTxt)
+        phoneNumberValue = view.findViewById(R.id.loanDetailsPhoneNumberValueTxt)
 
         applyLoanBtn.setOnClickListener(this)
 
@@ -79,8 +90,10 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
             when (state) {
                 is LoanConfirmationViewModel.LoanConfirmationFragmentState.IsLoading ->
                     handleLoading(isLoading = state.isLoading)
-                is LoanConfirmationViewModel.LoanConfirmationFragmentState.SuccessResult ->
+                is LoanConfirmationViewModel.LoanConfirmationFragmentState.SuccessResult -> {
                     handleSuccess(loan = state.loan)
+                    openSuccessFragment()
+                }
             }
         })
     }
@@ -88,8 +101,7 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.applyLoanBtn -> {
-                //applyLoan()
-                openSuccessFragment()
+                applyLoan()
             }
         }
     }
@@ -133,7 +145,7 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
 
     //TODO придумать, как передавать результат в итоговый фрагмент
     private fun handleSuccess(loan: Loan)  {
-
+        loanRequestActivityViewModel.setLoan(loan = loan)
     }
 
     private fun openSuccessFragment() {

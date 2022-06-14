@@ -1,18 +1,22 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.datasource
 
+import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanApiRequest
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.security.PrivateKey
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 class LoanDataSourceImpl @Inject constructor(
-    private val loanApi: LoanApi
+    private val loanApi: LoanApi,
+    private val loanApiResponseConverter: LoanApiResponseConverter
 ) {
     suspend fun getLoanConditions(bearerToken: String?): Flow<ApiResult<Any>> {
         return flow {
@@ -55,17 +59,7 @@ class LoanDataSourceImpl @Inject constructor(
             val responseBody = response.body()
 
             if (response.isSuccessful && responseBody != null) {
-                val loan = Loan(
-                    loanAmount = responseBody.loanAmount,
-                    loanIssueDate = responseBody.loanIssueDate,
-                    borrowerFirstName = responseBody.borrowerFirstName,
-                    loanId = responseBody.loanId,
-                    borrowerLastName = responseBody.borrowerLastName,
-                    loanPercent = responseBody.loanPercent,
-                    loanPeriod = responseBody.loanPeriod,
-                    borrowerPhoneNumber = responseBody.borrowerPhoneNumber,
-                    loanState = responseBody.loanState
-                )
+                val loan = loanApiResponseConverter.getLoanFromLoanResponse(loanResponse = responseBody)
                 emit(ApiResult.Success(_data = loan))
             }
             else {
@@ -76,23 +70,27 @@ class LoanDataSourceImpl @Inject constructor(
         }
     }
 
-    // TODO доделать метод
     suspend fun getLoansList(bearerToken: String?) : Flow<ApiResult<Any>> {
         return flow {
             val response = loanApi.getLoansList(authorizationToken = bearerToken)
             val responseBody = response.body()
 
             if (response.isSuccessful && responseBody != null) {
-                val loansList = listOf<Loan>()
+                var loansList = listOf<Loan>()
+                for (loan in responseBody)
+                    loansList += loanApiResponseConverter.getLoanFromLoanResponse(loanResponse = loan)
+
+                emit(ApiResult.Success(_data = loansList))
             }
             else {
-
+                val errorMsg = response.errorBody()?.string()
+                response.errorBody()?.close()
+                emit(ApiResult.Error(exception = errorMsg.toString()))
             }
 
         }
     }
 
-    // TODO доделать метод
     suspend fun getLoanById(bearerToken: String?, loanId: Long): Flow<ApiResult<Any>> {
 
         val stringLoanId = loanId.toString()
@@ -105,10 +103,13 @@ class LoanDataSourceImpl @Inject constructor(
             val responseBody = response.body()
 
             if (response.isSuccessful && responseBody != null) {
-
+                val loan = loanApiResponseConverter.getLoanFromLoanResponse(loanResponse = responseBody)
+                emit(ApiResult.Success(_data = loan))
             }
             else {
-
+                val errorMsg = response.errorBody()?.string()
+                response.errorBody()?.close()
+                emit(ApiResult.Error(exception = errorMsg.toString()))
             }
         }
     }

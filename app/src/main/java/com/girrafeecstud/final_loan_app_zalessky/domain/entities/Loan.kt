@@ -12,6 +12,5 @@ data class Loan(
     val loanPercent: Double,
     val loanPeriod: Int,
     val borrowerPhoneNumber: String,
-    //val loanState: LoanState
-    val loanState: String
+    val loanState: LoanState
 )

@@ -36,15 +36,35 @@ class MainActivity : AppCompatActivity() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {
                     R.id.homeMainMenuItem -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.mainActivityFragmentContainer, HomeFragment()).commit()
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.mainActivityFragmentContainer,
+                                HomeFragment()
+                            )
+                            .commit()
                         return true
                     }
                     R.id.loansMainMenuItem -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.mainActivityFragmentContainer, LoansFragment()).commit()
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.mainActivityFragmentContainer,
+                                LoansFragment()
+                            )
+                            .addToBackStack(null)
+                            .commit()
                         return true
                     }
                     R.id.userProfileMainMenuItem -> {
-                        supportFragmentManager.beginTransaction().replace(R.id.mainActivityFragmentContainer, UserProfileFragment()).commit()
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(
+                                R.id.mainActivityFragmentContainer,
+                                UserProfileFragment()
+                            )
+                            .addToBackStack(null)
+                            .commit()
                         return true
                     }
                 }

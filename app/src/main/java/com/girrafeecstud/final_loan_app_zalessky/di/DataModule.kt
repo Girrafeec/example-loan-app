@@ -5,6 +5,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoanDataSourceI
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSourceImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.RegistrationDataSourceImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.api.LoginApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.api.RegistrationApi
@@ -35,9 +36,13 @@ class DataModule {
     @Provides
     @Singleton
     fun provideLoanDataSourceImpl(
-        loanApi: LoanApi
+        loanApi: LoanApi,
+        loanApiResponseConverter: LoanApiResponseConverter
     ): LoanDataSourceImpl {
-        return LoanDataSourceImpl(loanApi = loanApi)
+        return LoanDataSourceImpl(
+            loanApi = loanApi,
+            loanApiResponseConverter = loanApiResponseConverter
+        )
     }
 
     @Provides
@@ -74,6 +79,12 @@ class DataModule {
         return LoginSharedPreferencesRepositoryImpl(
             loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoanApiResponseConverter(): LoanApiResponseConverter {
+        return LoanApiResponseConverter()
     }
 
 }

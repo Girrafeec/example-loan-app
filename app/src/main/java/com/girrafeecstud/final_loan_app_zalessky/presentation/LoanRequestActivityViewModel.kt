@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,12 +13,18 @@ class LoanRequestActivityViewModel @Inject constructor(
 
 ): ViewModel() {
 
+    private val loan = MutableLiveData<Loan>()
+
     private val loanAmountValue = MutableLiveData<Double>()
     private val loanPeriodValue = MutableLiveData<Int>()
     private val loanPercentValue = MutableLiveData<Double>()
     private val firstNameValue = MutableLiveData<String>()
     private val lastNameValue = MutableLiveData<String>()
     private val phoneNumberValue = MutableLiveData<String>()
+
+    fun setLoan(loan: Loan) {
+        this.loan.value = loan
+    }
 
     fun setLoanAmountValue(amount: Double) {
         loanAmountValue.value = amount
@@ -41,6 +48,10 @@ class LoanRequestActivityViewModel @Inject constructor(
 
     fun setPhoneNumberValue(phoneNumber: String) {
         phoneNumberValue.value = phoneNumber
+    }
+
+    fun getLoan(): LiveData<Loan> {
+        return loan
     }
 
     fun getLoanAmountValue(): LiveData<Double> {

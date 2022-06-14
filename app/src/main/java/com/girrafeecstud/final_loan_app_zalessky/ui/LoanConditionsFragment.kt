@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanConditionsViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanConditionsConfig
@@ -50,13 +52,13 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.i("tag", "fragm created")
         return inflater.inflate(R.layout.loan_conditions_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Enable activity continue loan request button
         listener.enableContinueLoanRequestButton()
 
         progressBar = requireActivity().findViewById(R.id.requestActivityProgressBar)
@@ -111,6 +113,13 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
                 amountSeekBar.progress = amountValue.toInt()
         })
 
+        // Finish activity when press back button
+        val backPressCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
     }
 
     override fun onDestroyView() {

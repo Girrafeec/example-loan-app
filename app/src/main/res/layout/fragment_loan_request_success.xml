@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Заявка на займ успешно оформлена"
+            android:text="Заявка на заём успешно оформлена"
             android:textSize="25sp"
             android:gravity="center"
             android:layout_marginTop="20dp"
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Изменения статуса заявки на займ отслеживайте в разделе Займы"
+            android:text="Изменения статуса заявки на заём отслеживайте в разделе Займы"
             android:textSize="20sp"
             android:gravity="center"
             android:layout_marginTop="20dp"
