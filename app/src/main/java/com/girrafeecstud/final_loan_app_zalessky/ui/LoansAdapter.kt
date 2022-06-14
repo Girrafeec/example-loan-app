@@ -9,10 +9,16 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class LoansAdapter(
-
+    listener: LoansAdapterViewHolder.OnLoanItemClickListener
 ): RecyclerView.Adapter<LoansAdapterViewHolder>() {
 
     private var loans = ArrayList<Loan>()
+
+    private val listener: LoansAdapterViewHolder.OnLoanItemClickListener
+
+    init {
+        this.listener = listener
+    }
 
     private companion object {
         const val LOAN_VIEW_TYPE = 0
@@ -36,7 +42,7 @@ class LoansAdapter(
     }
 
     override fun onBindViewHolder(holder: LoansAdapterViewHolder, position: Int) {
-        holder.bind(loan = loans.get(position))
+        holder.bind(loan = loans.get(position), listener = listener)
     }
 
     override fun getItemCount(): Int {

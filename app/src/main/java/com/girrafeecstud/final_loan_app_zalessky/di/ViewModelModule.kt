@@ -59,4 +59,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(LoansViewModel::class)
     fun bindLoansViewModel(impl: LoansViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanItemViewModel::class)
+    fun bindLoanItemViewModel(impl: LoanItemViewModel): ViewModel
 }

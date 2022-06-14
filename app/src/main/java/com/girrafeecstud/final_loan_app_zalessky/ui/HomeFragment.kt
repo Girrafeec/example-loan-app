@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -31,6 +32,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
         val getLoanBtn = view.findViewById<Button>(R.id.getLoanBtn)
 
         getLoanBtn.setOnClickListener(this)
+
+//        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                activity?.finishAffinity()
+//            }
+//        }
+//
+//        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onClick(view: View) {
