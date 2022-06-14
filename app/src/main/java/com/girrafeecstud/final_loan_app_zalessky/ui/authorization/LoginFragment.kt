@@ -13,6 +13,7 @@ import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -49,9 +50,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         loginViewModel.getState().observe(viewLifecycleOwner, { state->
             when (state) {
-                is LoginViewModel.LoginFragmentState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is LoginViewModel.LoginFragmentState.SuccessResult -> handleSuccessResult(token = state.token)
-                is LoginViewModel.LoginFragmentState.ErrorResult -> handleError(apiError = state.apiError)
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(token = state.data as String)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
     }
