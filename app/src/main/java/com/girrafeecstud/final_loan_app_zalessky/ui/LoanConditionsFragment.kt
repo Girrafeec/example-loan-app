@@ -88,8 +88,10 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
 
         loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
             when (state) {
-                is LoanConditionsViewModel.LoanConditionsFragmentState.IsLoading -> handleLoading(state.isLoading)
-                is LoanConditionsViewModel.LoanConditionsFragmentState.SuccessResult -> handleSuccess(state.loanConditions)
+                is LoanConditionsViewModel.LoanConditionsFragmentState.IsLoading ->
+                    handleLoading(isLoading = state.isLoading)
+                is LoanConditionsViewModel.LoanConditionsFragmentState.SuccessResult ->
+                    handleSuccess(loanConditions = state.loanConditions)
             }
         })
 
@@ -140,16 +142,16 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         loanRequestActivityViewModel.setLoanPercentValue(percent = loanPercent.text.toString().toDouble())
     }
 
-    private fun handleLoading(isLoaging: Boolean) {
-        when (isLoaging) {
+    private fun handleLoading(isLoading: Boolean) {
+        when (isLoading) {
             false -> {
                 view?.alpha = (1).toFloat()
-                view?.isEnabled = !isLoaging
+                view?.isEnabled = !isLoading
                 progressBar.alpha = (0).toFloat()
             }
             true -> {
                 view?.alpha = (0).toFloat()
-                view?.isEnabled = !isLoaging
+                view?.isEnabled = !isLoading
                 progressBar.alpha = (1).toFloat()
             }
         }

@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.*
 
 class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
 
+    //TODO придумать что-то с заполнением значений при запуске фрагмента на тот случай, если значения уже заполнялись
+
     private lateinit var enterFirstName: EditText
     private lateinit var enterLastName: EditText
     private lateinit var enterPhoneNumber: EditText

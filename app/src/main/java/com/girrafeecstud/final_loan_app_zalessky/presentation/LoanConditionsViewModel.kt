@@ -86,6 +86,5 @@ class LoanConditionsViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("tag", "succcer")
     }
 }

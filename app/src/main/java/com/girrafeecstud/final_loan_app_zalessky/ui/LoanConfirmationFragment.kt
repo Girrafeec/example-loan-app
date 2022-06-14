@@ -14,6 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanConfirmationViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanRequestActivityViewModel
@@ -73,12 +74,22 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
         applyLoanBtn.setOnClickListener(this)
 
         getLoanRequestData()
+
+        loanConfirmationViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is LoanConfirmationViewModel.LoanConfirmationFragmentState.IsLoading ->
+                    handleLoading(isLoading = state.isLoading)
+                is LoanConfirmationViewModel.LoanConfirmationFragmentState.SuccessResult ->
+                    handleSuccess(loan = state.loan)
+            }
+        })
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.applyLoanBtn -> {
-                applyLoan()
+                //applyLoan()
+                openSuccessFragment()
             }
         }
     }
@@ -103,6 +114,36 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
                 borrowerPhoneNumber = phoneNumberValue.text.toString()
             )
         )
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        when (isLoading) {
+            false -> {
+                view?.alpha = (1).toFloat()
+                view?.isEnabled = !isLoading
+                progressBar.alpha = (0).toFloat()
+            }
+            true -> {
+                view?.alpha = (0).toFloat()
+                view?.isEnabled = !isLoading
+                progressBar.alpha = (1).toFloat()
+            }
+        }
+    }
+
+    //TODO придумать, как передавать результат в итоговый фрагмент
+    private fun handleSuccess(loan: Loan)  {
+
+    }
+
+    private fun openSuccessFragment() {
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(
+                R.id.loanRequestContainer,
+                LoanRequestSuccessFragment()
+            )
+            ?.commit()
     }
 
     interface LoanConfirmationFragmentListener {
