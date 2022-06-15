@@ -13,10 +13,6 @@ import com.google.android.material.tabs.TabLayout
 
 class AuthorizationActivity : AppCompatActivity() {
 
-    private lateinit var loginTabLayout: TabLayout
-
-    private lateinit var loginViewPager: ViewPager2
-
     private val authorizationViewModel: AuthorizationViewModel by viewModels {
         (applicationContext as App).appComponent.mainViewModelFactory()
     }
@@ -26,27 +22,13 @@ class AuthorizationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         initUiValues()
 
-        // TODO провайдить из массива или адаптера?
-        loginTabLayout.addTab(loginTabLayout.newTab().setText("Sign in"))
-        loginTabLayout.addTab(loginTabLayout.newTab().setText("Sign up"))
-        loginTabLayout.tabGravity = TabLayout.GRAVITY_FILL
-
-        val loginFragmentsAdapter = LoginFragmentsAdapter(this)
-        loginViewPager.adapter = loginFragmentsAdapter
-        // make viewpager not swipable
-        loginViewPager.isUserInputEnabled = false
-
-        loginTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                loginViewPager.setCurrentItem(tab.position)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
-        })
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.loginActivityContainer,
+                LoginFragment()
+            )
+            .commit()
 
         authorizationViewModel.isUserAuthorized().observe(this, { isUserAuthorized ->
             when (isUserAuthorized) {
@@ -57,15 +39,8 @@ class AuthorizationActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("tag log act", "dest")
-    }
 
-    private fun initUiValues() {
-        loginTabLayout = findViewById(R.id.loginTabLay)
-        loginViewPager = findViewById(R.id.loginViewPager)
-    }
+    private fun initUiValues() {}
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)

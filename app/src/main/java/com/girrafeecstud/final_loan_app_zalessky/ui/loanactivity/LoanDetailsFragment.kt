@@ -7,12 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 
 class LoanDetailsFragment: Fragment() {
 
@@ -61,8 +65,9 @@ class LoanDetailsFragment: Fragment() {
 
         loanItemViewModel.getState().observe(viewLifecycleOwner, { state ->
             when (state) {
-                is LoanItemViewModel.LoanActivityState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is LoanItemViewModel.LoanActivityState.SuccessResult -> handleSuccessResult(loan = state.loan)
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(loan = state.data as Loan)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
     }
@@ -93,4 +98,35 @@ class LoanDetailsFragment: Fragment() {
             }
         }
     }
+
+    private fun handleError(apiError: ApiError) {
+
+        var errorMessage = apiError.errorType.name
+
+        when (apiError.errorType) {
+            ApiErrorType.BAD_REQUEST_ERROR -> {
+
+            }
+            ApiErrorType.UNAUTHORIZED_ERROR -> {
+
+            }
+            ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
+
+            }
+            ApiErrorType.NOT_FOUND_ERROR -> {
+
+            }
+            ApiErrorType.NO_CONNECTION_ERROR -> {
+
+            }
+            ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
+
+            }
+            ApiErrorType.UNKNOWN_ERROR -> {
+
+            }
+        }
+        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
 }

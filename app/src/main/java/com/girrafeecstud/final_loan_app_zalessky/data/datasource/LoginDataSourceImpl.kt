@@ -7,6 +7,8 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.utils.NoNetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class LoginDataSourceImpl @Inject constructor(
@@ -24,19 +26,22 @@ class LoginDataSourceImpl @Inject constructor(
                 val responseBody = response.body()
 
                 if (response.isSuccessful && responseBody != null) {
-                    emit(ApiResult.Success(response.body()))
+                    emit(ApiResult.Success(_data = response.body()))
                 } else {
-                    val errorMsg = response.errorBody()?.string()
-                    response.errorBody()?.close()
                     val error = apiErrorConverter.convertHttpError(
                         errorStatusCode = response.code(),
                         errorMessage = response.message()
                     )
-
                     emit(ApiResult.Error(apiError = error))
                 }
             }catch (exception: NoNetworkException) {
-                val error = apiErrorConverter.convertConnectionError(exceptionMessage = exception.message.toString())
+                val error = apiErrorConverter.convertConnectionError()
+                emit(ApiResult.Error(apiError = error))
+            }catch (exception: SocketTimeoutException) {
+                val error = apiErrorConverter.convertTimeoutError()
+                emit(ApiResult.Error(apiError = error))
+            }catch (exception: IOException) {
+                val error = apiErrorConverter.convertTimeoutError()
                 emit(ApiResult.Error(apiError = error))
             }
         }

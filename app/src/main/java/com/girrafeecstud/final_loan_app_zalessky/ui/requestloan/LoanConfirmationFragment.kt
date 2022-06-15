@@ -7,16 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConfirmationViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
@@ -88,12 +88,12 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
 
         loanConfirmationViewModel.getState().observe(viewLifecycleOwner, { state ->
             when (state) {
-                is LoanConfirmationViewModel.LoanConfirmationFragmentState.IsLoading ->
+                is MainState.IsLoading ->
                     handleLoading(isLoading = state.isLoading)
-                is LoanConfirmationViewModel.LoanConfirmationFragmentState.SuccessResult -> {
-                    handleSuccess(loan = state.loan)
-                    openSuccessFragment()
+                is MainState.SuccessResult -> {
+                    handleSuccess(loan = state.data as Loan)
                 }
+                is MainState.ErrorResult -> handleError(apiError =  state.apiError)
             }
         })
     }
@@ -146,6 +146,37 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
     //TODO придумать, как передавать результат в итоговый фрагмент
     private fun handleSuccess(loan: Loan)  {
         loanRequestActivityViewModel.setLoan(loan = loan)
+        openSuccessFragment()
+    }
+
+    private fun handleError(apiError: ApiError) {
+
+        var errorMessage = apiError.errorType.name
+
+        when (apiError.errorType) {
+            ApiErrorType.BAD_REQUEST_ERROR -> {
+
+            }
+            ApiErrorType.UNAUTHORIZED_ERROR -> {
+
+            }
+            ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
+
+            }
+            ApiErrorType.NOT_FOUND_ERROR -> {
+
+            }
+            ApiErrorType.NO_CONNECTION_ERROR -> {
+
+            }
+            ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
+
+            }
+            ApiErrorType.UNKNOWN_ERROR -> {
+
+            }
+        }
+        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun openSuccessFragment() {

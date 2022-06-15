@@ -12,9 +12,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConditionsViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanConditionsConfig
@@ -90,21 +93,9 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
 
         loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
             when (state) {
-                is LoanConditionsViewModel.LoanConditionsFragmentState.IsLoading ->
-                    handleLoading(isLoading = state.isLoading)
-                is LoanConditionsViewModel.LoanConditionsFragmentState.SuccessResult ->
-                    handleSuccess(loanConditions = state.loanConditions)
-            }
-        })
-
-        loanConditionsViewModel.getLoanConditionsRequestResult().observe(viewLifecycleOwner, { loanConditionsResult ->
-            when (loanConditionsResult) {
-                is ApiResult.Success -> {
-                    Toast.makeText(activity?.applicationContext, loanConditionsResult.data.toString(), Toast.LENGTH_LONG).show()
-                }
-                is ApiResult.Error -> {
-                    Toast.makeText(activity?.applicationContext, loanConditionsResult.message, Toast.LENGTH_LONG).show()
-                }
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccess(loanConditions = state.data as LoanConditions)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
 
@@ -174,8 +165,34 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         loanPercent.setText(loanConditions.percent.toString())
     }
 
-    private fun handleError() {
-        TODO()
+    private fun handleError(apiError: ApiError) {
+
+        var errorMessage = apiError.errorType.name
+
+        when (apiError.errorType) {
+            ApiErrorType.BAD_REQUEST_ERROR -> {
+
+            }
+            ApiErrorType.UNAUTHORIZED_ERROR -> {
+
+            }
+            ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
+
+            }
+            ApiErrorType.NOT_FOUND_ERROR -> {
+
+            }
+            ApiErrorType.NO_CONNECTION_ERROR -> {
+
+            }
+            ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
+
+            }
+            ApiErrorType.UNKNOWN_ERROR -> {
+
+            }
+        }
+        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun saveChosenAmountValue() {

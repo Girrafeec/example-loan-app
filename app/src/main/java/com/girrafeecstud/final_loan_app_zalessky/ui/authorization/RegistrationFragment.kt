@@ -9,13 +9,19 @@ import android.widget.*
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Auth
+import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
+import kotlin.math.log
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
 
     private lateinit var enterRegistrationName: EditText
     private lateinit var enterRegistrationPassword: EditText
+    private lateinit var progressBar: ProgressBar
 
     private val registrationViewModel: RegistrationViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
@@ -35,34 +41,15 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         enterRegistrationName = view.findViewById<EditText>(R.id.registrationNameEdtTxt)
         enterRegistrationPassword = view.findViewById<EditText>(R.id.registrationPasswordEdtTxt)
         val registrationBtn = view.findViewById<Button>(R.id.registrationBtn)
-        val registrationProgressBar = view.findViewById<ProgressBar>(R.id.registrationProgressBar)
-        val registrationLayout = view.findViewById<LinearLayout>(R.id.registrationLinLay)
+        progressBar = requireActivity().findViewById(R.id.loginProgressBar)
 
         registrationBtn.setOnClickListener(this)
 
-        registrationViewModel.getRegistrationResult().observe(viewLifecycleOwner, { registrationResult ->
-            when (registrationResult) {
-                is ApiResult.Success -> {
-
-                }
-                is ApiResult.Error -> {
-                    Toast.makeText(activity?.applicationContext, "Registration error", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-
-        registrationViewModel.getConnectionStatus().observe(viewLifecycleOwner, { isConnecting ->
-            when (isConnecting) {
-                false -> {
-                    registrationLayout.alpha = (1).toFloat()
-                    registrationLayout.isEnabled = true
-                    registrationProgressBar.alpha = (0).toFloat()
-                }
-                true -> {
-                    registrationLayout.alpha = (0).toFloat()
-                    registrationLayout.isEnabled = false
-                    registrationProgressBar.alpha = (1).toFloat()
-                }
+        registrationViewModel.getState().observe(viewLifecycleOwner, { state->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(auth = state.data as Auth)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
     }
@@ -79,6 +66,68 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
                 userName = enterRegistrationName.text.toString(),
                 userPassword = enterRegistrationPassword.text.toString()
             )
+    }
+
+    private fun handleSuccessResult(auth: Auth) {
+
+        val bundle = Bundle()
+        bundle.putString("USER_NAME", auth.userName)
+
+        val loginFragment = LoginFragment()
+        loginFragment.arguments = bundle
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.loginActivityContainer,
+                loginFragment
+            )
+            .commit()
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        when (isLoading) {
+            false -> {
+                view?.alpha = (1).toFloat()
+                view?.isEnabled = true
+                progressBar.alpha = (0).toFloat()
+            }
+            true -> {
+                view?.alpha = (0).toFloat()
+                view?.isEnabled = false
+                progressBar.alpha = (1).toFloat()
+            }
+        }
+    }
+
+    private fun handleError(apiError: ApiError) {
+
+        var errorMessage = apiError.errorType.name
+
+        when (apiError.errorType) {
+            ApiErrorType.BAD_REQUEST_ERROR -> {
+
+            }
+            ApiErrorType.UNAUTHORIZED_ERROR -> {
+
+            }
+            ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
+
+            }
+            ApiErrorType.NOT_FOUND_ERROR -> {
+
+            }
+            ApiErrorType.NO_CONNECTION_ERROR -> {
+
+            }
+            ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
+
+            }
+            ApiErrorType.UNKNOWN_ERROR -> {
+
+            }
+        }
+        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
 }

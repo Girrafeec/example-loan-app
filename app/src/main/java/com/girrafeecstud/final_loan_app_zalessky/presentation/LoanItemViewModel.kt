@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
@@ -22,7 +23,7 @@ class LoanItemViewModel @Inject constructor(
 
     private var loanId: Long = 0
 
-    private val state = MutableLiveData<LoanActivityState>()
+    private val state = MutableLiveData<MainState>()
 
     fun loadLoanData() {
         viewModelScope.launch {
@@ -35,38 +36,39 @@ class LoanItemViewModel @Inject constructor(
                 }
                 .collect { result ->
                     hideLoading()
-                    if (result is ApiResult.Success)
-                        setSuccessResult(loan = result.data as Loan)
-                    //if (result is ApiResult.Error)
-                        //Log.i("tag", result.exception)
+                    when (result) {
+                        is ApiResult.Success -> {
+                            setSuccessResult(loan = result.data as Loan)
+                        }
+                        is ApiResult.Error -> {
+                            setErrorResult(apiError = result.data as ApiError)
+                        }
+                    }
                 }
         }
     }
 
     private fun setLoading() {
-        state.value = LoanActivityState.IsLoading(true)
+        state.value = MainState.IsLoading(true)
     }
 
     private fun hideLoading() {
-        state.value = LoanActivityState.IsLoading(false)
+        state.value = MainState.IsLoading(false)
     }
 
     private fun setSuccessResult(loan: Loan) {
-        state.value = LoanActivityState.SuccessResult(loan = loan)
+        state.value = MainState.SuccessResult(data = loan)
     }
 
-    fun getState(): LiveData<LoanActivityState> {
+    private fun setErrorResult(apiError: ApiError) {
+        state.value = MainState.ErrorResult(apiError = apiError)
+    }
+
+    fun getState(): LiveData<MainState> {
         return state
     }
 
     fun setLoanId(loanId: Long) {
         this.loanId = loanId
-    }
-
-    sealed class LoanActivityState {
-        data class IsLoading(val isLoading: Boolean): LoanActivityState()
-        data class SuccessResult(val loan: Loan): LoanActivityState()
-        // TODO провайдить нормальную ошибку
-        data class ErrorResult(val errorMessage: String): LoanActivityState()
     }
 }

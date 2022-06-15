@@ -21,7 +21,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private lateinit var enterLoginName: EditText
     private lateinit var enterLoginPassword: EditText
     private lateinit var loginLayout: LinearLayout
-    private lateinit var loginProgressBar: ProgressBar
+    private lateinit var progressBar: ProgressBar
     private lateinit var loginBtn: Button
 
     private val loginViewModel: LoginViewModel by viewModels {
@@ -33,6 +33,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val userName = this.arguments?.getString("USER_NAME")
+        if (userName != null)
+            loginViewModel.setUserName(userName = userName)
+
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         return view
     }
@@ -43,10 +48,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
         enterLoginName = view.findViewById<EditText>(R.id.loginNameEdtTxt)
         enterLoginPassword = view.findViewById<EditText>(R.id.loginPasswordEdtTxt)
         loginBtn = view.findViewById<Button>(R.id.loginBtn)
-        loginProgressBar = view.findViewById<ProgressBar>(R.id.loginProgressBar)
-        loginLayout = view.findViewById<LinearLayout>(R.id.loginLinLay)
+        progressBar = requireActivity().findViewById(R.id.loginProgressBar)
+        val createAccountBtn = view.findViewById<Button>(R.id.createAccountBtn)
 
         loginBtn.setOnClickListener(this)
+        createAccountBtn.setOnClickListener(this)
+
+        loginViewModel.getUserName().observe(viewLifecycleOwner, { userName ->
+            enterLoginName.setText(userName)
+        })
 
         loginViewModel.getState().observe(viewLifecycleOwner, { state->
             when (state) {
@@ -60,7 +70,19 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.loginBtn -> login()
+            R.id.createAccountBtn -> openRegistrationFragment()
         }
+    }
+
+    private fun openRegistrationFragment() {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.loginActivityContainer,
+                RegistrationFragment()
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun login() {
@@ -80,14 +102,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun handleLoading(isLoading: Boolean) {
         when (isLoading) {
             false -> {
-                loginLayout.alpha = (1).toFloat()
-                loginLayout.isEnabled = true
-                loginProgressBar.alpha = (0).toFloat()
+                view?.alpha = (1).toFloat()
+                view?.isEnabled = true
+                progressBar.alpha = (0).toFloat()
             }
             true -> {
-                loginLayout.alpha = (0).toFloat()
-                loginLayout.isEnabled = false
-                loginProgressBar.alpha = (1).toFloat()
+                view?.alpha = (0).toFloat()
+                view?.isEnabled = false
+                progressBar.alpha = (1).toFloat()
             }
         }
     }

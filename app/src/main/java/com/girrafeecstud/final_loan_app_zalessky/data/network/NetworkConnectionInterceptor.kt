@@ -13,7 +13,7 @@ class NetworkConnectionInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isNetworkAvailiable())
-            throw NoNetworkException("NO_NETWORK_ERROR")
+            throw NoNetworkException()
 
         return chain.proceed(chain.request())
     }

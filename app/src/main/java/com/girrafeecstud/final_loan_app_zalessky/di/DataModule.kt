@@ -9,6 +9,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.api.LoginApi
+import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.RegistrationApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.api.RegistrationApi
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.*
 import dagger.Module
@@ -35,20 +36,28 @@ class DataModule {
     @Provides
     @Singleton
     fun provideRegistrationDataSourceImpl(
-        registrationApi: RegistrationApi
+        registrationApi: RegistrationApi,
+        registrationApiResponseConverter: RegistrationApiResponseConverter,
+        apiErrorConverter: ApiErrorConverter
     ): RegistrationDataSourceImpl {
-        return RegistrationDataSourceImpl(registrationApi = registrationApi)
+        return RegistrationDataSourceImpl(
+            registrationApi = registrationApi,
+            registrationApiResponseConverter = registrationApiResponseConverter,
+            apiErrorConverter = apiErrorConverter
+        )
     }
 
     @Provides
     @Singleton
     fun provideLoanDataSourceImpl(
         loanApi: LoanApi,
-        loanApiResponseConverter: LoanApiResponseConverter
+        loanApiResponseConverter: LoanApiResponseConverter,
+        apiErrorConverter: ApiErrorConverter
     ): LoanDataSourceImpl {
         return LoanDataSourceImpl(
             loanApi = loanApi,
-            loanApiResponseConverter = loanApiResponseConverter
+            loanApiResponseConverter = loanApiResponseConverter,
+            apiErrorConverter = apiErrorConverter
         )
     }
 
@@ -86,12 +95,6 @@ class DataModule {
         return LoginSharedPreferencesRepositoryImpl(
             loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl
         )
-    }
-
-    @Provides
-    @Singleton
-    fun provideLoanApiResponseConverter(): LoanApiResponseConverter {
-        return LoanApiResponseConverter()
     }
 
 }

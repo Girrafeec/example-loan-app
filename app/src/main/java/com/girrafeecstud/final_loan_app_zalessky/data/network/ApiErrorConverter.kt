@@ -32,11 +32,19 @@ class ApiErrorConverter {
         )
     }
 
-    fun convertConnectionError(exceptionMessage: String): ApiError {
+    fun convertConnectionError(): ApiError {
         return ApiError(
             statusCode = null,
-            errorMessage = exceptionMessage,
+            errorMessage = null,
             errorType = ApiErrorType.NO_CONNECTION_ERROR
+        )
+    }
+
+    fun convertTimeoutError(): ApiError {
+        return ApiError(
+            statusCode = null,
+            errorMessage = null,
+            errorType = ApiErrorType.TIMEOUT_EXCEEDED_ERROR
         )
     }
 

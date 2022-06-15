@@ -4,6 +4,8 @@ import android.content.Context
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiUrlConfig
 import com.girrafeecstud.final_loan_app_zalessky.data.network.NetworkConnectionInterceptor
+import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
+import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.RegistrationApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.BaseApiUrl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -66,6 +68,18 @@ class NetworkModule {
     @Singleton
     fun provideApiErrorConverter(): ApiErrorConverter {
         return ApiErrorConverter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoanApiResponseConverter(): LoanApiResponseConverter {
+        return LoanApiResponseConverter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRegistrationApiResponseConverter(): RegistrationApiResponseConverter {
+        return RegistrationApiResponseConverter()
     }
 
 }

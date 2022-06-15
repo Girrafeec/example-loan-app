@@ -22,6 +22,8 @@ class LoginViewModel @Inject constructor(
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ): ViewModel() {
 
+    private val userName = MutableLiveData<String>()
+
     private val state = MutableLiveData<MainState>()
 
     fun login(userName: String, userPassword: String) {
@@ -78,6 +80,14 @@ class LoginViewModel @Inject constructor(
 
     private fun setError(apiError: ApiError) {
         state.value = MainState.ErrorResult(apiError = apiError)
+    }
+
+    fun setUserName(userName: String) {
+        this.userName.value = userName
+    }
+
+    fun getUserName(): LiveData<String> {
+        return userName
     }
 
 }
