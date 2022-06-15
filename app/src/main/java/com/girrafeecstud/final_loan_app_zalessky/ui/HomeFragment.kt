@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.presentation.HomeViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.instruction.LoanRequestInstructionActivity
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
@@ -30,7 +31,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val getLoanBtn = view.findViewById<Button>(R.id.getLoanBtn)
+        val instr = view.findViewById<Button>(R.id.instructionsBtn)
 
+        instr.setOnClickListener(this)
         getLoanBtn.setOnClickListener(this)
 
 //        val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -46,6 +49,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         when (view.id) {
             R.id.getLoanBtn -> {
                 val intent = Intent(activity, LoanRequestActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.instructionsBtn -> {
+                val intent = Intent(activity, LoanRequestInstructionActivity::class.java)
                 startActivity(intent)
             }
         }
