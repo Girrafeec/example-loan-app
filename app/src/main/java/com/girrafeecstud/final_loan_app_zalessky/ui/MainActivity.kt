@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -12,6 +14,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepository
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -27,44 +30,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initUiValues()
 
-        // start with home fragment
-        supportFragmentManager.beginTransaction().replace(R.id.mainActivityFragmentContainer, HomeFragment()).commit()
-
-        // Default bottom navigation view selected item - home
+        // Start with home fragment
+        loadFragment(fragment = HomeFragment())
         mainBottomNavigationView.selectedItemId = R.id.homeMainMenuItem
+        
         mainBottomNavigationView.setOnItemSelectedListener(object : NavigationBarView.OnItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {
                     R.id.homeMainMenuItem -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(
-                                R.id.mainActivityFragmentContainer,
-                                HomeFragment()
-                            )
-                            .commit()
+                        loadFragment(fragment = HomeFragment())
                         return true
                     }
                     R.id.loansMainMenuItem -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(
-                                R.id.mainActivityFragmentContainer,
-                                LoansFragment()
-                            )
-                            .addToBackStack(null)
-                            .commit()
+                        loadFragment(fragment = LoansFragment())
                         return true
                     }
                     R.id.userProfileMainMenuItem -> {
-                        supportFragmentManager
-                            .beginTransaction()
-                            .replace(
-                                R.id.mainActivityFragmentContainer,
-                                UserProfileFragment()
-                            )
-                            .addToBackStack(null)
-                            .commit()
+                        loadFragment(fragment = UserProfileFragment())
                         return true
                     }
                 }
@@ -73,7 +55,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        if (mainBottomNavigationView.selectedItemId == R.id.homeMainMenuItem)
+            super.onBackPressed()
+        else
+            mainBottomNavigationView.selectedItemId = R.id.homeMainMenuItem
+    }
+
     private fun initUiValues() {
         mainBottomNavigationView = findViewById(R.id.mainActivityBottomNavView)
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.mainActivityFragmentContainer,
+                fragment
+            )
+            .commit()
     }
 }

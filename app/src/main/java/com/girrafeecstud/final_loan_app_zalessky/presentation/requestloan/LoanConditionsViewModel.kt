@@ -24,13 +24,11 @@ class LoanConditionsViewModel @Inject constructor(
 
     private val state = MutableLiveData<MainState>()
 
-    private val chosenAmountValue = MutableLiveData<Double>()
-
     init {
-        getLoanConditions()
+
     }
 
-    private fun getLoanConditions() {
+    fun loadLoanConditions() {
         viewModelScope.launch {
             val bearerToken =
                 async {
@@ -72,14 +70,6 @@ class LoanConditionsViewModel @Inject constructor(
 
     fun getState(): LiveData<MainState> {
         return state
-    }
-
-    fun setChosenAmountValue(amountValue: Double) {
-        chosenAmountValue.value = amountValue
-    }
-
-    fun getChosenAmountValue(): LiveData<Double> {
-        return chosenAmountValue
     }
 
     override fun onCleared() {

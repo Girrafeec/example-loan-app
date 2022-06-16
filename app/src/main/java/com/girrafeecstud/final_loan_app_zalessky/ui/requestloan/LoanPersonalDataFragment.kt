@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.PersonalData
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanPersonalDataViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
@@ -67,6 +68,19 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
 
         continueLoanRequestButton.setOnClickListener(this)
 
+        val personalData = loanRequestActivityViewModel.getPersonalData().value
+        if (personalData != null) {
+            setPersonalDataValues(personalData = personalData)
+        }
+
+        // Open loan conditions fragment when press back
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                savePersonalDataValues()
+                openLoanConditionsFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onClick(view: View) {
@@ -79,9 +93,17 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
     }
 
     private fun savePersonalDataValues() {
-        loanRequestActivityViewModel.setFirstNameValue(firstName = enterFirstName.text.toString())
-        loanRequestActivityViewModel.setLastNameValue(lastName = enterLastName.text.toString())
-        loanRequestActivityViewModel.setPhoneNumberValue(phoneNumber = enterPhoneNumber.text.toString())
+        loanRequestActivityViewModel.setPersonalData(personalData = PersonalData(
+            firstName = enterFirstName.text.toString(),
+            lastName = enterLastName.text.toString(),
+            phoneNumber = enterPhoneNumber.text.toString()
+        ))
+    }
+
+    private fun setPersonalDataValues(personalData: PersonalData) {
+        enterFirstName.setText(personalData.firstName)
+        enterLastName.setText(personalData.lastName)
+        enterPhoneNumber.setText(personalData.phoneNumber)
     }
 
     private fun openLoanConfirmationFragment() {
@@ -91,7 +113,16 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
                 R.id.loanRequestContainer,
                 LoanConfirmationFragment()
             )
-            ?.addToBackStack(null)
+            ?.commit()
+    }
+
+    private fun openLoanConditionsFragment() {
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(
+                R.id.loanRequestContainer,
+                LoanConditionsFragment()
+            )
             ?.commit()
     }
 

@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,8 +17,18 @@ import com.girrafeecstud.final_loan_app_zalessky.ui.instruction.LoanRequestInstr
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
+    private lateinit var listener: HomeFragmentListener
+
     private val homeViewModel: HomeViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        when (context) {
+            is HomeFragmentListener ->
+                listener = context
+        }
     }
 
     override fun onCreateView(
@@ -36,6 +47,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         instr.setOnClickListener(this)
         getLoanBtn.setOnClickListener(this)
 
+//        // Close all activities when back press in home fragment
 //        val onBackPressedCallback = object : OnBackPressedCallback(true) {
 //            override fun handleOnBackPressed() {
 //                activity?.finishAffinity()
@@ -57,4 +69,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         }
     }
+
+    interface HomeFragmentListener {
+        fun enableBottomNavigationViewHomeItem()
+    }
+
 }

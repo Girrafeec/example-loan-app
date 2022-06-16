@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -15,6 +16,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Auth
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
+import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlin.math.log
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
@@ -41,9 +43,11 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         enterRegistrationName = view.findViewById<EditText>(R.id.registrationNameEdtTxt)
         enterRegistrationPassword = view.findViewById<EditText>(R.id.registrationPasswordEdtTxt)
         val registrationBtn = view.findViewById<Button>(R.id.registrationBtn)
+        val authorizeBtn = view.findViewById<Button>(R.id.openLoginFragmentBtn)
         progressBar = requireActivity().findViewById(R.id.loginProgressBar)
 
         registrationBtn.setOnClickListener(this)
+        authorizeBtn.setOnClickListener(this)
 
         registrationViewModel.getState().observe(viewLifecycleOwner, { state->
             when (state) {
@@ -52,11 +56,20 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
                 is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
+
+        // Open login fragment when press back in registration fragment
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                openLoginFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.registrationBtn -> registration()
+            R.id.openLoginFragmentBtn -> openLoginFragment()
         }
     }
 
@@ -70,6 +83,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
     private fun handleSuccessResult(auth: Auth) {
 
+        // TODO вынести в отдельный класс с конфигом в каталоге utils
         val bundle = Bundle()
         bundle.putString("USER_NAME", auth.userName)
 
@@ -81,6 +95,16 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
             .replace(
                 R.id.loginActivityContainer,
                 loginFragment
+            )
+            .commit()
+    }
+
+    private fun openLoginFragment() {
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(
+                R.id.loginActivityContainer,
+                LoginFragment()
             )
             .commit()
     }

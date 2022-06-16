@@ -46,6 +46,20 @@
             android:text="sign up"
             android:layout_margin="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Уже зарегестрированы?"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/openLoginFragmentBtn"
+            android:text="Авторизоваться"
+            android:layout_margin="20dp"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

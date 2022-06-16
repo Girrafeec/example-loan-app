@@ -69,13 +69,14 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
 
         okButton.setOnClickListener(this)
 
-        loanRequestActivityViewModel.getLoan().observe(viewLifecycleOwner, { loan ->
+        val loan = loanRequestActivityViewModel.getLoan().value
+        if (loan != null)
             setLoanValues(loan = loan)
-        })
 
         // Finish activity when press back button
         val backPressCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                clearViewModelValues()
                 activity?.finish()
             }
         }
@@ -85,6 +86,7 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.loanRequestOkBtn -> {
+                clearViewModelValues()
                 activity?.finish()
             }
         }
@@ -100,6 +102,10 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         idValue.setText(loan.loanId.toString())
         dateTimeValue.setText(loan.loanIssueDate)
         stateValue.setText(loan.loanState.name)
+    }
+
+    private fun clearViewModelValues() {
+        loanRequestActivityViewModel.setNullValues()
     }
 
     interface LoanRequestSuccessFragmentListener {

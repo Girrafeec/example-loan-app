@@ -73,6 +73,41 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
 
         continueLoanRequestButton.setOnClickListener(this)
 
+        // If we already have loan condiitons in request activity view model, we do not make new request
+        val loanConditions = loanRequestActivityViewModel.getLoanConditions().value
+        Log.i("tag", loanConditions.toString())
+        when (loanConditions) {
+            null -> {
+                loanConditionsViewModel.loadLoanConditions()
+            }
+            else -> {
+                setLoanConditionsValues(loanConditions = loanConditions)
+            }
+        }
+
+        // If we already have chosen amount value, we set it again
+        loanRequestActivityViewModel.getChosenAmountValue().observe(viewLifecycleOwner, { amountValue ->
+            if (amountValue != null)
+                amountSeekBar.progress = amountValue.toInt()
+        })
+
+        loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccess(loanConditions = state.data as LoanConditions)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
+            }
+        })
+
+        // Finish activity when press back button
+        val backPressCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                loanRequestActivityViewModel.setNullValues()
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
+
         amountSeekBar.incrementProgressBy(LoanConditionsConfig.AMOUNT_SEEK_BAR_STEP_SIZE)
         amountSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -90,56 +125,15 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
-
-        loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> handleSuccess(loanConditions = state.data as LoanConditions)
-                is MainState.ErrorResult -> handleError(apiError = state.apiError)
-            }
-        })
-
-        loanConditionsViewModel.getChosenAmountValue().observe(viewLifecycleOwner, { amountValue ->
-            if (amountValue != null)
-                amountSeekBar.progress = amountValue.toInt()
-        })
-
-        // Finish activity when press back button
-        val backPressCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activity?.finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
-    }
-
-    override fun onDestroyView() {
-        Log.i("tag", "Fragment B View Destroyed")
-
-        super.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        Log.i("tag", "Fragment B Destroyed")
-
-        super.onDestroy()
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.loanRequestContinueBtn -> {
                 saveChosenAmountValue()
-                saveLoanConditionValues()
                 openLoanPersonalDataFragment()
             }
         }
-    }
-
-    // TODO если в строках есть другие символы, то программа летит - решить!!!
-    private fun saveLoanConditionValues() {
-        loanRequestActivityViewModel.setLoanAmountValue(amount = loanAmount.text.toString().toDouble())
-        loanRequestActivityViewModel.setLoanPeriodValue(period = loanPeriod.text.toString().toInt())
-        loanRequestActivityViewModel.setLoanPercentValue(percent = loanPercent.text.toString().toDouble())
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -158,11 +152,12 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleSuccess(loanConditions: LoanConditions) {
-        amountSeekBar.max = loanConditions.maxAmount.toInt()
-        amountSeekBar.progress = loanConditions.maxAmount.toInt()
-        loanAmount.setText(loanConditions.maxAmount.toInt().toString())
-        loanPeriod.setText(loanConditions.period.toString())
-        loanPercent.setText(loanConditions.percent.toString())
+        saveLoanConditionValues(
+            loanAmount = loanConditions.maxAmount,
+            loanPeriod = loanConditions.period,
+            loanPercent = loanConditions.percent
+        )
+        setLoanConditionsValues(loanConditions = loanConditions)
     }
 
     private fun handleError(apiError: ApiError) {
@@ -195,8 +190,25 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
+    private fun setLoanConditionsValues(loanConditions: LoanConditions) {
+        amountSeekBar.max = loanConditions.maxAmount.toInt()
+        amountSeekBar.progress = loanConditions.maxAmount.toInt()
+        loanAmount.setText(loanConditions.maxAmount.toInt().toString())
+        loanPeriod.setText(loanConditions.period.toString())
+        loanPercent.setText(loanConditions.percent.toString())
+    }
+
     private fun saveChosenAmountValue() {
-        loanConditionsViewModel.setChosenAmountValue(amountValue = amountSeekBar.progress.toDouble())
+        val chosenAmountValue = (amountSeekBar.progress / 100) * 100
+        loanRequestActivityViewModel.setChosenAmountValue(amountValue = chosenAmountValue.toDouble())
+    }
+
+    private fun saveLoanConditionValues(loanAmount: Double, loanPeriod: Int, loanPercent: Double) {
+        loanRequestActivityViewModel.setLoanConditions(loanConditions = LoanConditions(
+            maxAmount = loanAmount,
+            percent = loanPercent,
+            period = loanPeriod
+        ))
     }
 
     private fun openLoanPersonalDataFragment() {
@@ -206,7 +218,6 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
                 R.id.loanRequestContainer,
                 LoanPersonalDataFragment()
             )
-            ?.addToBackStack(null)
             ?.commit()
     }
 

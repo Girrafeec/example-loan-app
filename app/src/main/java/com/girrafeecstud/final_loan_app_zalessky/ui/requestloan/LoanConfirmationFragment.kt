@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
@@ -96,6 +97,14 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
                 is MainState.ErrorResult -> handleError(apiError =  state.apiError)
             }
         })
+
+        // Open loan personal data fragment when press back
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                openLoanPersonalDataFragment()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onClick(view: View) {
@@ -107,25 +116,38 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getLoanRequestData() {
-        amountValue.setText(loanRequestActivityViewModel.getLoanAmountValue().value.toString())
-        periodValue.setText(loanRequestActivityViewModel.getLoanPeriodValue().value.toString())
-        percentValue.setText(loanRequestActivityViewModel.getLoanPercentValue().value.toString())
-        firstNameValue.setText(loanRequestActivityViewModel.getFirstNameValue().value)
-        lastNameValue.setText(loanRequestActivityViewModel.getLastNameValue().value)
-        phoneNumberValue.setText(loanRequestActivityViewModel.getPhoneNumberValue().value)
+        val chosenAmountValue = loanRequestActivityViewModel.getChosenAmountValue().value
+        val loanConditions = loanRequestActivityViewModel.getLoanConditions().value
+        val personalData = loanRequestActivityViewModel.getPersonalData().value
+        if (chosenAmountValue != null)
+            amountValue.setText(chosenAmountValue.toString())
+        if (loanConditions != null) {
+            periodValue.setText(loanConditions.period.toString())
+            percentValue.setText(loanConditions.percent.toString())
+        }
+        if (personalData != null) {
+            firstNameValue.setText(personalData.firstName)
+            lastNameValue.setText(personalData.lastName)
+            phoneNumberValue.setText(personalData.phoneNumber)
+        }
     }
 
     private fun applyLoan() {
-        loanConfirmationViewModel.applyLoan(
-            LoanRequest(
-                loanAmount = amountValue.text.toString().toDouble(),
-                loanPeriod = periodValue.text.toString().toInt(),
-                loanPercent = percentValue.text.toString().toDouble(),
-                borrowerFirstName = firstNameValue.text.toString(),
-                borrowerLastName = lastNameValue.text.toString(),
-                borrowerPhoneNumber = phoneNumberValue.text.toString()
-            )
+        val chosenAmountValue = loanRequestActivityViewModel.getChosenAmountValue().value
+        val loanConditions = loanRequestActivityViewModel.getLoanConditions().value
+        val personalData = loanRequestActivityViewModel.getPersonalData().value
+        if (loanConditions != null && personalData != null && chosenAmountValue != null)
+            loanConfirmationViewModel.applyLoan(
+                LoanRequest(
+                    loanAmount = chosenAmountValue,
+                    loanPeriod = loanConditions.period,
+                    loanPercent = loanConditions.percent,
+                    borrowerFirstName = personalData.firstName,
+                    borrowerLastName = personalData.lastName,
+                    borrowerPhoneNumber = personalData.phoneNumber
+                )
         )
+        // TODO выбрасывать ошибку и закрывать форму при пустых данных
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -185,6 +207,16 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
             ?.replace(
                 R.id.loanRequestContainer,
                 LoanRequestSuccessFragment()
+            )
+            ?.commit()
+    }
+
+    private fun openLoanPersonalDataFragment() {
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(
+                R.id.loanRequestContainer,
+                LoanPersonalDataFragment()
             )
             ?.commit()
     }

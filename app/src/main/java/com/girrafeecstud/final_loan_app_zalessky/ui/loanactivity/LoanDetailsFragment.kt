@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
@@ -70,6 +71,13 @@ class LoanDetailsFragment: Fragment() {
                 is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
+
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     private fun handleSuccessResult(loan: Loan) {

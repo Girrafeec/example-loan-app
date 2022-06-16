@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,10 +28,20 @@ class LoansFragment :
     private lateinit var loansRecView: RecyclerView
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var listener: LoansFragmentListener
+
     private val loansAdapter = LoansAdapter(listener = this)
 
     private val loansViewModel: LoansViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        when (context) {
+            is LoansFragmentListener ->
+                listener = context
+        }
     }
 
     override fun onCreateView(
@@ -115,6 +126,10 @@ class LoansFragment :
             }
         }
         Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    interface LoansFragmentListener {
+        fun enableBottomNavigationViewLoansItem()
     }
 
 }

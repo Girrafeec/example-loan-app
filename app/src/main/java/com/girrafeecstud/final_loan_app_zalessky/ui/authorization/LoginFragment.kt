@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -20,7 +21,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     private lateinit var enterLoginName: EditText
     private lateinit var enterLoginPassword: EditText
-    private lateinit var loginLayout: LinearLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var loginBtn: Button
 
@@ -65,6 +65,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
+
+        // Close actviity and app when press back in login fragment
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finishAffinity()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
     }
 
     override fun onClick(view: View) {
