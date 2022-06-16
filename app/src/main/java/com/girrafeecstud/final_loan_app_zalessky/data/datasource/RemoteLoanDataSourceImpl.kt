@@ -18,7 +18,7 @@ import java.security.PrivateKey
 import java.time.LocalDateTime
 import javax.inject.Inject
 
-class LoanDataSourceImpl @Inject constructor(
+class RemoteLoanDataSourceImpl @Inject constructor(
     private val loanApi: LoanApi,
     private val loanApiResponseConverter: LoanApiResponseConverter,
     private val apiErrorConverter: ApiErrorConverter

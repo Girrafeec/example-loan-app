@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Start with home fragment
         loadFragment(fragment = HomeFragment())
         mainBottomNavigationView.selectedItemId = R.id.homeMainMenuItem
-        
+
         mainBottomNavigationView.setOnItemSelectedListener(object : NavigationBarView.OnItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {

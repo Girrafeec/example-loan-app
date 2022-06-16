@@ -10,6 +10,7 @@ import javax.inject.Singleton
     LoginModule::class,
     RegistrationModule::class,
     LoanModule::class,
+    RoomModule::class,
     DataModule::class,
     UseCaseModule::class,
     ViewModelModule::class,
