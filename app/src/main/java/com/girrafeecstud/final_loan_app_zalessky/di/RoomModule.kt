@@ -19,7 +19,7 @@ class RoomModule {
             context,
             MainDatabase::class.java,
             RoomConfig.ROOM_DATABASE_NAME,
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 
     @Provides

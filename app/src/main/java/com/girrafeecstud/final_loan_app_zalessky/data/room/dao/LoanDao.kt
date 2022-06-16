@@ -11,11 +11,11 @@ interface LoanDao {
     @Insert
     fun insertLoans(loans: List<RoomLoan>)
 
-    @Query("SELECT * FROM ${RoomConfig.LOANS_TABLE_NAME}")
+    @Query("SELECT * FROM ${RoomConfig.LOANS_TABLE_NAME} ORDER BY id DESC")
     fun getLoans(): List<RoomLoan>
 
     @Query("SELECT * FROM ${RoomConfig.LOANS_TABLE_NAME} WHERE id = :loanId")
-    fun getLoanById(loanId: Int): RoomLoan
+    fun getLoanById(loanId: Long): RoomLoan
 
     @Query("DELETE FROM ${RoomConfig.LOANS_TABLE_NAME}")
     fun resetLoans()

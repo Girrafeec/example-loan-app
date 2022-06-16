@@ -64,6 +64,21 @@ class LoansFragment :
             false
         )
 
+        subscribeObservers()
+    }
+
+    override fun onLoanItemBodyClickListener(loanId: Long) {
+        val intent = Intent(activity?.applicationContext, LoanActivity::class.java)
+        intent.putExtra("LOAN_ID", loanId)
+        startActivity(intent)
+    }
+
+    private fun subscribeObservers() {
+
+        loansViewModel.getLoans().observe(viewLifecycleOwner, { loans->
+            loansAdapter.refreshLoansList(loans = loans)
+        })
+
         loansViewModel.getState().observe(viewLifecycleOwner, { state->
             when (state) {
                 is MainState.IsLoading -> handleLoading(state.isLoading)
@@ -71,12 +86,7 @@ class LoansFragment :
                 is MainState.ErrorResult -> handleError(apiError = state.apiError)
             }
         })
-    }
 
-    override fun onLoanItemBodyClickListener(loanId: Long) {
-        val intent = Intent(activity?.applicationContext, LoanActivity::class.java)
-        intent.putExtra("LOAN_ID", loanId)
-        startActivity(intent)
     }
 
     private fun handleLoading(isLoading: Boolean) {

@@ -7,6 +7,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class RemoteLoanRepositoryImpl @Inject constructor(
@@ -28,15 +29,15 @@ class RemoteLoanRepositoryImpl @Inject constructor(
     suspend fun getLoansList(bearerToken: String?): Flow<ApiResult<Any>> {
         val result = remoteDataSource.getLoansList(bearerToken = bearerToken)
 
-        Log.i("tag", result.javaClass.canonicalName)
-
-        when (result.) {
-            is ApiResult.Success<*> -> {
-                Log.i("tag", "succ")
-                localDataSource.clearLoans()
-                localDataSource.fillLoansList(result.data as List<Loan>)
+        result.collect { apiResilt ->
+            when (apiResilt) {
+                is ApiResult.Success -> {
+                    localDataSource.clearLoans()
+                    localDataSource.fillLoansList(loans = apiResilt.data as List<Loan>)
+                }
             }
         }
+
         return result
     }
 

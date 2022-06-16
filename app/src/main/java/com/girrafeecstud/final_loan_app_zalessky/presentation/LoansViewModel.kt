@@ -1,6 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,8 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
-import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
-import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoansListUseCase
+import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLocalLoansListUseCase
+import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetRemoteLoansListUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -18,24 +17,35 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoansViewModel @Inject constructor(
-    private val getLoansListUseCase: GetLoansListUseCase,
+    private val getRemoteLoansListUseCase: GetRemoteLoansListUseCase,
+    private val getLocalLoansListUseCase: GetLocalLoansListUseCase,
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ) : ViewModel() {
 
-    private val loans = MutableLiveData<Loan>()
+    private val loans = MutableLiveData<List<Loan>>()
 
     private val state = MutableLiveData<MainState>()
 
     init {
-        getLoansList()
+        getLocalLoansList()
+        getRemoteLoansList()
     }
 
-    fun getLoansList() {
+    fun getLocalLoansList() {
+        viewModelScope.launch {
+            getLocalLoansListUseCase()
+                .collect { loansList ->
+                    loans.value = loansList
+                }
+        }
+    }
+
+    fun getRemoteLoansList() {
         viewModelScope.launch {
             val bearerToken = async {
                 loginSharedPreferencesRepositoryImpl.getUserBearerToken()
             }
-            getLoansListUseCase(bearerToken = bearerToken.await())
+            getRemoteLoansListUseCase(bearerToken = bearerToken.await())
                 .onStart {
                     setLoading()
                 }
@@ -43,6 +53,7 @@ class LoansViewModel @Inject constructor(
                     hideLoading()
                     when (result) {
                         is ApiResult.Success -> {
+                            loans.value = result.data as List<Loan>
                             setSuccessResult(loans = result.data as List<Loan>)
                         }
                         is ApiResult.Error -> {
@@ -71,6 +82,10 @@ class LoansViewModel @Inject constructor(
 
     fun getState(): LiveData<MainState> {
         return state
+    }
+
+    fun getLoans(): LiveData<List<Loan>> {
+        return loans
     }
 
 }

@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalLoanRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.RemoteLoanRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.RegistrationRepositoryImpl
@@ -37,14 +38,26 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetLoansListUseCase(repository: RemoteLoanRepositoryImpl): GetLoansListUseCase {
-        return GetLoansListUseCase(repository = repository)
+    fun provideGetRemoteLoansListUseCase(repository: RemoteLoanRepositoryImpl): GetRemoteLoansListUseCase {
+        return GetRemoteLoansListUseCase(repository = repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetLoanByIdUseCase(repository: RemoteLoanRepositoryImpl): GetLoanByIdUseCase {
-        return GetLoanByIdUseCase(repository = repository)
+    fun provideGetLocalLoansListUseCase(repository: LocalLoanRepositoryImpl): GetLocalLoansListUseCase {
+        return GetLocalLoansListUseCase(repository = repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRemoteLoanByIdUseCase(repository: RemoteLoanRepositoryImpl): GetRemoteLoanByIdUseCase {
+        return GetRemoteLoanByIdUseCase(repository = repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLocalLoanByIdUseCase(repository: LocalLoanRepositoryImpl): GetLocalLoanByIdUseCase {
+        return GetLocalLoanByIdUseCase(repository = repository)
     }
 
 }

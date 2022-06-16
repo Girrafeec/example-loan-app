@@ -51,7 +51,8 @@ class LoanDetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loanItemViewModel.loadLoanData()
+        loanItemViewModel.loadLocalLoanData()
+        loanItemViewModel.loadRemoteLoanData()
 
         progressBar = requireActivity().findViewById(R.id.loanActivityProressBar)
         amountValue = view.findViewById(R.id.loanDetailsAmountValueTxt)
@@ -64,13 +65,7 @@ class LoanDetailsFragment: Fragment() {
         stateValue = view.findViewById(R.id.loanDetailsStateValueTxt)
         dateTimeValue = view.findViewById(R.id.loanDetailsDateTimeValueTxt)
 
-        loanItemViewModel.getState().observe(viewLifecycleOwner, { state ->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> handleSuccessResult(loan = state.data as Loan)
-                is MainState.ErrorResult -> handleError(apiError = state.apiError)
-            }
-        })
+        subscribeObservers()
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -78,6 +73,21 @@ class LoanDetailsFragment: Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+    }
+
+    private fun subscribeObservers() {
+
+        loanItemViewModel.getLoan().observe(viewLifecycleOwner, { loan ->
+            handleSuccessResult(loan = loan)
+        })
+
+        loanItemViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(loan = state.data as Loan)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
+            }
+        })
     }
 
     private fun handleSuccessResult(loan: Loan) {
