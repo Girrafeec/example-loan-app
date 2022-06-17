@@ -1,7 +1,8 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
-import com.girrafeecstud.final_loan_app_zalessky.data.InputValidators
+import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeConverter
+import com.girrafeecstud.final_loan_app_zalessky.data.validation.InputValidators
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.*
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
@@ -129,8 +130,22 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun provideLocalDateTimeConverterRepository(
+        localDateTimeConverter: LocalDateTimeConverter
+    ): LocalDateTimeConverterRepository {
+        return LocalDateTimeConverterRepository(localDateTimeConverter = localDateTimeConverter)
+    }
+
+    @Provides
+    @Singleton
     fun provideInputValidators(): InputValidators {
         return InputValidators()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalDateTimeConverter(): LocalDateTimeConverter {
+        return LocalDateTimeConverter()
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
@@ -19,12 +20,21 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
+    private val validatorsRepository: ValidatorsRepository
 ): ViewModel() {
 
     private val userName = MutableLiveData<String>()
 
     private val state = MutableLiveData<MainState>()
+
+    fun isLoginUserNameValid(userName: String): Boolean {
+        return validatorsRepository.isUserNameValid(userName = userName)
+    }
+
+    fun isLoginPasswordValid(password: String): Boolean {
+        return validatorsRepository.isUserPasswordValid(password = password)
+    }
 
     fun login(userName: String, userPassword: String) {
         viewModelScope.launch {

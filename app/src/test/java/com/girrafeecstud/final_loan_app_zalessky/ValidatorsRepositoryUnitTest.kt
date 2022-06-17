@@ -41,6 +41,17 @@ class ValidatorsRepositoryUnitTest {
     }
 
     @Test
+    fun `WHEN put phoneNumber with plus sign in the middle EXPECT false result`() {
+
+        val actualResult = validatorsRepository.isPhoneNumberValid(phoneNumber = "8921+9459678")
+
+        val expectedResult = false
+
+        assertEquals(expectedResult, actualResult)
+
+    }
+
+    @Test
     fun `WHEN put phoneNumber with brackets EXPECT false result`() {
 
         val actualResult = validatorsRepository.isPhoneNumberValid(phoneNumber = "+7(921)9459678")
@@ -142,7 +153,7 @@ class ValidatorsRepositoryUnitTest {
     @Test
     fun `WHEN put empty firstName EXPECT false result`() {
 
-        val actualResult = validatorsRepository.isFirstNameValid(fistName = "")
+        val actualResult = validatorsRepository.isFirstNameValid(firstName = "")
 
         val expectedResult = false
 
@@ -153,7 +164,7 @@ class ValidatorsRepositoryUnitTest {
     @Test
     fun `WHEN put firstName with any sign EXPECT false result`() {
 
-        val actualResult = validatorsRepository.isFirstNameValid(fistName = "Peter;")
+        val actualResult = validatorsRepository.isFirstNameValid(firstName = "Peter;")
 
         val expectedResult = false
 
@@ -164,7 +175,7 @@ class ValidatorsRepositoryUnitTest {
     @Test
     fun `WHEN put firstName with space EXPECT false result`() {
 
-        val actualResult = validatorsRepository.isFirstNameValid(fistName = "Peter ")
+        val actualResult = validatorsRepository.isFirstNameValid(firstName = "Peter ")
 
         val expectedResult = false
 
@@ -175,7 +186,7 @@ class ValidatorsRepositoryUnitTest {
     @Test
     fun `WHEN put russian firstName EXPECT true result`() {
 
-        val actualResult = validatorsRepository.isFirstNameValid(fistName = "Иван")
+        val actualResult = validatorsRepository.isFirstNameValid(firstName = "Иван")
 
         val expectedResult = true
 

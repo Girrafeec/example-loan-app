@@ -4,36 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
 import javax.inject.Inject
 
 class LoanPersonalDataViewModel @Inject constructor(
-
+    private val validatorsRepository: ValidatorsRepository
 ) : ViewModel() {
 
-    private val firstName = MutableLiveData<String>()
-    private val secondName = MutableLiveData<String>()
-    private val phoneNumber = MutableLiveData<String>()
-
-    fun setFirstName(firstNameString: String) {
-        firstName.value = firstNameString
+    fun isFirstNameValid(firstName: String): Boolean {
+        return validatorsRepository.isFirstNameValid(firstName = firstName)
     }
 
-    fun setSecondName(secondNameString: String) {
-        secondName.value = secondNameString
-    }
-    fun setPhoneNumber(phoneNumberString: String) {
-        phoneNumber.value = phoneNumberString
+    fun isLastNameValid(lastName: String): Boolean {
+        return validatorsRepository.isLastNameValid(lastName = lastName)
     }
 
-    fun getFirstName(): LiveData<String> {
-        return firstName
-    }
-
-    fun getSecondName(): LiveData<String> {
-        return secondName
-    }
-    fun getPhoneNumber(): LiveData<String> {
-        return phoneNumber
+    fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        return validatorsRepository.isPhoneNumberValid(phoneNumber = phoneNumber)
     }
 
 }

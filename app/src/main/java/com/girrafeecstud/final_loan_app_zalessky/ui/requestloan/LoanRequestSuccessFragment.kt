@@ -100,7 +100,7 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         lastNameValue.setText(loan.borrowerLastName)
         phoneNumberValue.setText(loan.borrowerPhoneNumber)
         idValue.setText(loan.loanId.toString())
-        dateTimeValue.setText(loan.loanIssueDate)
+        //dateTimeValue.setText(loan.loanIssueDate)
         stateValue.setText(loan.loanState.name)
     }
 

@@ -13,7 +13,6 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
-import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
 
@@ -54,17 +53,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         loginBtn.setOnClickListener(this)
         createAccountBtn.setOnClickListener(this)
 
-        loginViewModel.getUserName().observe(viewLifecycleOwner, { userName ->
-            enterLoginName.setText(userName)
-        })
-
-        loginViewModel.getState().observe(viewLifecycleOwner, { state->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> handleSuccessResult(token = state.data as String)
-                is MainState.ErrorResult -> handleError(apiError = state.apiError)
-            }
-        })
+        subscribeObservers()
 
         // Close actviity and app when press back in login fragment
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -82,6 +71,20 @@ class LoginFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun subscribeObservers() {
+        loginViewModel.getUserName().observe(viewLifecycleOwner, { userName ->
+            enterLoginName.setText(userName)
+        })
+
+        loginViewModel.getState().observe(viewLifecycleOwner, { state->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(token = state.data as String)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
+            }
+        })
+    }
+
     private fun openRegistrationFragment() {
         requireActivity().supportFragmentManager
             .beginTransaction()
@@ -94,11 +97,25 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun login() {
-        if (!enterLoginName.text.isEmpty() && !enterLoginPassword.text.isEmpty())
-            loginViewModel.login(
-                userName = enterLoginName.text.toString(),
-                userPassword = enterLoginPassword.text.toString()
-            )
+
+        when (loginViewModel.isLoginUserNameValid(userName = enterLoginName.text.toString())) {
+            false -> {
+                enterLoginName.error = "Имя пользователя должно содержать минимум 3 символа включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                return
+            }
+        }
+
+        when (loginViewModel.isLoginPasswordValid(password = enterLoginPassword.text.toString())) {
+            false -> {
+                enterLoginPassword.error = "Пароль должен содержать минимум 8 символов включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                return
+            }
+        }
+
+        loginViewModel.login(
+            userName = enterLoginName.text.toString(),
+            userPassword = enterLoginPassword.text.toString()
+        )
     }
 
     private fun startMainActivity() {

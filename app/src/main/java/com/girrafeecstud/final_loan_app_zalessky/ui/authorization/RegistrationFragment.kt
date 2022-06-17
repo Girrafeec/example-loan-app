@@ -49,13 +49,7 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         registrationBtn.setOnClickListener(this)
         authorizeBtn.setOnClickListener(this)
 
-        registrationViewModel.getState().observe(viewLifecycleOwner, { state->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> handleSuccessResult(auth = state.data as Auth)
-                is MainState.ErrorResult -> handleError(apiError = state.apiError)
-            }
-        })
+        subscribeObservers()
 
         // Open login fragment when press back in registration fragment
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -73,12 +67,36 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    private fun subscribeObservers() {
+        registrationViewModel.getState().observe(viewLifecycleOwner, { state->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccessResult(auth = state.data as Auth)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
+            }
+        })
+    }
+
     private fun registration() {
-        if (!enterRegistrationName.text.isEmpty() && !enterRegistrationPassword.text.isEmpty())
-            registrationViewModel.registration(
-                userName = enterRegistrationName.text.toString(),
-                userPassword = enterRegistrationPassword.text.toString()
-            )
+
+        when (registrationViewModel.isUserNameValid(userName = enterRegistrationName.text.toString())) {
+            false -> {
+                enterRegistrationName.error = "Имя пользователя должно содержать минимум 3 символа включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                return
+            }
+        }
+
+        when (registrationViewModel.isLoginPasswordValid(password = enterRegistrationPassword.text.toString())) {
+            false -> {
+                enterRegistrationPassword.error = "Пароль должен содержать минимум 8 символов включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                return
+            }
+        }
+
+        registrationViewModel.registration(
+            userName = enterRegistrationName.text.toString(),
+            userPassword = enterRegistrationPassword.text.toString()
+        )
     }
 
     private fun handleSuccessResult(auth: Auth) {

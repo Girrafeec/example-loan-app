@@ -1,11 +1,10 @@
 package com.girrafeecstud.final_loan_app_zalessky.domain.entities
 
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
 
 data class Loan(
     val loanAmount: Double,
-    //val loanIssueDate: LocalDateTime,
-    val loanIssueDate: String,
+    val loanIssueDate: LocalDateTime,
     val borrowerFirstName: String,
     val loanId: Long,
     val borrowerLastName: String,

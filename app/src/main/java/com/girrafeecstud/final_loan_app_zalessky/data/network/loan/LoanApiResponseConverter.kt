@@ -1,7 +1,7 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network.loan
 
+import org.threeten.bp.LocalDateTime
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanResponse
-import com.girrafeecstud.final_loan_app_zalessky.data.room.model.RoomLoan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import javax.inject.Inject
@@ -18,9 +18,11 @@ class LoanApiResponseConverter @Inject constructor() {
             else -> LoanState.DEFAULT
         }
 
+        val loanIssueDate = LocalDateTime.parse(loanResponse.loanIssueDate)
+
         return Loan(
             loanAmount = loanResponse.loanAmount,
-            loanIssueDate = loanResponse.loanIssueDate,
+            loanIssueDate = loanIssueDate,
             borrowerFirstName = loanResponse.borrowerFirstName,
             loanId = loanResponse.loanId,
             borrowerLastName = loanResponse.borrowerLastName,

@@ -15,8 +15,8 @@ class ValidatorsRepository @Inject constructor(
         return inputValidators.passwordIsCorrect(password = password)
     }
 
-    fun isFirstNameValid(fistName: String): Boolean {
-        return inputValidators.firstNameIsCorrect(firstName = fistName)
+    fun isFirstNameValid(firstName: String): Boolean {
+        return inputValidators.firstNameIsCorrect(firstName = firstName)
     }
 
     fun isLastNameValid(lastName: String): Boolean {

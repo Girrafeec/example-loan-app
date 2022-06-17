@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Auth
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.RegistrationUseCase
@@ -17,10 +18,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
-    private val registrationUseCase: RegistrationUseCase
+    private val registrationUseCase: RegistrationUseCase,
+    private val validatorsRepository: ValidatorsRepository
 ): ViewModel() {
 
     private val state = MutableLiveData<MainState>()
+
+    fun isUserNameValid(userName: String): Boolean {
+        return validatorsRepository.isUserNameValid(userName = userName)
+    }
+
+    fun isLoginPasswordValid(password: String): Boolean {
+        return validatorsRepository.isUserPasswordValid(password = password)
+    }
 
     fun registration(userName: String, userPassword: String) {
         viewModelScope.launch {

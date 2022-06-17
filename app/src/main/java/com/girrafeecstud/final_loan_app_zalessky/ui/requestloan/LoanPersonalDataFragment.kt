@@ -76,7 +76,11 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
         // Open loan conditions fragment when press back
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                savePersonalDataValues()
+                when (isInputCorrect()) {
+                    true -> {
+                        savePersonalDataValues()
+                    }
+                }
                 openLoanConditionsFragment()
             }
         }
@@ -86,10 +90,39 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.loanRequestContinueBtn -> {
-                savePersonalDataValues()
-                openLoanConfirmationFragment()
+                when (isInputCorrect()) {
+                    true -> {
+                        savePersonalDataValues()
+                        openLoanConfirmationFragment()
+                    }
+                }
             }
         }
+    }
+
+    private fun isInputCorrect(): Boolean {
+        when (loanPersonalDataViewModel.isFirstNameValid(firstName =  enterFirstName.text.toString())) {
+            false -> {
+                enterFirstName.error = "Имя может содержать только буквы"
+                return false
+            }
+        }
+
+        when (loanPersonalDataViewModel.isLastNameValid(lastName =  enterLastName.text.toString())) {
+            false -> {
+                enterLastName.error = "Фамилия может содержать только буквы"
+                return false
+            }
+        }
+
+        when (loanPersonalDataViewModel.isPhoneNumberValid(phoneNumber =  enterPhoneNumber.text.toString())) {
+            false -> {
+                enterPhoneNumber.error = "Номер телефона может содержать знак + и от 10 до 13 цифр"
+                return false
+            }
+        }
+
+        return true
     }
 
     private fun savePersonalDataValues() {

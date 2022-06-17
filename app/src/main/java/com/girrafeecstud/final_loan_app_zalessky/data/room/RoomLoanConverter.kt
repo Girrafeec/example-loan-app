@@ -1,5 +1,7 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.room
 
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import com.girrafeecstud.final_loan_app_zalessky.data.room.model.RoomLoan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
@@ -10,9 +12,13 @@ class RoomLoanConverter @Inject constructor(
 ) {
 
     fun getRoomLoanFromLoan(loan: Loan): RoomLoan {
+
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm")
+        //val loanIssueDate =
+
         return RoomLoan(
             loanId = loan.loanId,
-            loanIssueDate = loan.loanIssueDate,
+            loanIssueDate = "",
             loanAmount = loan.loanAmount,
             borrowerFirstName = loan.borrowerFirstName,
             borrowerLastName = loan.borrowerLastName,
@@ -32,9 +38,11 @@ class RoomLoanConverter @Inject constructor(
             else -> LoanState.DEFAULT
         }
 
+        val loanIssueDate = LocalDateTime.parse(roomLoan.loanIssueDate)
+
         return Loan(
             loanId = roomLoan.loanId,
-            loanIssueDate = roomLoan.loanIssueDate,
+            loanIssueDate = loanIssueDate,
             loanAmount = roomLoan.loanAmount,
             borrowerFirstName = roomLoan.borrowerFirstName,
             borrowerLastName = roomLoan.borrowerLastName,
