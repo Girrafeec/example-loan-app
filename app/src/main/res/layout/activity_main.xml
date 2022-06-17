@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainActivityProgressBar"
+        style="@style/CommonProgressBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/mainActivityBottomNavView"
         app:menu="@menu/main_activity_menu"
+        style="@style/CommonBottomNavigationView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

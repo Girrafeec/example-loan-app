@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
@@ -18,6 +19,7 @@ class LoanRequestActivity :
     private lateinit var continueBtn: Button
     private lateinit var applyLoanBtn: Button
     private lateinit var okButton: Button
+    private lateinit var actionBar: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,7 @@ class LoanRequestActivity :
         continueBtn = findViewById(R.id.loanRequestContinueBtn)
         applyLoanBtn = findViewById(R.id.applyLoanBtn)
         okButton = findViewById(R.id.loanRequestOkBtn)
+        actionBar = findViewById(R.id.loanRequestActionBar)
     }
 
     override fun enableContinueLoanRequestButton() {
@@ -56,5 +59,9 @@ class LoanRequestActivity :
         applyLoanBtn.isEnabled = false
         okButton.visibility = View.VISIBLE
         okButton.isEnabled = true
+    }
+
+    override fun disableActionBar() {
+        actionBar.visibility = View.GONE
     }
 }

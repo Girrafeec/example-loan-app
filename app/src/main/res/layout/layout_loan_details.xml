@@ -21,31 +21,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/loanDetailsIdValueLinLay"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Уникальный номер заёма"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsIdValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -53,31 +49,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Сумма заёма"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsAmountValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -85,31 +77,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Срок заёма"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsPeriodValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -117,31 +105,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Процентная ставка"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsPercentValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -149,31 +133,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Имя"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsFirstNameValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -181,31 +161,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Фамилия"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsLastNameValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -213,31 +189,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Номер телефона"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsPhoneNumberValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -246,31 +218,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/loanDetailsDateTimeValueLinLay"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Дата и время оформления заявки"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsDateTimeValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 
@@ -279,31 +247,27 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/loanDetailsStateValueLinLay"
                 android:orientation="vertical"
-                android:elevation="2dp"
-                android:background="@color/white"
-                android:layout_margin="10dp">
+                style="@style/LoanDetail.Layout">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Состояние заявки"
-                    android:textSize="20sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Title"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsStateValueTxt"
                     android:text="10000"
-                    android:textSize="30sp"
-                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"/>
+                    android:layout_marginRight="30dp"
+                    style="@style/LoanDetail.Value"/>
 
             </LinearLayout>
 

@@ -32,6 +32,7 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
     private lateinit var lastNameValue: TextView
     private lateinit var phoneNumberValue: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var backButton: ImageButton
 
     private lateinit var listener: LoanConfirmationFragmentListener
 
@@ -82,21 +83,14 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
         firstNameValue = view.findViewById(R.id.loanDetailsFirstNameValueTxt)
         lastNameValue = view.findViewById(R.id.loanDetailsLastNameValueTxt)
         phoneNumberValue = view.findViewById(R.id.loanDetailsPhoneNumberValueTxt)
+        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
 
         applyLoanBtn.setOnClickListener(this)
+        backButton.setOnClickListener(this)
 
         getLoanRequestData()
 
-        loanConfirmationViewModel.getState().observe(viewLifecycleOwner, { state ->
-            when (state) {
-                is MainState.IsLoading ->
-                    handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> {
-                    handleSuccess(loan = state.data as Loan)
-                }
-                is MainState.ErrorResult -> handleError(apiError =  state.apiError)
-            }
-        })
+        subscrubeObservers()
 
         // Open loan personal data fragment when press back
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -112,7 +106,23 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
             R.id.applyLoanBtn -> {
                 applyLoan()
             }
+            R.id.loanRequestActionBarBackButton -> {
+                requireActivity().onBackPressed()
+            }
         }
+    }
+
+    private fun subscrubeObservers() {
+        loanConfirmationViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is MainState.IsLoading ->
+                    handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> {
+                    handleSuccess(loan = state.data as Loan)
+                }
+                is MainState.ErrorResult -> handleError(apiError =  state.apiError)
+            }
+        })
     }
 
     private fun getLoanRequestData() {

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -28,6 +29,7 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
     private lateinit var enterLastName: EditText
     private lateinit var enterPhoneNumber: EditText
     private lateinit var continueLoanRequestButton: Button
+    private lateinit var backButton: ImageButton
 
     private lateinit var listener: LoanConditionsFragment.LoanConditionsFragmentListener
 
@@ -65,8 +67,10 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
         enterLastName = view.findViewById(R.id.loanPersonalDateEnterLastNameEdtTxt)
         enterPhoneNumber = view.findViewById(R.id.loanPersonalDateEnterPhoneNumberEdtTxt)
         continueLoanRequestButton = requireActivity().findViewById(R.id.loanRequestContinueBtn)
+        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
 
         continueLoanRequestButton.setOnClickListener(this)
+        backButton.setOnClickListener(this)
 
         val personalData = loanRequestActivityViewModel.getPersonalData().value
         if (personalData != null) {
@@ -96,6 +100,9 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
                         openLoanConfirmationFragment()
                     }
                 }
+            }
+            R.id.loanRequestActionBarBackButton -> {
+                requireActivity().onBackPressed()
             }
         }
     }

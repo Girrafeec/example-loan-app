@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/loginProgressBar"
         android:alpha="0"
-        style="@style/ProgressBarStyle"
+        style="@style/CommonProgressBarStyle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

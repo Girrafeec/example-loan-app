@@ -14,9 +14,7 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
-import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
-import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConditionsViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
@@ -30,6 +28,7 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
     private lateinit var loanPeriod: TextView
     private lateinit var loanPercent: TextView
     private lateinit var continueLoanRequestButton: Button
+    private lateinit var backButton: ImageButton
 
     // TODO DI
     private lateinit var listener: LoanConditionsFragmentListener
@@ -70,8 +69,10 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         loanAmount = view.findViewById(R.id.loanConditionsAmountValueTxt)
         loanPeriod = view.findViewById(R.id.loanConditionsPeriodValueTxt)
         continueLoanRequestButton = requireActivity().findViewById(R.id.loanRequestContinueBtn)
+        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
 
         continueLoanRequestButton.setOnClickListener(this)
+        backButton.setOnClickListener(this)
 
         // If we already have loan condiitons in request activity view model, we do not make new request
         val loanConditions = loanRequestActivityViewModel.getLoanConditions().value
@@ -85,19 +86,7 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
             }
         }
 
-        // If we already have chosen amount value, we set it again
-        loanRequestActivityViewModel.getChosenAmountValue().observe(viewLifecycleOwner, { amountValue ->
-            if (amountValue != null)
-                amountSeekBar.progress = amountValue.toInt()
-        })
-
-        loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
-            when (state) {
-                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
-                is MainState.SuccessResult -> handleSuccess(loanConditions = state.data as LoanConditions)
-                is MainState.ErrorResult -> handleError(apiError = state.apiError)
-            }
-        })
+        subscribeObservers()
 
         // Finish activity when press back button
         val backPressCallback = object : OnBackPressedCallback(true) {
@@ -133,7 +122,26 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
                 saveChosenAmountValue()
                 openLoanPersonalDataFragment()
             }
+            R.id.loanRequestActionBarBackButton -> {
+                requireActivity().onBackPressed()
+            }
         }
+    }
+
+    private fun subscribeObservers() {
+        // If we already have chosen amount value, we set it again
+        loanRequestActivityViewModel.getChosenAmountValue().observe(viewLifecycleOwner, { amountValue ->
+            if (amountValue != null)
+                amountSeekBar.progress = amountValue.toInt()
+        })
+
+        loanConditionsViewModel.getState().observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is MainState.IsLoading -> handleLoading(isLoading = state.isLoading)
+                is MainState.SuccessResult -> handleSuccess(loanConditions = state.data as LoanConditions)
+                is MainState.ErrorResult -> handleError(apiError = state.apiError)
+            }
+        })
     }
 
     private fun handleLoading(isLoading: Boolean) {

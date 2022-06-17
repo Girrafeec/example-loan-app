@@ -55,6 +55,8 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
 
         // Enable activity ok button
         listener.enableOkButton()
+        // Make action bar gone
+        listener.disableActionBar()
 
         val okButton = requireActivity().findViewById<Button>(R.id.loanRequestOkBtn)
         amountValue = view.findViewById(R.id.loanDetailsAmountValueTxt)
@@ -114,5 +116,6 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
 
     interface LoanRequestSuccessFragmentListener {
         fun enableOkButton()
+        fun disableActionBar()
     }
 }

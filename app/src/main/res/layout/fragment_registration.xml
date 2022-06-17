@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/registrationBtn"
             android:text="sign up"
-            style="@style/CommonPurpleButton"
+            style="@style/CommonButton.Purple"
             android:layout_margin="20dp"/>
 
         <TextView
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/openLoginFragmentBtn"
             android:text="Авторизоваться"
-            style="@style/CommonWhiteButton"
+            style="@style/CommonButton.White"
             android:layout_margin="20dp"/>
 
     </LinearLayout>

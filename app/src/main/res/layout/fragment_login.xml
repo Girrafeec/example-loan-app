@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loginBtn"
-            style="@style/CommonPurpleButton"
+            style="@style/CommonButton.Purple"
             android:text="sign in"
             android:layout_margin="20dp"/>
 
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/createAccountBtn"
-            style="@style/CommonWhiteButton"
+            style="@style/CommonButton.White"
             android:text="create account"
             android:layout_margin="20dp"/>
 

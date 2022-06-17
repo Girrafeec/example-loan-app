@@ -12,7 +12,7 @@
     <style name="CommonEditText">
         <item name="android:background">@drawable/input_form_selector</item>
         <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">22dp</item>
         <item name="android:padding">10dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:lines">1</item>
@@ -20,18 +20,63 @@
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
     </style>
 
-    <style name="CommonPurpleButton">
-        <item name="android:background">@drawable/purple_button_selector</item>
-        <item name="android:textColor">@color/white</item>
+    <style name="CommonButton">
+        <item name="android:background">@drawable/white_button_selector</item>
+        <item name="android:textColor">@color/purple_200</item>
+        <item name="android:padding">10dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="CommonWhiteButton">
+    <style name="CommonButton.Purple">
+        <item name="android:background">@drawable/purple_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CommonButton.White">
         <item name="android:background">@drawable/white_button_selector</item>
         <item name="android:textColor">@color/purple_200</item>
+    </style>
+
+    <style name="CommonButton.DarkPurple">
+        <item name="android:background">@drawable/dark_purple_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CommonBottomNavigationView">
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="CommonActionBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="CommonActionBar.Title">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/purple_300</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="CommonActionBar.Back">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
+    <style name="WhiteTitle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WhiteText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>
