@@ -93,6 +93,10 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setLoanValues(loan: Loan) {
+
+        val date = loanRequestActivityViewModel.getDateStringValue(dateTimeString = loan.loanIssueDate)
+        val time = loanRequestActivityViewModel.getTimeStringValue(dateTimeString = loan.loanIssueDate)
+
         amountValue.setText(loan.loanAmount.toString())
         percentValue.setText(loan.loanPercent.toString())
         periodValue.setText(loan.loanPeriod.toString())
@@ -100,7 +104,7 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         lastNameValue.setText(loan.borrowerLastName)
         phoneNumberValue.setText(loan.borrowerPhoneNumber)
         idValue.setText(loan.loanId.toString())
-        //dateTimeValue.setText(loan.loanIssueDate)
+        dateTimeValue.setText(date + " " + time)
         stateValue.setText(loan.loanState.name)
     }
 

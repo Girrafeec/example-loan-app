@@ -6,10 +6,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 class LoansAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     private fun bindLoanItem(loan: Loan, listener: OnLoanItemClickListener) {
+
+        val dataStringValue = LocalDateTime
+            .parse(
+                loan.loanIssueDate,
+                DateTimeFormatter.ISO_ZONED_DATE_TIME
+            )
+            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+
         val parent = itemView.findViewById<ConstraintLayout>(R.id.loanItemParentConLay)
         val loanDateTitle = itemView.findViewById<TextView>(R.id.loanItemTitleTxt)
         val loanState = itemView.findViewById<TextView>(R.id.loanItemLoanStateTxt)
@@ -17,6 +27,7 @@ class LoansAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) 
 
         loanState.setText(loan.loanState.name)
         loanAmountTitle.setText(loan.loanAmount.toString() + " Р")
+        loanDateTitle.setText("Заём от " + dataStringValue)
 
         parent.setOnClickListener { listener.onLoanItemBodyClickListener(loanId = loan.loanId) }
     }

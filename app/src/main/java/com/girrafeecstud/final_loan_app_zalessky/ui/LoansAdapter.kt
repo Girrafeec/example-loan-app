@@ -20,25 +20,11 @@ class LoansAdapter(
         this.listener = listener
     }
 
-    private companion object {
-        const val LOAN_VIEW_TYPE = 0
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoansAdapterViewHolder {
-        val layout = when(viewType) {
-            LOAN_VIEW_TYPE -> R.layout.loans_list_item
-            else -> throw IllegalArgumentException("Invalid type")
-        }
+        val layout = R.layout.loans_list_item
 
         val itemView = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return LoansAdapterViewHolder(itemView = itemView)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (loans.get(position)) {
-            is Loan -> LOAN_VIEW_TYPE
-            else -> throw IllegalArgumentException("Invalid type")
-        }
     }
 
     override fun onBindViewHolder(holder: LoansAdapterViewHolder, position: Int) {

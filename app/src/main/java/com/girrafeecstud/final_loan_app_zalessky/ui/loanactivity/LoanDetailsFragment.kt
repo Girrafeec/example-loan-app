@@ -100,6 +100,10 @@ class LoanDetailsFragment: Fragment() {
     }
 
     private fun handleSuccessResult(loan: Loan) {
+
+        val date = loanItemViewModel.getDateStringValue(dateTimeString = loan.loanIssueDate)
+        val time = loanItemViewModel.getTimeStringValue(dateTimeString = loan.loanIssueDate)
+
         amountValue.setText(loan.loanAmount.toString())
         percentValue.setText(loan.loanPercent.toString())
         periodValue.setText(loan.loanPeriod.toString())
@@ -107,7 +111,7 @@ class LoanDetailsFragment: Fragment() {
         lastNameValue.setText(loan.borrowerLastName)
         phoneNumberValue.setText(loan.borrowerPhoneNumber)
         idValue.setText(loan.loanId.toString())
-        //dateTimeValue.setText(loan.loanIssueDate.)
+        dateTimeValue.setText(date + " " + time) //TODO сделать конкатенацию
         stateValue.setText(loan.loanState.name)
     }
 

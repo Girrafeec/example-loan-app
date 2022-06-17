@@ -12,10 +12,6 @@ class LocalDateTimeConverter @Inject constructor(
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_ZONED_DATE_TIME)
     }
 
-    fun convertLocalDateTimeToString(localDateTime: LocalDateTime): String {
-        return localDateTime.toString()
-    }
-
     fun getDateStringFromLocalDateTime(localDateTime: LocalDateTime): String {
         return localDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
     }

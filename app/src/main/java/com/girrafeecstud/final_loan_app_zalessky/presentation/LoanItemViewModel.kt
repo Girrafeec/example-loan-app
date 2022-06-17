@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalDateTimeConverterRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLocalLoanByIdUseCase
@@ -15,12 +16,14 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class LoanItemViewModel @Inject constructor(
     private val getRemoteLoanByIdUseCase: GetRemoteLoanByIdUseCase,
     private val getLocalLoanByIdUseCase: GetLocalLoanByIdUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
+    private val localDateTimeConverterRepository: LocalDateTimeConverterRepository
 ): ViewModel() {
 
     private var loanId: Long = 0
@@ -28,6 +31,28 @@ class LoanItemViewModel @Inject constructor(
     private val loan = MutableLiveData<Loan>()
 
     private val state = MutableLiveData<MainState>()
+
+    fun getDateStringValue(
+        dateTimeString: String)
+    : String {
+
+        val localDateTime =
+            localDateTimeConverterRepository.getLocalDateTimeFromString(dateTimeString = dateTimeString)
+
+        return localDateTimeConverterRepository
+            .getDateStringFromLocalDateTime(localDateTime = localDateTime)
+    }
+
+    fun getTimeStringValue(
+        dateTimeString: String
+    ): String {
+
+        val localDateTime =
+            localDateTimeConverterRepository.getLocalDateTimeFromString(dateTimeString = dateTimeString)
+
+        return localDateTimeConverterRepository
+            .getTimeStringFromLocalDateTime(localDateTime = localDateTime)
+    }
 
     fun loadLocalLoanData() {
         viewModelScope.launch {

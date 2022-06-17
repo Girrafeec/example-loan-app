@@ -1,6 +1,7 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
+import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiUrlConfig
 import com.girrafeecstud.final_loan_app_zalessky.data.network.NetworkConnectionInterceptor

@@ -12,10 +12,6 @@ class LocalDateTimeConverterRepository @Inject constructor(
         return localDateTimeConverter.convertStringToLocalDateTime(dateTimeString = dateTimeString)
     }
 
-    fun getStringFromLocalDateTime(localDateTime: LocalDateTime): String {
-        return localDateTimeConverter.convertLocalDateTimeToString(localDateTime = localDateTime)
-    }
-
     fun getDateStringFromLocalDateTime(localDateTime: LocalDateTime): String {
         return localDateTimeConverter.getDateStringFromLocalDateTime(localDateTime = localDateTime)
     }

@@ -2,6 +2,7 @@ package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
 import androidx.room.Room
+import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.room.MainDatabase
 import com.girrafeecstud.final_loan_app_zalessky.data.room.RoomConfig
 import com.girrafeecstud.final_loan_app_zalessky.data.room.RoomLoanConverter
@@ -24,7 +25,8 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoomLoanConverter(): RoomLoanConverter {
+    fun provideRoomLoanConverter(
+    ): RoomLoanConverter {
         return RoomLoanConverter()
     }
 

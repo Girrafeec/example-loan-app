@@ -33,19 +33,6 @@ class LocalDateTimeConverterRepositoryUnitTest {
     }
 
     @Test
-    fun `WHEN put LocalDateTime with data like in server EXPECT String with same value`() {
-
-        val dateTime = "2022-06-14T14:51:29.506+00:00"
-
-        val actualResult = localDateTimeConverterRepository
-            .getStringFromLocalDateTime(localDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-        val expectedResult = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_ZONED_DATE_TIME).toString()
-
-        assertEquals(expectedResult, actualResult)
-    }
-
-    @Test
     fun `WHEN PUT LocalDateTime EXPECT string value with the same date of format dd-MM-yyyy`() {
 
         val dateTime = "2022-06-14T14:51:29.506+00:00"

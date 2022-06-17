@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalDateTimeConverterRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.PersonalData
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class LoanRequestActivityViewModel @Inject constructor(
-
+    private val localDateTimeConverterRepository: LocalDateTimeConverterRepository
 ): ViewModel() {
 
     private val loan = MutableLiveData<Loan>()
@@ -22,6 +23,28 @@ class LoanRequestActivityViewModel @Inject constructor(
     private val personalData = MutableLiveData<PersonalData>()
 
     private val chosenAmountValue = MutableLiveData<Double>()
+
+    fun getDateStringValue(
+        dateTimeString: String)
+            : String {
+
+        val localDateTime =
+            localDateTimeConverterRepository.getLocalDateTimeFromString(dateTimeString = dateTimeString)
+
+        return localDateTimeConverterRepository
+            .getDateStringFromLocalDateTime(localDateTime = localDateTime)
+    }
+
+    fun getTimeStringValue(
+        dateTimeString: String
+    ): String {
+
+        val localDateTime =
+            localDateTimeConverterRepository.getLocalDateTimeFromString(dateTimeString = dateTimeString)
+
+        return localDateTimeConverterRepository
+            .getTimeStringFromLocalDateTime(localDateTime = localDateTime)
+    }
 
     fun setLoanConditions(loanConditions: LoanConditions) {
         this.loanConditions.value = loanConditions
