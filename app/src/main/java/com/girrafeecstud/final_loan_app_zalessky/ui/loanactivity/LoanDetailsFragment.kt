@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
@@ -31,6 +32,7 @@ class LoanDetailsFragment: Fragment() {
     private lateinit var stateValue: TextView
     private lateinit var dateTimeValue: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var refreshLayout: SwipeRefreshLayout
 
     private val loanItemViewModel: LoanItemViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
@@ -64,8 +66,15 @@ class LoanDetailsFragment: Fragment() {
         idValue = view.findViewById(R.id.loanDetailsIdValueTxt)
         stateValue = view.findViewById(R.id.loanDetailsStateValueTxt)
         dateTimeValue = view.findViewById(R.id.loanDetailsDateTimeValueTxt)
+        refreshLayout = requireActivity().findViewById(R.id.refreshLoanDetailsLayout)
 
         subscribeObservers()
+
+        refreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
+            override fun onRefresh() {
+                loanItemViewModel.loadRemoteLoanData()
+            }
+        })
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -108,6 +117,7 @@ class LoanDetailsFragment: Fragment() {
                 view?.alpha = (1).toFloat()
                 view?.isEnabled = !isLoading
                 progressBar.alpha = (0).toFloat()
+                refreshLayout.isRefreshing = false
             }
             true -> {
                 view?.alpha = (0).toFloat()

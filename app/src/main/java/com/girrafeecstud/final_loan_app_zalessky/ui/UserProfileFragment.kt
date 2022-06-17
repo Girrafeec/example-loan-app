@@ -18,18 +18,8 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
 
     private lateinit var userProfileName: TextView
 
-    private lateinit var listener: UserProfileFragmentListener
-
     private val userProfileViewModel: UserProfileViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        when (context) {
-            is UserProfileFragmentListener ->
-                listener = context
-        }
     }
 
     override fun onCreateView(
@@ -61,9 +51,5 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         val intent = Intent(activity, AuthorizationActivity::class.java)
         startActivity(intent)
         activity?.finish()
-    }
-
-    interface UserProfileFragmentListener {
-        fun enableBottomNavigationViewUserProfileItem()
     }
 }

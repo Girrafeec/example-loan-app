@@ -1,6 +1,7 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
+import com.girrafeecstud.final_loan_app_zalessky.data.InputValidators
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.*
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
@@ -118,6 +119,18 @@ class DataModule {
         return LoginSharedPreferencesRepositoryImpl(
             loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideValidatorsRepository(inputValidators: InputValidators): ValidatorsRepository {
+        return ValidatorsRepository(inputValidators = inputValidators)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputValidators(): InputValidators {
+        return InputValidators()
     }
 
 }

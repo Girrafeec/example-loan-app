@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
@@ -27,21 +28,12 @@ class LoansFragment :
 
     private lateinit var loansRecView: RecyclerView
     private lateinit var progressBar: ProgressBar
-
-    private lateinit var listener: LoansFragmentListener
+    private lateinit var refreshLayout: SwipeRefreshLayout
 
     private val loansAdapter = LoansAdapter(listener = this)
 
     private val loansViewModel: LoansViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        when (context) {
-            is LoansFragmentListener ->
-                listener = context
-        }
     }
 
     override fun onCreateView(
@@ -56,6 +48,7 @@ class LoansFragment :
 
         loansRecView = view.findViewById(R.id.loansRecView)
         progressBar = requireActivity().findViewById(R.id.mainActivityProgressBar)
+        refreshLayout = view.findViewById(R.id.refreshLoansLayout)
 
         loansRecView.adapter = loansAdapter
         loansRecView.layoutManager = LinearLayoutManager(
@@ -65,6 +58,12 @@ class LoansFragment :
         )
 
         subscribeObservers()
+
+        refreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                loansViewModel.getRemoteLoansList()
+            }
+        })
     }
 
     override fun onLoanItemBodyClickListener(loanId: Long) {
@@ -95,6 +94,7 @@ class LoansFragment :
                 view?.alpha = (1).toFloat()
                 view?.isEnabled = true
                 progressBar.alpha = (0).toFloat()
+                refreshLayout.isRefreshing = false
             }
             true -> {
                 view?.alpha = (0).toFloat()
@@ -136,10 +136,6 @@ class LoansFragment :
             }
         }
         Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    interface LoansFragmentListener {
-        fun enableBottomNavigationViewLoansItem()
     }
 
 }

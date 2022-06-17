@@ -17,18 +17,8 @@ import com.girrafeecstud.final_loan_app_zalessky.ui.instruction.LoanRequestInstr
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var listener: HomeFragmentListener
-
     private val homeViewModel: HomeViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        when (context) {
-            is HomeFragmentListener ->
-                listener = context
-        }
     }
 
     override fun onCreateView(
@@ -68,10 +58,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
         }
-    }
-
-    interface HomeFragmentListener {
-        fun enableBottomNavigationViewHomeItem()
     }
 
 }
