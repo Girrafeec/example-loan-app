@@ -12,12 +12,15 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ExitAccountDialogFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import java.util.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :
+    AppCompatActivity(),
+    ExitAccountDialogFragment.ExitAccountDialogListener {
 
     private lateinit var mainBottomNavigationView: BottomNavigationView
 
@@ -62,6 +65,15 @@ class MainActivity : AppCompatActivity() {
             mainBottomNavigationView.selectedItemId = R.id.homeMainMenuItem
     }
 
+    // When click cancel - do nothing
+    override fun cancelExitAccountProcess() {
+    }
+
+    // TODO
+    override fun exitAccount() {
+
+    }
+
     private fun initUiValues() {
         mainBottomNavigationView = findViewById(R.id.mainActivityBottomNavView)
     }
@@ -75,4 +87,5 @@ class MainActivity : AppCompatActivity() {
             )
             .commit()
     }
+
 }

@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.presentation.UserProfileViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ExitAccountDialogFragment
 
 class UserProfileFragment : Fragment(), View.OnClickListener {
 
@@ -41,10 +42,16 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.exitAccountBtn -> {
-                userProfileViewModel.exitAccount()
-                startAuthActivity()
+                showExitDialog()
             }
         }
+    }
+
+    private fun showExitDialog() {
+        ExitAccountDialogFragment().show(
+            requireActivity().supportFragmentManager,
+            "ExitAccountDialogFragmentTag"
+        )
     }
 
     private fun startAuthActivity() {
@@ -52,4 +59,10 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         startActivity(intent)
         activity?.finish()
     }
+
+    private fun exitAccount() {
+        userProfileViewModel.exitAccount()
+        startAuthActivity()
+    }
+
 }

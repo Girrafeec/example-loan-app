@@ -9,9 +9,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.AuthorizationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ErrorDialogFragment
 import com.google.android.material.tabs.TabLayout
 
-class AuthorizationActivity : AppCompatActivity() {
+class AuthorizationActivity :
+    AppCompatActivity(),
+    ErrorDialogFragment.ErrorDialogListener {
 
     private val authorizationViewModel: AuthorizationViewModel by viewModels {
         (applicationContext as App).appComponent.mainViewModelFactory()
@@ -30,6 +33,14 @@ class AuthorizationActivity : AppCompatActivity() {
             )
             .commit()
 
+        subscribeObservers()
+    }
+
+    // Just dismiss alert dialog when press ok
+    override fun errorOk() {
+    }
+
+    private fun subscribeObservers() {
         authorizationViewModel.isUserAuthorized().observe(this, { isUserAuthorized ->
             when (isUserAuthorized) {
                 true -> {
@@ -38,7 +49,6 @@ class AuthorizationActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun initUiValues() {}
 

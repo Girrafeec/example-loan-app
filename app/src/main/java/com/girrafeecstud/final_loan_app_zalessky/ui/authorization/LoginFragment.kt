@@ -15,8 +15,11 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
+import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ErrorDialogFragment
 
-class LoginFragment : Fragment(), View.OnClickListener {
+class LoginFragment :
+    Fragment(),
+    View.OnClickListener {
 
     private lateinit var enterLoginName: EditText
     private lateinit var enterLoginPassword: EditText
@@ -166,6 +169,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
             }
         }
+        ErrorDialogFragment(
+            errorTitle = "Ошибка",
+            errorMessage = errorMessage
+        ).show(requireActivity().supportFragmentManager, "ErrorDialogFragmentTag")
         Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
     }
 

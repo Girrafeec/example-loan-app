@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="exit_account_dialog_title">Выход из аккаунта</string>
+    <string name="exit_account_dialog_message">Подтвердите выход из аккаунта</string>
+
+</resources>
