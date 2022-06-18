@@ -1,6 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui
 
-import android.content.Context
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.presentation.UserProfileViewModel
-import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ExitAccountDialogFragment
 
 class UserProfileFragment : Fragment(), View.OnClickListener {
 
@@ -48,10 +47,17 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showExitDialog() {
-        ExitAccountDialogFragment().show(
-            requireActivity().supportFragmentManager,
-            "ExitAccountDialogFragmentTag"
-        )
+        AlertDialog.Builder(context)
+            .setTitle(getString(R.string.exit_account_dialog_title))
+            .setMessage(getString(R.string.exit_account_dialog_message))
+            .setPositiveButton(getString(R.string.exit)) { dialog, _ ->
+                dialog.dismiss()
+                exitAccount()
+            }
+            .setNegativeButton(getString(R.string.cancel)) {dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun startAuthActivity() {

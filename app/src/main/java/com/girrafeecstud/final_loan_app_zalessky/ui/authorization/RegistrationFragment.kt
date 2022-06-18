@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -81,14 +82,14 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
         when (registrationViewModel.isUserNameValid(userName = enterRegistrationName.text.toString())) {
             false -> {
-                enterRegistrationName.error = "Имя пользователя должно содержать минимум 3 символа включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                enterRegistrationName.error = requireActivity().resources.getString(R.string.username_validation_error)
                 return
             }
         }
 
         when (registrationViewModel.isLoginPasswordValid(password = enterRegistrationPassword.text.toString())) {
             false -> {
-                enterRegistrationPassword.error = "Пароль должен содержать минимум 8 символов включая буквы, цифры или специальные символы [-,.:;!?*@_]"
+                enterRegistrationPassword.error = requireActivity().resources.getString(R.string.password_validation_error)
                 return
             }
         }
@@ -144,32 +145,57 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
     private fun handleError(apiError: ApiError) {
 
-        var errorMessage = apiError.errorType.name
+        var errorMessage = ""
+        var errorTitle = ""
 
         when (apiError.errorType) {
             ApiErrorType.BAD_REQUEST_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.bad_request_registration_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.bad_request_registration_error_message)
             }
             ApiErrorType.UNAUTHORIZED_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
             ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
             ApiErrorType.NOT_FOUND_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
             ApiErrorType.NO_CONNECTION_ERROR -> {
-
+                Toast.makeText(
+                    activity?.applicationContext,
+                    activity?.resources?.getString(R.string.no_connection_error),
+                    Toast.LENGTH_SHORT)
+                    .show()
+                return
             }
             ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
-
+                Toast.makeText(
+                    activity?.applicationContext,
+                    activity?.resources?.getString(R.string.connection_timeout_error),
+                    Toast.LENGTH_SHORT)
+                    .show()
+                return
             }
             ApiErrorType.UNKNOWN_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
         }
-        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+        showErrorDialog(errorTitle = errorTitle, errorMessage = errorMessage)
+    }
+
+    private fun showErrorDialog(errorTitle: String, errorMessage: String) {
+        AlertDialog.Builder(context)
+            .setTitle(errorTitle)
+            .setMessage(errorMessage)
+            .setPositiveButton(getString(R.string.ok), { dialog, which ->
+                dialog.dismiss() })
+            .show()
     }
 
 }

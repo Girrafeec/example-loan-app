@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_connection_error">Отсутствует подключение к сети</string>
+    <string name="connection_timeout_error">Похоже, что сервер долго не отвечает, повторите попытку позже.</string>
+
+    <string name="not_found_login_error_title">Неверные данные</string>
+    <string name="not_found_login_error_message">Проверьте введённые данные и повторите запрос</string>
+
+    <string name="bad_request_registration_error_title">Неверные данные</string>
+    <string name="bad_request_registration_error_message">Пользователь с таким именем пользователя уже существует</string>
+
+    <string name="default_error_title">Ошибка запроса</string>
+    <string name="default_error_message">Повторите запрос</string>
+
+    <string name="auth_error_title">Ошибка авторизации</string>
+    <string name="auth_error_message">Доступ к ресурсу запрещён без авторизации</string>
+
+    <string name="forbidden_error_title">Ошибка доступа</string>
+    <string name="forbidden_error_message">Доступ к ресурсу закрыт</string>
+    
+    <string name="phone_number_validation_error">Номер телефона может содержать знак + и от 10 до 13 цифр</string>
+    <string name="first_name_validation_error">Имя может содержать только буквы</string>
+    <string name="last_name_validation_error">Фамилия может содержать только буквы</string>
+    <string name="username_validation_error">Имя пользователя должно содержать минимум 3 символа включая буквы, цифры или специальные символы [-,.:;!?*@_]</string>
+    <string name="password_validation_error">Пароль должен содержать минимум 8 символов включая буквы, цифры или специальные символы [-,.:;!?*@_]</string>
+</resources>

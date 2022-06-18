@@ -1,5 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -220,32 +221,58 @@ class LoanDetailsFragment: Fragment(), View.OnClickListener {
 
     private fun handleError(apiError: ApiError) {
 
-        var errorMessage = apiError.errorType.name
+        var errorMessage = ""
+        var errorTitle = ""
 
         when (apiError.errorType) {
             ApiErrorType.BAD_REQUEST_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
             ApiErrorType.UNAUTHORIZED_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.auth_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.auth_error_message)
             }
             ApiErrorType.RESOURCE_FORBIDDEN_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.forbidden_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.forbidden_error_message)
             }
             ApiErrorType.NOT_FOUND_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
             ApiErrorType.NO_CONNECTION_ERROR -> {
-
+                Toast.makeText(
+                    activity?.applicationContext,
+                    activity?.resources?.getString(R.string.no_connection_error),
+                    Toast.LENGTH_SHORT)
+                    .show()
+                return
             }
             ApiErrorType.TIMEOUT_EXCEEDED_ERROR -> {
-
+                Toast.makeText(
+                    activity?.applicationContext,
+                    activity?.resources?.getString(R.string.connection_timeout_error),
+                    Toast.LENGTH_SHORT)
+                    .show()
+                return
             }
             ApiErrorType.UNKNOWN_ERROR -> {
-
+                errorTitle = requireActivity().resources.getString(R.string.default_error_title)
+                errorMessage = requireActivity().resources.getString(R.string.default_error_message)
             }
         }
-        Toast.makeText(activity?.applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+        showErrorDialog(errorTitle = errorTitle, errorMessage = errorMessage)
+    }
+
+    private fun showErrorDialog(errorTitle: String, errorMessage: String) {
+        AlertDialog.Builder(context)
+            .setTitle(errorTitle)
+            .setMessage(errorMessage)
+            .setPositiveButton(getString(R.string.ok), { dialog, which ->
+                dialog.dismiss()
+            })
+            .show()
     }
 
 }

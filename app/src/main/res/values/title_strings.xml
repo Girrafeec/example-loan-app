@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fast_loans_percent">Быстрые займы от 4%</string>
-    <string name="how_to_get_loan">Оформление заёма за 5 шагов</string>
+    <string name="how_to_get_loan">Оформление займа за 5 шагов</string>
     <string name="get_loan">Оформить заём</string>
     <string name="request_loan">Оформление займа</string>
     <string name="request_loan_success_title">Заявка на заём успешно оформлена</string>
     <string name="request_loan_success_message">Изменения статуса заявки на заём отслеживайте в разделе Займы</string>
     <string name="do_not_know_how_to_get_money">Оформили заём, но не знаете, как получить свои деньги?</string>
+
+    <string name="choose_loan_conditions_title">Выберете условия займа</string>
+    <string name="enter_personal_data_title">Введите персональные данные</string>
+    <string name="check_loan_conditions_title">Проверьте условия займа и ваши данные</string>
+    <string name="wait_loan_request_title">Оформите заём</string>
+    <string name="check_loans_title">Проверяйте состояние вашей заявки в разделе Займы</string>
 </resources>

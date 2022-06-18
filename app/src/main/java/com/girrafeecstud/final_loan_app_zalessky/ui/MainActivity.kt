@@ -2,25 +2,17 @@ package com.girrafeecstud.final_loan_app_zalessky.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
-import com.girrafeecstud.final_loan_app_zalessky.ui.dialog.ExitAccountDialogFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import java.util.*
-import javax.inject.Inject
 
 class MainActivity :
-    AppCompatActivity(),
-    ExitAccountDialogFragment.ExitAccountDialogListener {
+    AppCompatActivity() {
 
     private lateinit var mainBottomNavigationView: BottomNavigationView
 
@@ -63,15 +55,6 @@ class MainActivity :
             super.onBackPressed()
         else
             mainBottomNavigationView.selectedItemId = R.id.homeMainMenuItem
-    }
-
-    // When click cancel - do nothing
-    override fun cancelExitAccountProcess() {
-    }
-
-    // TODO
-    override fun exitAccount() {
-
     }
 
     private fun initUiValues() {

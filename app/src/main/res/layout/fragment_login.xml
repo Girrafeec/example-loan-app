@@ -6,69 +6,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.LoginFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginLinLay"
-        android:orientation="vertical"
-        android:layout_marginTop="80dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/AuthorizationActivityStyle.Icon">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/AuthorizationActivityStyle.Icon"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/loginLinLay"
+                android:orientation="vertical"
+                android:layout_marginTop="80dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AuthorizationActivityStyle.Icon">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            style="@style/AuthorizationActivityStyle.Title"
-            android:layout_margin="20dp"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/AuthorizationActivityStyle.Icon"/>
 
-        <EditText
-            android:id="@+id/loginNameEdtTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="@string/username"
-            android:inputType="text"
-            style="@style/CommonEditText"/>
+                </androidx.cardview.widget.CardView>
 
-        <EditText
-            android:id="@+id/loginPasswordEdtTxt"
-            style="@style/CommonEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:layout_margin="20dp"
-            android:hint="@string/password" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login"
+                    style="@style/AuthorizationActivityStyle.Title"
+                    android:layout_margin="20dp"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginBtn"
-            style="@style/CommonButton.Purple"
-            android:text="@string/sign_in"
-            android:layout_margin="20dp"/>
+                <EditText
+                    android:id="@+id/loginNameEdtTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    style="@style/CommonEditText"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/createAccountBtn"
-            style="@style/CommonButton.White"
-            android:text="@string/create_account"
-            android:layout_margin="20dp"/>
+                <EditText
+                    android:id="@+id/loginPasswordEdtTxt"
+                    style="@style/CommonEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:layout_margin="20dp"
+                    android:hint="@string/password" />
 
-    </LinearLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loginBtn"
+                    style="@style/CommonButton.Purple"
+                    android:text="@string/sign_in"
+                    android:layout_margin="20dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/createAccountBtn"
+                    style="@style/CommonButton.White"
+                    android:text="@string/create_account"
+                    android:layout_margin="20dp"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

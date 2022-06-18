@@ -23,8 +23,6 @@ import kotlinx.android.synthetic.*
 
 class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
 
-    //TODO придумать что-то с заполнением значений при запуске фрагмента на тот случай, если значения уже заполнялись
-
     private lateinit var enterFirstName: EditText
     private lateinit var enterLastName: EditText
     private lateinit var enterPhoneNumber: EditText
@@ -110,21 +108,21 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
     private fun isInputCorrect(): Boolean {
         when (loanPersonalDataViewModel.isFirstNameValid(firstName =  enterFirstName.text.toString())) {
             false -> {
-                enterFirstName.error = "Имя может содержать только буквы"
+                enterFirstName.error = requireActivity().resources.getString(R.string.first_name_validation_error)
                 return false
             }
         }
 
         when (loanPersonalDataViewModel.isLastNameValid(lastName =  enterLastName.text.toString())) {
             false -> {
-                enterLastName.error = "Фамилия может содержать только буквы"
+                enterLastName.error = requireActivity().resources.getString(R.string.last_name_validation_error)
                 return false
             }
         }
 
         when (loanPersonalDataViewModel.isPhoneNumberValid(phoneNumber =  enterPhoneNumber.text.toString())) {
             false -> {
-                enterPhoneNumber.error = "Номер телефона может содержать знак + и от 10 до 13 цифр"
+                enterPhoneNumber.error = requireActivity().resources.getString(R.string.phone_number_validation_error)
                 return false
             }
         }
