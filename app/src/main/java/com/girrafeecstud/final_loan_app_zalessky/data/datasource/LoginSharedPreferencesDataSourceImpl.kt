@@ -49,7 +49,6 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
-    // TODO оставлять ли так знак вопроса?
     suspend fun getUserBearerToken(): String? {
         return context
             .getSharedPreferences(
@@ -81,7 +80,6 @@ class LoginSharedPreferencesDataSourceImpl(context: Context) {
             .apply()
     }
 
-    // TODO оставлять ли так знак вопроса?
     suspend fun getUserName(): String? {
         return context
             .getSharedPreferences(

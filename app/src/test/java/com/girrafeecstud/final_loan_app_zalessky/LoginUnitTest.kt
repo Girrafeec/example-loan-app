@@ -24,7 +24,6 @@ class LoginUnitTest {
         mockWebServer.shutdown()
     }
 
-    // TODO получать результат в виде токена
     @Test
     fun `it should return expected Bearer token`() {
 

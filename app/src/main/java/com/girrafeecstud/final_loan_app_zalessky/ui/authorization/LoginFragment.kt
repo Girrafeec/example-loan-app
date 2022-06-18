@@ -17,6 +17,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
+import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoginFragment :
     Fragment(),
@@ -37,7 +38,7 @@ class LoginFragment :
         savedInstanceState: Bundle?
     ): View? {
 
-        val userName = this.arguments?.getString("USER_NAME")
+        val userName = this.arguments?.getString(BundleConfig.AUTH_USER_NAME_BUNDLE)
         if (userName != null)
             loginViewModel.setUserName(userName = userName)
 

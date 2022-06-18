@@ -17,6 +17,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Auth
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
+import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlin.math.log
 
@@ -102,9 +103,8 @@ class RegistrationFragment : Fragment(), View.OnClickListener {
 
     private fun handleSuccessResult(auth: Auth) {
 
-        // TODO вынести в отдельный класс с конфигом в каталоге utils
         val bundle = Bundle()
-        bundle.putString("USER_NAME", auth.userName)
+        bundle.putString(BundleConfig.AUTH_USER_NAME_BUNDLE, auth.userName)
 
         val loginFragment = LoginFragment()
         loginFragment.arguments = bundle

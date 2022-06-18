@@ -2,7 +2,6 @@ package com.girrafeecstud.final_loan_app_zalessky.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.PersonalData
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanPersonalDataViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
-import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
-import kotlinx.android.synthetic.*
 
 class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
 

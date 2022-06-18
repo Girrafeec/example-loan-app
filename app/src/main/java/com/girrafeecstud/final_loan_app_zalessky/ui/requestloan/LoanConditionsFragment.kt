@@ -31,7 +31,6 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
     private lateinit var continueLoanRequestButton: Button
     private lateinit var backButton: ImageButton
 
-    // TODO DI
     private lateinit var listener: LoanConditionsFragmentListener
 
     private val loanConditionsViewModel: LoanConditionsViewModel by viewModels {
@@ -101,9 +100,8 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         amountSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
-                // TODO как-то преобразовать логику иначе
-                var amount = progress / 100
-                amount = amount * 100
+                var amount = progress / LoanConditionsConfig.AMOUNT_SEEK_BAR_STEP_SIZE
+                amount = amount * LoanConditionsConfig.AMOUNT_SEEK_BAR_STEP_SIZE
 
                 loanAmount.setText(
                     activity?.getString(

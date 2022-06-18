@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.girrafeecstud.final_loan_app_zalessky.R
+import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanActivity : AppCompatActivity() {
 
@@ -15,14 +16,13 @@ class LoanActivity : AppCompatActivity() {
 
         actiobBarTitle = findViewById(R.id.actionBarTitle)
 
-        // TODO ВЫНЕСТИ КОНСТАНТУ ОТДЕЛЬНО В КОНФИГ
-        val loanId = intent.getLongExtra("LOAN_ID", 0)
-        val actionBarTitleValue = intent.getStringExtra("ACTION_BAR_TITLE")
+        val loanId = intent.getLongExtra(BundleConfig.LOAN_ID_BUNDLE, 0)
+        val actionBarTitleValue = intent.getStringExtra(BundleConfig.ACTION_BAR_TITLE_BUNDLE)
 
         actiobBarTitle.setText(actionBarTitleValue)
 
         val fragmentBundle = Bundle()
-        fragmentBundle.putLong("LOAN_ID", loanId)
+        fragmentBundle.putLong(BundleConfig.LOAN_ID_BUNDLE, loanId)
         val loanDetailsFragment = LoanDetailsFragment()
         loanDetailsFragment.arguments = fragmentBundle
 

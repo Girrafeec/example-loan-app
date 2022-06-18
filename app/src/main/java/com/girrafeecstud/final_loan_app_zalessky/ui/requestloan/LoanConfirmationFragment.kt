@@ -3,14 +3,12 @@ package com.girrafeecstud.final_loan_app_zalessky.ui
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -21,8 +19,6 @@ import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanConfirmationViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
-import com.girrafeecstud.final_loan_app_zalessky.utils.LoanRequestActivityConfig
-import kotlinx.android.synthetic.main.activity_loan_request.*
 
 class LoanConfirmationFragment : Fragment(), View.OnClickListener {
 
@@ -208,7 +204,6 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
                     borrowerPhoneNumber = personalData.phoneNumber
                 )
         )
-        // TODO выбрасывать ошибку и закрывать форму при пустых данных
     }
 
     private fun handleLoading(isLoading: Boolean) {

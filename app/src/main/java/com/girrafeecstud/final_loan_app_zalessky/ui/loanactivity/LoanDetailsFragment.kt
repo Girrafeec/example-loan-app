@@ -22,6 +22,7 @@ import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
+import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanDetailsFragment: Fragment(), View.OnClickListener {
 
@@ -47,7 +48,7 @@ class LoanDetailsFragment: Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var id = this.arguments?.getLong("LOAN_ID")
+        var id = this.arguments?.getLong(BundleConfig.LOAN_ID_BUNDLE)
         if (id == null)
             id = 0
         loanItemViewModel.setLoanId(loanId = id)

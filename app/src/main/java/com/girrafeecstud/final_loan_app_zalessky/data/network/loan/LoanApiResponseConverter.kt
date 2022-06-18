@@ -11,7 +11,6 @@ class LoanApiResponseConverter @Inject constructor(
 
 ) {
 
-    // TODO придумать что-то с датой
     fun getLoanFromLoanResponse(loanResponse: LoanResponse): Loan {
 
         val loanState: LoanState = when (loanResponse.loanState) {

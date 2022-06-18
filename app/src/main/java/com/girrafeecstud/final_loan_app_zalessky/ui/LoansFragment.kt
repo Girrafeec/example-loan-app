@@ -23,6 +23,7 @@ import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoansViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity.LoanActivity
+import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoansFragment :
     Fragment(),
@@ -83,8 +84,8 @@ class LoansFragment :
 
     override fun onLoanItemBodyClickListener(actionBarTitle: String, loanId: Long) {
         val intent = Intent(activity?.applicationContext, LoanActivity::class.java)
-        intent.putExtra("LOAN_ID", loanId)
-        intent.putExtra("ACTION_BAR_TITLE", actionBarTitle)
+        intent.putExtra(BundleConfig.LOAN_ID_BUNDLE, loanId)
+        intent.putExtra(BundleConfig.ACTION_BAR_TITLE_BUNDLE, actionBarTitle)
         startActivity(intent)
     }
 
