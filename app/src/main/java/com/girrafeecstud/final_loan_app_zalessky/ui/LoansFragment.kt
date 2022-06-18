@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -24,8 +25,10 @@ import com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity.LoanActivity
 
 class LoansFragment :
     Fragment(),
-    LoansAdapterViewHolder.OnLoanItemClickListener {
+    LoansAdapterViewHolder.OnLoanItemClickListener,
+    View.OnClickListener {
 
+    private lateinit var requestLoan: Button
     private lateinit var loansRecView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var refreshLayout: SwipeRefreshLayout
@@ -46,9 +49,12 @@ class LoansFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requestLoan = view.findViewById<Button>(R.id.getLoanFromLoansFragmentBtn)
         loansRecView = view.findViewById(R.id.loansRecView)
         progressBar = requireActivity().findViewById(R.id.mainActivityProgressBar)
         refreshLayout = view.findViewById(R.id.refreshLoansLayout)
+
+        requestLoan.setOnClickListener(this)
 
         loansRecView.adapter = loansAdapter
         loansRecView.layoutManager = LinearLayoutManager(
@@ -66,9 +72,23 @@ class LoansFragment :
         })
     }
 
-    override fun onLoanItemBodyClickListener(loanId: Long) {
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.getLoanFromLoansFragmentBtn -> {
+                openRequestLoanActivity()
+            }
+        }
+    }
+
+    override fun onLoanItemBodyClickListener(actionBarTitle: String, loanId: Long) {
         val intent = Intent(activity?.applicationContext, LoanActivity::class.java)
         intent.putExtra("LOAN_ID", loanId)
+        intent.putExtra("ACTION_BAR_TITLE", actionBarTitle)
+        startActivity(intent)
+    }
+
+    private fun openRequestLoanActivity() {
+        val intent = Intent(activity, LoanRequestActivity::class.java)
         startActivity(intent)
     }
 

@@ -83,7 +83,7 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
         firstNameValue = view.findViewById(R.id.loanDetailsFirstNameValueTxt)
         lastNameValue = view.findViewById(R.id.loanDetailsLastNameValueTxt)
         phoneNumberValue = view.findViewById(R.id.loanDetailsPhoneNumberValueTxt)
-        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
+        backButton = requireActivity().findViewById(R.id.actionBarBackButton)
 
         applyLoanBtn.setOnClickListener(this)
         backButton.setOnClickListener(this)
@@ -106,7 +106,7 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
             R.id.applyLoanBtn -> {
                 applyLoan()
             }
-            R.id.loanRequestActionBarBackButton -> {
+            R.id.actionBarBackButton -> {
                 requireActivity().onBackPressed()
             }
         }
@@ -130,10 +130,59 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
         val loanConditions = loanRequestActivityViewModel.getLoanConditions().value
         val personalData = loanRequestActivityViewModel.getPersonalData().value
         if (chosenAmountValue != null)
-            amountValue.setText(chosenAmountValue.toString())
+            amountValue.setText(
+                activity?.getString(
+                    R.string.loan_amount_value,
+                    chosenAmountValue.toString()
+                )
+            )
         if (loanConditions != null) {
-            periodValue.setText(loanConditions.period.toString())
-            percentValue.setText(loanConditions.percent.toString())
+
+            // Get last digit and choose correct period name value
+            var periodStringValue = when (loanConditions.period % 10) {
+                1 -> {
+                    if (loanConditions.period % 100 == 11)
+                        activity?.getString(R.string.period_day_3)
+                    else
+                        activity?.getString(R.string.period_day_1)
+                }
+                2 -> {
+                    if (loanConditions.period % 100 == 12)
+                        activity?.getString(R.string.period_day_3)
+                    else
+                        activity?.getString(R.string.period_day_2)
+                }
+                3 -> {
+                    if (loanConditions.period % 100 == 13)
+                        activity?.getString(R.string.period_day_3)
+                    else
+                        activity?.getString(R.string.period_day_2)
+                }
+                4 -> {
+                    if (loanConditions.period % 100 == 14)
+                        activity?.getString(R.string.period_day_3)
+                    else
+                        activity?.getString(R.string.period_day_2)
+                }
+                else -> {
+                    activity?.getString(R.string.period_day_3)
+                }
+            }
+
+            periodValue.setText(
+                activity?.getString(
+                    R.string.loan_period_value,
+                    loanConditions.period.toString(),
+                    periodStringValue
+                )
+            )
+
+            percentValue.setText(
+                activity?.getString(
+                    R.string.loan_percent_value,
+                    loanConditions.percent.toString()
+                )
+            )
         }
         if (personalData != null) {
             firstNameValue.setText(personalData.firstName)
@@ -175,7 +224,6 @@ class LoanConfirmationFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    //TODO придумать, как передавать результат в итоговый фрагмент
     private fun handleSuccess(loan: Loan)  {
         loanRequestActivityViewModel.setLoan(loan = loan)
         openSuccessFragment()

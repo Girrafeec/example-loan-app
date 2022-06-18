@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
 import kotlinx.android.synthetic.main.layout_loan_details.*
 
@@ -99,15 +100,88 @@ class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
         val date = loanRequestActivityViewModel.getDateStringValue(dateTimeString = loan.loanIssueDate)
         val time = loanRequestActivityViewModel.getTimeStringValue(dateTimeString = loan.loanIssueDate)
 
-        amountValue.setText(loan.loanAmount.toString())
-        percentValue.setText(loan.loanPercent.toString())
-        periodValue.setText(loan.loanPeriod.toString())
+        amountValue.setText(
+            activity?.getString(
+                R.string.loan_amount_value,
+                loan.loanAmount.toString()
+            )
+        )
+        percentValue.setText(
+            activity?.getString(
+                R.string.loan_percent_value,
+                loan.loanPercent.toString()
+            )
+        )
+
+        // Get last digit and choose correct period name value
+        var periodStringValue = when (loan.loanPeriod % 10) {
+            1 -> {
+                if (loan.loanPeriod % 100 == 11)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_1)
+            }
+            2 -> {
+                if (loan.loanPeriod % 100 == 12)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            3 -> {
+                if (loan.loanPeriod % 100 == 13)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            4 -> {
+                if (loan.loanPeriod % 100 == 14)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            else -> {
+                activity?.getString(R.string.period_day_3)
+            }
+        }
+
+        periodValue.setText(
+            activity?.getString(
+                R.string.loan_period_value,
+                loan.loanPeriod.toString(),
+                periodStringValue
+            )
+        )
+
         firstNameValue.setText(loan.borrowerFirstName)
         lastNameValue.setText(loan.borrowerLastName)
         phoneNumberValue.setText(loan.borrowerPhoneNumber)
         idValue.setText(loan.loanId.toString())
-        dateTimeValue.setText(date + " " + time)
-        stateValue.setText(loan.loanState.name)
+
+        dateTimeValue.setText(
+            activity?.getString(
+                R.string.date_time_value,
+                date,
+                time
+            )
+        )
+
+        when (loan.loanState) {
+            LoanState.REGISTERED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_registered)
+                )
+            }
+            LoanState.APPROVED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_approved)
+                )
+            }
+            LoanState.REJECTED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_rejected)
+                )
+            }
+        }
     }
 
     private fun clearViewModelValues() {

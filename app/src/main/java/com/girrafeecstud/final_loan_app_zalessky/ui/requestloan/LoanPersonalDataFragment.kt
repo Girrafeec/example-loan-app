@@ -67,7 +67,7 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
         enterLastName = view.findViewById(R.id.loanPersonalDateEnterLastNameEdtTxt)
         enterPhoneNumber = view.findViewById(R.id.loanPersonalDateEnterPhoneNumberEdtTxt)
         continueLoanRequestButton = requireActivity().findViewById(R.id.loanRequestContinueBtn)
-        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
+        backButton = requireActivity().findViewById(R.id.actionBarBackButton)
 
         continueLoanRequestButton.setOnClickListener(this)
         backButton.setOnClickListener(this)
@@ -101,7 +101,7 @@ class LoanPersonalDataFragment : Fragment(), View.OnClickListener {
                     }
                 }
             }
-            R.id.loanRequestActionBarBackButton -> {
+            R.id.actionBarBackButton -> {
                 requireActivity().onBackPressed()
             }
         }

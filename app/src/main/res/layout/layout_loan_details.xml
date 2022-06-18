@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Уникальный номер заёма"
+                    android:text="@string/loan_id"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -36,7 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsIdValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -54,7 +53,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Сумма заёма"
+                    android:text="@string/loan_amount"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -64,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsAmountValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -82,7 +80,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Срок заёма"
+                    android:text="@string/loan_period"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -92,7 +90,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsPeriodValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -110,22 +107,21 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Процентная ставка"
+                    android:text="@string/loan_percent"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     style="@style/LoanDetail.Title"/>
 
                 <TextView
+                    android:id="@+id/loanDetailsPercentValueTxt"
+                    style="@style/LoanDetail.Value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loanDetailsPercentValueTxt"
-                    android:text="10000"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
-                    style="@style/LoanDetail.Value"/>
+                    android:layout_marginBottom="10dp"/>
 
             </LinearLayout>
 
@@ -138,7 +134,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Имя"
+                    android:text="@string/loan_first_name"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -148,7 +144,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsFirstNameValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -166,7 +161,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Фамилия"
+                    android:text="@string/loan_last_name"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -176,7 +171,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsLastNameValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -194,7 +188,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Номер телефона"
+                    android:text="@string/loan_phone_number"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -204,7 +198,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsPhoneNumberValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -223,7 +216,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Дата и время оформления заявки"
+                    android:text="@string/loan_date"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -233,7 +226,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsDateTimeValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
@@ -252,7 +244,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Состояние заявки"
+                    android:text="@string/loan_state"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
@@ -262,7 +254,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/loanDetailsStateValueTxt"
-                    android:text="10000"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"

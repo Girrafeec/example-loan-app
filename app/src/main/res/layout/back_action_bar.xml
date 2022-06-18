@@ -8,7 +8,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loanRequestActionBarBackButton"
+        android:id="@+id/actionBarBackButton"
         android:src="@drawable/ic_baseline_arrow_back"
         style="@style/CommonActionBar.Back"
         android:layout_marginTop="16dp"
@@ -21,15 +21,16 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:id="@+id/actionBarTitle"
         style="@style/CommonActionBar.Title"
-        android:text="Оформление займа"
+        android:text="@string/request_loan"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="56dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/loanRequestActionBarBackButton"
+        app:layout_constraintStart_toEndOf="@id/actionBarBackButton"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/homeMainMenuItem"
-        android:title="Главная"
+        android:title="@string/home"
         android:icon="@drawable/ic_home_menu_icon"/>
 
     <item
         android:id="@+id/loansMainMenuItem"
-        android:title="Займы"
+        android:title="@string/loans"
         android:icon="@drawable/ic_loan_menu_icon"/>
 
     <item
         android:id="@+id/userProfileMainMenuItem"
-        android:title="Профиль"
+        android:title="@string/user_profile"
         android:icon="@drawable/ic_user_profile_icon"/>
 
 </menu>

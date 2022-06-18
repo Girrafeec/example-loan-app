@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="login">Авторизация</string>
+    <string name="registration">Регистрация</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Зарегестрироваться</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="password">Пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="authorize">Авторизоваться</string>
+    <string name="have_account_already">Уже зарегестрированы?</string>
+
+</resources>

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/loanRequestActionBar"
-        layout="@layout/loan_request_action_bar" />
+        layout="@layout/back_action_bar" />
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loanRequestOkBtn"
-            android:text="ok"
+            android:text="@string/ok"
             style="@style/CommonButton.DarkPurple"
             android:layout_margin="10dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/applyLoanBtn"
-            android:text="apply loan"
+            android:text="@string/get_loan"
             style="@style/CommonButton.DarkPurple"
             android:layout_margin="10dp"
             app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loanRequestContinueBtn"
-            android:text="continue"
+            android:text="@string/next"
             style="@style/CommonButton.DarkPurple"
             android:layout_margin="10dp"
             app:layout_constraintTop_toTopOf="parent"

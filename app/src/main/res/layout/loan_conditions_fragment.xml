@@ -32,7 +32,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     style="@style/LoanDetail.Title"
-                    android:text="Сумма займа"/>
+                    android:text="@string/loan_amount"/>
 
                 <TextView
                     android:id="@+id/loanConditionsAmountValueTxt"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
-                    android:text="Срок займа"
+                    android:text="@string/loan_period"
                     style="@style/LoanDetail.Title"/>
 
                 <TextView
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
-                    android:text="Процентная ставка"
+                    android:text="@string/loan_percent"
                     style="@style/LoanDetail.Title"/>
 
                 <TextView

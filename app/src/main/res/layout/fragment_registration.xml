@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registration"
+            android:text="@string/registration"
             style="@style/AuthorizationActivityStyle.Title"
             android:layout_margin="20dp"/>
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/registrationNameEdtTxt"
-            android:hint="Name"
+            android:hint="@string/username"
             android:layout_margin="20dp"
             android:inputType="text"
             style="@style/CommonEditText"/>
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/registrationPasswordEdtTxt"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_margin="20dp"
             style="@style/CommonEditText"/>
@@ -57,21 +57,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/registrationBtn"
-            android:text="sign up"
+            android:text="@string/sign_up"
             style="@style/CommonButton.Purple"
             android:layout_margin="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Уже зарегестрированы?"
+            android:text="@string/have_account_already"
             style="@style/AuthorizationActivityStyle.Text"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/openLoginFragmentBtn"
-            android:text="Авторизоваться"
+            android:text="@string/authorize"
             style="@style/CommonButton.White"
             android:layout_margin="20dp"/>
 

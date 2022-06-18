@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -17,10 +18,11 @@ import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 
-class LoanDetailsFragment: Fragment() {
+class LoanDetailsFragment: Fragment(), View.OnClickListener {
 
     private lateinit var amountValue: TextView
     private lateinit var periodValue: TextView
@@ -33,6 +35,7 @@ class LoanDetailsFragment: Fragment() {
     private lateinit var dateTimeValue: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var refreshLayout: SwipeRefreshLayout
+    private lateinit var backButton: ImageButton
 
     private val loanItemViewModel: LoanItemViewModel by viewModels {
         (activity?.applicationContext as App).appComponent.mainViewModelFactory()
@@ -67,8 +70,11 @@ class LoanDetailsFragment: Fragment() {
         stateValue = view.findViewById(R.id.loanDetailsStateValueTxt)
         dateTimeValue = view.findViewById(R.id.loanDetailsDateTimeValueTxt)
         refreshLayout = requireActivity().findViewById(R.id.refreshLoanDetailsLayout)
+        backButton = requireActivity().findViewById(R.id.actionBarBackButton)
 
         subscribeObservers()
+
+        backButton.setOnClickListener(this)
 
         refreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
             override fun onRefresh() {
@@ -82,6 +88,14 @@ class LoanDetailsFragment: Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+    }
+
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.actionBarBackButton -> {
+                activity?.finish()
+            }
+        }
     }
 
     private fun subscribeObservers() {
@@ -104,15 +118,88 @@ class LoanDetailsFragment: Fragment() {
         val date = loanItemViewModel.getDateStringValue(dateTimeString = loan.loanIssueDate)
         val time = loanItemViewModel.getTimeStringValue(dateTimeString = loan.loanIssueDate)
 
-        amountValue.setText(loan.loanAmount.toString())
-        percentValue.setText(loan.loanPercent.toString())
-        periodValue.setText(loan.loanPeriod.toString())
+        amountValue.setText(
+            activity?.getString(
+                R.string.loan_amount_value,
+                loan.loanAmount.toString()
+            )
+        )
+        percentValue.setText(
+            activity?.getString(
+                R.string.loan_percent_value,
+                loan.loanPercent.toString()
+            )
+        )
+
+        // Get last digit and choose correct period name value
+        var periodStringValue = when (loan.loanPeriod % 10) {
+            1 -> {
+                if (loan.loanPeriod % 100 == 11)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_1)
+            }
+            2 -> {
+                if (loan.loanPeriod % 100 == 12)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            3 -> {
+                if (loan.loanPeriod % 100 == 13)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            4 -> {
+                if (loan.loanPeriod % 100 == 14)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            else -> {
+                activity?.getString(R.string.period_day_3)
+            }
+        }
+
+        periodValue.setText(
+            activity?.getString(
+                R.string.loan_period_value,
+                loan.loanPeriod.toString(),
+                periodStringValue
+            )
+        )
+
         firstNameValue.setText(loan.borrowerFirstName)
         lastNameValue.setText(loan.borrowerLastName)
         phoneNumberValue.setText(loan.borrowerPhoneNumber)
         idValue.setText(loan.loanId.toString())
-        dateTimeValue.setText(date + " " + time) //TODO сделать конкатенацию
-        stateValue.setText(loan.loanState.name)
+
+        dateTimeValue.setText(
+            activity?.getString(
+                R.string.date_time_value,
+                date,
+                time
+            )
+        )
+
+        when (loan.loanState) {
+            LoanState.REGISTERED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_registered)
+                )
+            }
+            LoanState.APPROVED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_approved)
+                )
+            }
+            LoanState.REJECTED -> {
+                stateValue.setText(
+                    activity?.getString(R.string.request_state_rejected)
+                )
+            }
+        }
     }
 
     private fun handleLoading(isLoading: Boolean) {

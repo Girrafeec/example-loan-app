@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login"
             style="@style/AuthorizationActivityStyle.Title"
             android:layout_margin="20dp"/>
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:hint="Name"
+            android:hint="@string/username"
             android:inputType="text"
             style="@style/CommonEditText"/>
 
@@ -51,14 +51,14 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:layout_margin="20dp"
-            android:hint="Password" />
+            android:hint="@string/password" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/loginBtn"
             style="@style/CommonButton.Purple"
-            android:text="sign in"
+            android:text="@string/sign_in"
             android:layout_margin="20dp"/>
 
         <Button
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/createAccountBtn"
             style="@style/CommonButton.White"
-            android:text="create account"
+            android:text="@string/create_account"
             android:layout_margin="20dp"/>
 
     </LinearLayout>

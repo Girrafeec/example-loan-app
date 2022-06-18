@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
+import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -25,11 +26,26 @@ class LoansAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) 
         val loanState = itemView.findViewById<TextView>(R.id.loanItemLoanStateTxt)
         val loanAmountTitle = itemView.findViewById<TextView>(R.id.loanItemLoanAmountTxt)
 
-        loanState.setText(loan.loanState.name)
-        loanAmountTitle.setText(loan.loanAmount.toString() + " Р")
-        loanDateTitle.setText("Заём от " + dataStringValue)
+        loanAmountTitle.setText(itemView.context.resources.getString(R.string.loan_amount_value, loan.loanAmount.toString()))
+        loanDateTitle.setText(itemView.context.resources.getString(R.string.loan_date_value, dataStringValue))
 
-        parent.setOnClickListener { listener.onLoanItemBodyClickListener(loanId = loan.loanId) }
+        when (loan.loanState) {
+            LoanState.APPROVED -> {
+                loanState.setTextColor(itemView.context.resources.getColor(R.color.dark_green))
+                loanState.setText(itemView.context.resources.getString(R.string.loan_state_approved))
+            }
+            LoanState.REJECTED -> {
+                loanState.setTextColor(itemView.context.resources.getColor(R.color.red_dark))
+                loanState.setText(itemView.context.resources.getString(R.string.loan_state_rejected))
+            }
+            LoanState.REGISTERED -> {
+                loanState.setText(itemView.context.resources.getString(R.string.loan_state_registereed))
+            }
+        }
+
+        parent.setOnClickListener { listener.onLoanItemBodyClickListener(
+            actionBarTitle = loanDateTitle.text.toString(),
+            loanId = loan.loanId) }
     }
 
     fun bind(loan: Loan, listener: OnLoanItemClickListener) {
@@ -37,7 +53,7 @@ class LoansAdapterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) 
     }
 
     interface OnLoanItemClickListener {
-        fun onLoanItemBodyClickListener(loanId: Long)
+        fun onLoanItemBodyClickListener(actionBarTitle: String, loanId: Long)
     }
 
 }

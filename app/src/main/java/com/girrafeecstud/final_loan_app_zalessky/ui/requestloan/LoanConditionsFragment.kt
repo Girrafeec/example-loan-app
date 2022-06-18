@@ -69,7 +69,7 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
         loanAmount = view.findViewById(R.id.loanConditionsAmountValueTxt)
         loanPeriod = view.findViewById(R.id.loanConditionsPeriodValueTxt)
         continueLoanRequestButton = requireActivity().findViewById(R.id.loanRequestContinueBtn)
-        backButton = requireActivity().findViewById(R.id.loanRequestActionBarBackButton)
+        backButton = requireActivity().findViewById(R.id.actionBarBackButton)
 
         continueLoanRequestButton.setOnClickListener(this)
         backButton.setOnClickListener(this)
@@ -105,7 +105,12 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
                 var amount = progress / 100
                 amount = amount * 100
 
-                loanAmount.setText(amount.toString())
+                loanAmount.setText(
+                    activity?.getString(
+                        R.string.loan_amount_value,
+                        amount.toString()
+                    )
+                )
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -122,7 +127,7 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
                 saveChosenAmountValue()
                 openLoanPersonalDataFragment()
             }
-            R.id.loanRequestActionBarBackButton -> {
+            R.id.actionBarBackButton -> {
                 requireActivity().onBackPressed()
             }
         }
@@ -201,9 +206,59 @@ class LoanConditionsFragment : Fragment(), View.OnClickListener {
     private fun setLoanConditionsValues(loanConditions: LoanConditions) {
         amountSeekBar.max = loanConditions.maxAmount.toInt()
         amountSeekBar.progress = loanConditions.maxAmount.toInt()
-        loanAmount.setText(loanConditions.maxAmount.toInt().toString())
-        loanPeriod.setText(loanConditions.period.toString())
-        loanPercent.setText(loanConditions.percent.toString())
+
+        loanAmount.setText(
+            activity?.getString(
+                R.string.loan_amount_value,
+                loanConditions.maxAmount.toInt().toString()
+            )
+        )
+
+        loanPercent.setText(
+            activity?.getString(
+                R.string.loan_percent_value,
+                loanConditions.percent.toString()
+            )
+        )
+
+        // Get last digit and choose correct period name value
+        var periodStringValue = when (loanConditions.period % 10) {
+            1 -> {
+                if (loanConditions.period % 100 == 11)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_1)
+            }
+            2 -> {
+                if (loanConditions.period % 100 == 12)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            3 -> {
+                if (loanConditions.period % 100 == 13)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            4 -> {
+                if (loanConditions.period % 100 == 14)
+                    activity?.getString(R.string.period_day_3)
+                else
+                    activity?.getString(R.string.period_day_2)
+            }
+            else -> {
+                activity?.getString(R.string.period_day_3)
+            }
+        }
+
+        loanPeriod.setText(
+            activity?.getString(
+                R.string.loan_period_value,
+                loanConditions.period.toString(),
+                periodStringValue
+            )
+        )
     }
 
     private fun saveChosenAmountValue() {
