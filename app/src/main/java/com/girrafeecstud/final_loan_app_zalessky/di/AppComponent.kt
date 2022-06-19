@@ -12,6 +12,8 @@ import javax.inject.Singleton
     LoanModule::class,
     RoomModule::class,
     DataModule::class,
+    RepositoryModule::class,
+    DataSourceModule::class,
     UseCaseModule::class,
     ViewModelModule::class,
     AppModule::class

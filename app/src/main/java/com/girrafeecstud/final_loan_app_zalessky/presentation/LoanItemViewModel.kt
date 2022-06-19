@@ -1,6 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,18 +9,15 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalDateTimeConverterRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
-import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLocalLoanByIdUseCase
-import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetRemoteLoanByIdUseCase
+import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoanByIdUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class LoanItemViewModel @Inject constructor(
-    private val getRemoteLoanByIdUseCase: GetRemoteLoanByIdUseCase,
-    private val getLocalLoanByIdUseCase: GetLocalLoanByIdUseCase,
+    private val getLoanByIdUseCase: GetLoanByIdUseCase,
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
     private val localDateTimeConverterRepository: LocalDateTimeConverterRepository
 ): ViewModel() {
@@ -54,21 +50,12 @@ class LoanItemViewModel @Inject constructor(
             .getTimeStringFromLocalDateTime(localDateTime = localDateTime)
     }
 
-    fun loadLocalLoanData() {
-        viewModelScope.launch {
-            getLocalLoanByIdUseCase(loanId = loanId)
-                .collect { loanValue ->
-                    loan.value = loanValue
-                }
-        }
-    }
-
-    fun loadRemoteLoanData() {
+    fun loadLoanData() {
         viewModelScope.launch {
             val bearerToken = async {
                 loginSharedPreferencesRepositoryImpl.getUserBearerToken()
             }
-            getRemoteLoanByIdUseCase(bearerToken = bearerToken.await(), loanId = loanId)
+            getLoanByIdUseCase(bearerToken = bearerToken.await(), loanId = loanId)
                 .onStart {
                     setLoading()
                 }

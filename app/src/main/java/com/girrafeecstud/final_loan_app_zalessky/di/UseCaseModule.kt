@@ -1,7 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalLoanRepositoryImpl
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.RemoteLoanRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoanRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.RegistrationRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.*
@@ -26,38 +25,26 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetLoanConditionsUseCase(repository: RemoteLoanRepositoryImpl): GetLoanConditionsUseCase {
+    fun provideGetLoanConditionsUseCase(repository: LoanRepositoryImpl): GetLoanConditionsUseCase {
         return GetLoanConditionsUseCase(repository = repository)
     }
 
     @Provides
     @Singleton
-    fun provideApplyLoanUseCase(repository: RemoteLoanRepositoryImpl): ApplyLoanUseCase {
+    fun provideApplyLoanUseCase(repository: LoanRepositoryImpl): ApplyLoanUseCase {
         return ApplyLoanUseCase(repository = repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetRemoteLoansListUseCase(repository: RemoteLoanRepositoryImpl): GetRemoteLoansListUseCase {
-        return GetRemoteLoansListUseCase(repository = repository)
+    fun provideGetLoansListUseCase(repository: LoanRepositoryImpl): GetLoansListUseCase {
+        return GetLoansListUseCase(repository = repository)
     }
 
     @Provides
     @Singleton
-    fun provideGetLocalLoansListUseCase(repository: LocalLoanRepositoryImpl): GetLocalLoansListUseCase {
-        return GetLocalLoansListUseCase(repository = repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetRemoteLoanByIdUseCase(repository: RemoteLoanRepositoryImpl): GetRemoteLoanByIdUseCase {
-        return GetRemoteLoanByIdUseCase(repository = repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetLocalLoanByIdUseCase(repository: LocalLoanRepositoryImpl): GetLocalLoanByIdUseCase {
-        return GetLocalLoanByIdUseCase(repository = repository)
+    fun provideGetLoanByIdUseCase(repository: LoanRepositoryImpl): GetLoanByIdUseCase {
+        return GetLoanByIdUseCase(repository = repository)
     }
 
 }

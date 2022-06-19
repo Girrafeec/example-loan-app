@@ -8,14 +8,11 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
-import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.utils.NoNetworkException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import java.net.SocketTimeoutException
-import java.security.PrivateKey
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class RemoteLoanDataSourceImpl @Inject constructor(

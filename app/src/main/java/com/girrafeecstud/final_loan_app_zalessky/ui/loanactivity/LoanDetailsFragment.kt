@@ -2,7 +2,6 @@ package com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -25,7 +21,6 @@ import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
-import com.girrafeecstud.final_loan_app_zalessky.ui.BankAddressesAdapter
 import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanDetailsFragment: Fragment(), View.OnClickListener {
@@ -62,8 +57,7 @@ class LoanDetailsFragment: Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loanItemViewModel.loadLocalLoanData()
-        loanItemViewModel.loadRemoteLoanData()
+        loanItemViewModel.loadLoanData()
 
         progressBar = requireActivity().findViewById(R.id.loanActivityProressBar)
         amountValue = view.findViewById(R.id.loanDetailsAmountValueTxt)
@@ -86,7 +80,7 @@ class LoanDetailsFragment: Fragment(), View.OnClickListener {
 
         refreshLayout.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener{
             override fun onRefresh() {
-                loanItemViewModel.loadRemoteLoanData()
+                loanItemViewModel.loadLoanData()
             }
         })
 

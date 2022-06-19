@@ -8,8 +8,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
-import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLocalLoansListUseCase
-import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetRemoteLoansListUseCase
+import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoansListUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -17,8 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LoansViewModel @Inject constructor(
-    private val getRemoteLoansListUseCase: GetRemoteLoansListUseCase,
-    private val getLocalLoansListUseCase: GetLocalLoansListUseCase,
+    private val getLoansListUseCase: GetLoansListUseCase,
     private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
 ) : ViewModel() {
 
@@ -27,17 +25,7 @@ class LoansViewModel @Inject constructor(
     private val state = MutableLiveData<MainState>()
 
     init {
-        getLocalLoansList()
         getRemoteLoansList()
-    }
-
-    fun getLocalLoansList() {
-        viewModelScope.launch {
-            getLocalLoansListUseCase()
-                .collect { loansList ->
-                    loans.value = loansList
-                }
-        }
     }
 
     fun getRemoteLoansList() {
@@ -45,7 +33,7 @@ class LoansViewModel @Inject constructor(
             val bearerToken = async {
                 loginSharedPreferencesRepositoryImpl.getUserBearerToken()
             }
-            getRemoteLoansListUseCase(bearerToken = bearerToken.await())
+            getLoansListUseCase(bearerToken = bearerToken.await())
                 .onStart {
                     setLoading()
                 }
