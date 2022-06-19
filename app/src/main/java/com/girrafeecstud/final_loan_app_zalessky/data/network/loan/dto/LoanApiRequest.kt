@@ -1,8 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto
 
-import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDateTime
 
 data class LoanApiRequest(
     @SerializedName("amount")

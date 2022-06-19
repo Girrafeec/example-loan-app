@@ -1,4 +1,4 @@
-package com.girrafeecstud.final_loan_app_zalessky.ui
+package com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

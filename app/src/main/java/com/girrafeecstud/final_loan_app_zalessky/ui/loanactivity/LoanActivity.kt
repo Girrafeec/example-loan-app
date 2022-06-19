@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.final_loan_app_zalessky.R
-import com.girrafeecstud.final_loan_app_zalessky.ui.BankAddressesAdapter
 import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanActivity : AppCompatActivity() {

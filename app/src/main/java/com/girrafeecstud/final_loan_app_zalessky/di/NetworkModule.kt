@@ -1,15 +1,12 @@
 package com.girrafeecstud.final_loan_app_zalessky.di
 
 import android.content.Context
-import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiUrlConfig
 import com.girrafeecstud.final_loan_app_zalessky.data.network.NetworkConnectionInterceptor
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.RegistrationApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.BaseApiUrl
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

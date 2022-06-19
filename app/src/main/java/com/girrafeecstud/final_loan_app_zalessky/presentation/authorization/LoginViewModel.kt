@@ -1,6 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.presentation.authorization
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
-import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanConditions
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import kotlinx.coroutines.async

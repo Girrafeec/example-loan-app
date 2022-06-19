@@ -1,8 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
 import javax.inject.Inject

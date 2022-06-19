@@ -15,7 +15,6 @@ import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan.LoanRequestActivityViewModel
-import kotlinx.android.synthetic.main.layout_loan_details.*
 
 class LoanRequestSuccessFragment : Fragment(), View.OnClickListener {
 

@@ -1,7 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.datasource
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 
 class LoginSharedPreferencesDataSourceImpl(context: Context) {

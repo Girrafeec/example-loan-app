@@ -1,6 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.datasource
 
-import android.util.Log
 import com.girrafeecstud.final_loan_app_zalessky.data.room.MainDatabase
 import com.girrafeecstud.final_loan_app_zalessky.data.room.RoomLoanConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.room.model.RoomLoan

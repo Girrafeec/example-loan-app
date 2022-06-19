@@ -1,7 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network
 
-import java.lang.NullPointerException
-
 class ApiErrorConverter {
 
     fun convertHttpError(

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
-import java.util.*
 import kotlin.collections.ArrayList
 
 class LoansAdapter(

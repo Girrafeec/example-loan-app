@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.girrafeecstud.final_loan_app_zalessky.di.annotation.ViewModelKey
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoansViewModel
-import com.girrafeecstud.final_loan_app_zalessky.presentation.MainViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.UserProfileViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.AuthorizationViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.LoginViewModel
@@ -19,11 +18,6 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface ViewModelModule {
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    fun bindMainViewModel(impl: MainViewModel): ViewModel
 
     @Binds
     @IntoMap

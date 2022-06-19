@@ -1,7 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.network.loan
 
-import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeConverter
-import org.threeten.bp.LocalDateTime
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.dto.LoanResponse
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState

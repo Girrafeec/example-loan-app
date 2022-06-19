@@ -13,13 +13,10 @@ import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorType
-import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Auth
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.authorization.RegistrationViewModel
 import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
-import kotlinx.android.synthetic.main.fragment_registration.*
-import kotlin.math.log
 
 class RegistrationFragment : Fragment(), View.OnClickListener {
 

@@ -1,6 +1,5 @@
 package com.girrafeecstud.final_loan_app_zalessky.presentation.requestloan
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,10 +22,6 @@ class LoanConditionsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val state = MutableLiveData<MainState>()
-
-    init {
-
-    }
 
     fun loadLoanConditions() {
         viewModelScope.launch {
