@@ -11,8 +11,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.girrafeecstud.final_loan_app_zalessky.R
 import com.girrafeecstud.final_loan_app_zalessky.app.App
@@ -22,6 +25,7 @@ import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanState
 import com.girrafeecstud.final_loan_app_zalessky.presentation.LoanItemViewModel
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
+import com.girrafeecstud.final_loan_app_zalessky.ui.BankAddressesAdapter
 import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanDetailsFragment: Fragment(), View.OnClickListener {
@@ -73,6 +77,8 @@ class LoanDetailsFragment: Fragment(), View.OnClickListener {
         dateTimeValue = view.findViewById(R.id.loanDetailsDateTimeValueTxt)
         refreshLayout = requireActivity().findViewById(R.id.refreshLoanDetailsLayout)
         backButton = requireActivity().findViewById(R.id.actionBarBackButton)
+
+        refreshLayout.setColorSchemeColors(requireActivity().resources.getColor(R.color.purple_700))
 
         subscribeObservers()
 

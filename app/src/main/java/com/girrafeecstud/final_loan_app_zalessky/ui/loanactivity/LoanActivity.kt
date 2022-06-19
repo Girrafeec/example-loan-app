@@ -3,18 +3,27 @@ package com.girrafeecstud.final_loan_app_zalessky.ui.loanactivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.girrafeecstud.final_loan_app_zalessky.R
+import com.girrafeecstud.final_loan_app_zalessky.ui.BankAddressesAdapter
 import com.girrafeecstud.final_loan_app_zalessky.utils.BundleConfig
 
 class LoanActivity : AppCompatActivity() {
 
     private lateinit var actiobBarTitle: TextView
+    private lateinit var bankDepartmentAdresses: RecyclerView
+
+    private val addressesAdapter = BankAddressesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loan)
 
         actiobBarTitle = findViewById(R.id.actionBarTitle)
+        bankDepartmentAdresses = findViewById(R.id.bankDepartmentsAdressesRecView)
+
+        setRecViewValues()
 
         val loanId = intent.getLongExtra(BundleConfig.LOAN_ID_BUNDLE, 0)
         val actionBarTitleValue = intent.getStringExtra(BundleConfig.ACTION_BAR_TITLE_BUNDLE)
@@ -34,4 +43,14 @@ class LoanActivity : AppCompatActivity() {
             )
             .commit()
     }
+
+    private fun setRecViewValues() {
+        bankDepartmentAdresses.adapter = addressesAdapter
+        bankDepartmentAdresses.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
 }

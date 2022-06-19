@@ -36,6 +36,8 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
         val exitAccountBtn = view.findViewById<Button>(R.id.exitAccountBtn)
 
         exitAccountBtn.setOnClickListener(this)
+
+        subscribeObservers()
     }
 
     override fun onClick(view: View) {
@@ -44,6 +46,12 @@ class UserProfileFragment : Fragment(), View.OnClickListener {
                 showExitDialog()
             }
         }
+    }
+
+    private fun subscribeObservers() {
+        userProfileViewModel.getUserName().observe(viewLifecycleOwner, { userName ->
+            userProfileName.text = userName
+        })
     }
 
     private fun showExitDialog() {

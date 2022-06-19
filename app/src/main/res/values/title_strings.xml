@@ -13,4 +13,7 @@
     <string name="check_loan_conditions_title">Проверьте условия займа и ваши данные</string>
     <string name="wait_loan_request_title">Оформите заём</string>
     <string name="check_loans_title">Проверяйте состояние вашей заявки в разделе Займы</string>
+
+    <string name="get_money_credit_card">Для получения денег на карту подпишите договор</string>
+    <string name="get_money_bank">Деньги можно получить лично в одном из отделений</string>
 </resources>

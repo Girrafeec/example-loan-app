@@ -56,6 +56,8 @@ class LoansFragment :
         progressBar = requireActivity().findViewById(R.id.mainActivityProgressBar)
         refreshLayout = view.findViewById(R.id.refreshLoansLayout)
 
+        refreshLayout.setColorSchemeColors(requireActivity().resources.getColor(R.color.purple_700))
+
         requestLoan.setOnClickListener(this)
 
         loansRecView.adapter = loansAdapter

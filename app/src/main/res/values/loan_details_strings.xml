@@ -30,4 +30,6 @@
     <string name="request_state_registered">Зарегестрирована</string>
     <string name="request_state_approved">Одобрена</string>
     <string name="request_state_rejected">Отклонена</string>
+
+    <string name="sign_an_agreement">Подписать договор</string>
 </resources>
