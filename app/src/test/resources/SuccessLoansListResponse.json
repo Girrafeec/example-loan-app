@@ -1,0 +1,24 @@
+[
+  {
+    "firstName": "string",
+    "lastName": "string",
+    "phoneNumber": "string",
+    "amount": 10000.00,
+    "percent": 12.72,
+    "period": 75,
+    "date": "2022-07-03T10:24:17.717+00:00",
+    "state": "REGISTERED",
+    "id": 975
+  },
+  {
+    "firstName": "string",
+    "lastName": "string",
+    "phoneNumber": "string",
+    "amount": 15000.00,
+    "percent": 16.72,
+    "period": 75,
+    "date": "2022-06-15T10:24:17.717+00:00",
+    "state": "REGISTERED",
+    "id": 986
+  }
+]

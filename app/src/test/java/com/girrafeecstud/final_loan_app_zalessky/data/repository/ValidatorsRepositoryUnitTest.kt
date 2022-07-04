@@ -1,4 +1,4 @@
-package com.girrafeecstud.final_loan_app_zalessky
+package com.girrafeecstud.final_loan_app_zalessky.data.repository
 
 import com.girrafeecstud.final_loan_app_zalessky.data.validation.InputValidators
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
