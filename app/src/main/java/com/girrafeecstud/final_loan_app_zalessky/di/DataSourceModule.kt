@@ -10,38 +10,13 @@ import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.Regis
 import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.api.RegistrationApi
 import com.girrafeecstud.final_loan_app_zalessky.data.room.MainDatabase
 import com.girrafeecstud.final_loan_app_zalessky.data.room.RoomLoanConverter
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [DataSourceModule.DataSourceBindModule::class])
 class DataSourceModule {
-
-    @Provides
-    @Singleton
-    fun provideLoginDataSourceImpl(
-        loginApi: LoginApi,
-        apiErrorConverter: ApiErrorConverter
-    ): LoginDataSourceImpl {
-        return LoginDataSourceImpl(
-            loginApi = loginApi,
-            apiErrorConverter = apiErrorConverter
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun provideRegistrationDataSourceImpl(
-        registrationApi: RegistrationApi,
-        registrationApiResponseConverter: RegistrationApiResponseConverter,
-        apiErrorConverter: ApiErrorConverter
-    ): RegistrationDataSourceImpl {
-        return RegistrationDataSourceImpl(
-            registrationApi = registrationApi,
-            registrationApiResponseConverter = registrationApiResponseConverter,
-            apiErrorConverter = apiErrorConverter
-        )
-    }
 
     @Provides
     @Singleton
@@ -73,8 +48,21 @@ class DataSourceModule {
     @Singleton
     fun provideLoginSharedPreferencesDataSourceImpl(
         context: Context
-    ): LoginSharedPreferencesDataSourceImpl {
-        return LoginSharedPreferencesDataSourceImpl(context = context)
+    ): LoginSharedPreferencesDataSource {
+        return LoginSharedPreferencesDataSource(context = context)
+    }
+
+    @Module
+    interface DataSourceBindModule {
+
+        @Binds
+        @Singleton
+        fun bindRegistrationDataSourceImpl(impl: RegistrationDataSourceImpl): RegistrationDataSource
+
+        @Binds
+        @Singleton
+        fun bindLoginDataSourceImpl(impl: LoginDataSourceImpl): LoginDataSource
+
     }
 
 }

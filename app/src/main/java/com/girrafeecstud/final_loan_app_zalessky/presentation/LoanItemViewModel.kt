@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.LocalDateTimeConverterRepository
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoanByIdUseCase
 import kotlinx.coroutines.async
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class LoanItemViewModel @Inject constructor(
     private val getLoanByIdUseCase: GetLoanByIdUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository,
     private val localDateTimeConverterRepository: LocalDateTimeConverterRepository
 ): ViewModel() {
 
@@ -53,7 +53,7 @@ class LoanItemViewModel @Inject constructor(
     fun loadLoanData() {
         viewModelScope.launch {
             val bearerToken = async {
-                loginSharedPreferencesRepositoryImpl.getUserBearerToken()
+                loginSharedPreferencesRepository.getUserBearerToken()
             }
             getLoanByIdUseCase(bearerToken = bearerToken.await(), loanId = loanId)
                 .onStart {

@@ -15,13 +15,13 @@ class LoginSharedPreferencesDataSourceUnitTest {
 
     private lateinit var sharedPreferencesSPMockBuilder: SPMockBuilder
 
-    private lateinit var loginSharedPreferencesDataSourceImpl: LoginSharedPreferencesDataSourceImpl
+    private lateinit var loginSharedPreferencesDataSource: LoginSharedPreferencesDataSource
 
     @Before
     fun setUp() {
         sharedPreferencesSPMockBuilder = SPMockBuilder()
-        loginSharedPreferencesDataSourceImpl  =
-            LoginSharedPreferencesDataSourceImpl(
+        loginSharedPreferencesDataSource  =
+            LoginSharedPreferencesDataSource(
                 sharedPreferencesSPMockBuilder.createContext()
             )
     }
@@ -32,9 +32,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
 
             val expectedResult = true
 
-            loginSharedPreferencesDataSourceImpl.setUserAuthorized()
+            loginSharedPreferencesDataSource.setUserAuthorized()
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserAuthorizedStatus()
+            val actualResult = loginSharedPreferencesDataSource.getUserAuthorizedStatus()
 
            assertEquals(expectedResult, actualResult)
         }
@@ -46,9 +46,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
 
             val expectedResult = false
 
-            loginSharedPreferencesDataSourceImpl.setUserUnauthorized()
+            loginSharedPreferencesDataSource.setUserUnauthorized()
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserAuthorizedStatus()
+            val actualResult = loginSharedPreferencesDataSource.getUserAuthorizedStatus()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -60,9 +60,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
 
             val expectedResult = USER_AUTH_TOKEN
 
-            loginSharedPreferencesDataSourceImpl.setUserBearerToken(userBearerToken = USER_AUTH_TOKEN)
+            loginSharedPreferencesDataSource.setUserBearerToken(userBearerToken = USER_AUTH_TOKEN)
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserBearerToken()
+            val actualResult = loginSharedPreferencesDataSource.getUserBearerToken()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -74,9 +74,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
 
             val expectedResult = ""
 
-            loginSharedPreferencesDataSourceImpl.clearUserBearerToken()
+            loginSharedPreferencesDataSource.clearUserBearerToken()
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserBearerToken()
+            val actualResult = loginSharedPreferencesDataSource.getUserBearerToken()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -87,9 +87,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
         runBlocking {
             val expectedResult = USER_NAME
 
-            loginSharedPreferencesDataSourceImpl.setUserName(userName = USER_NAME)
+            loginSharedPreferencesDataSource.setUserName(userName = USER_NAME)
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserName()
+            val actualResult = loginSharedPreferencesDataSource.getUserName()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -100,9 +100,9 @@ class LoginSharedPreferencesDataSourceUnitTest {
         runBlocking {
             val expectedResult = ""
 
-            loginSharedPreferencesDataSourceImpl.clearUserName()
+            loginSharedPreferencesDataSource.clearUserName()
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserName()
+            val actualResult = loginSharedPreferencesDataSource.getUserName()
 
             assertEquals(expectedResult, actualResult)
         }

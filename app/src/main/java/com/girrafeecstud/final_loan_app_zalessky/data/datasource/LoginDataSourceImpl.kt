@@ -14,9 +14,9 @@ import javax.inject.Inject
 class LoginDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val apiErrorConverter: ApiErrorConverter
-) {
+): LoginDataSource {
 
-    suspend fun login(userName: String, userPassword: String): Flow<ApiResult<Any>> {
+    override suspend fun login(userName: String, userPassword: String): Flow<ApiResult<Any>> {
         val loginRequest = LoginRequest(userName = userName, userPassword = userPassword)
         return flow {
 

@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class UserProfileViewModel @Inject constructor(
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository
 ) : ViewModel() {
 
     private val userName = MutableLiveData<String>()
@@ -22,7 +22,7 @@ class UserProfileViewModel @Inject constructor(
     private fun loadUserName() {
         viewModelScope.launch {
             val name = async {
-                loginSharedPreferencesRepositoryImpl.getUserName()
+                loginSharedPreferencesRepository.getUserName()
             }
             userName.value = name.await()
         }
@@ -35,13 +35,13 @@ class UserProfileViewModel @Inject constructor(
     fun exitAccount() {
         viewModelScope.launch {
             async {
-                loginSharedPreferencesRepositoryImpl.clearUserBearerToken()
+                loginSharedPreferencesRepository.clearUserBearerToken()
             }
             async {
-                loginSharedPreferencesRepositoryImpl.clearUserName()
+                loginSharedPreferencesRepository.clearUserName()
             }
             async {
-                loginSharedPreferencesRepositoryImpl.setUserUnauthorized()
+                loginSharedPreferencesRepository.setUserUnauthorized()
             }
         }
     }

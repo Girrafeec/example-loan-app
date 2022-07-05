@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.ValidatorsRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.LoginUseCase
 import com.girrafeecstud.final_loan_app_zalessky.presentation.MainState
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl,
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository,
     private val validatorsRepository: ValidatorsRepository
 ): ViewModel() {
 
@@ -57,15 +57,15 @@ class LoginViewModel @Inject constructor(
     fun saveLoginData(userBearerToken: String, userName: String) {
         viewModelScope.launch {
             async {
-                loginSharedPreferencesRepositoryImpl.setUserAuthorized()
+                loginSharedPreferencesRepository.setUserAuthorized()
             }
             async {
-                loginSharedPreferencesRepositoryImpl.setUserBearerToken(
+                loginSharedPreferencesRepository.setUserBearerToken(
                     userBearerToken = userBearerToken
                 )
             }
             async {
-                loginSharedPreferencesRepositoryImpl.setUserName(userName = userName)
+                loginSharedPreferencesRepository.setUserName(userName = userName)
             }
         }
     }

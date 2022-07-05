@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.GetLoansListUseCase
 import kotlinx.coroutines.async
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class LoansViewModel @Inject constructor(
     private val getLoansListUseCase: GetLoansListUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository
 ) : ViewModel() {
 
     private val loans = MutableLiveData<List<Loan>>()
@@ -31,7 +31,7 @@ class LoansViewModel @Inject constructor(
     fun getRemoteLoansList() {
         viewModelScope.launch {
             val bearerToken = async {
-                loginSharedPreferencesRepositoryImpl.getUserBearerToken()
+                loginSharedPreferencesRepository.getUserBearerToken()
             }
             getLoansListUseCase(bearerToken = bearerToken.await())
                 .onStart {

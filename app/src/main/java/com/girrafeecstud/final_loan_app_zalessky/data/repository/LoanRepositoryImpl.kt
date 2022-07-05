@@ -5,6 +5,7 @@ import com.girrafeecstud.final_loan_app_zalessky.data.datasource.RemoteLoanDataS
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
+import com.girrafeecstud.final_loan_app_zalessky.domain.repository.LoanRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -12,19 +13,20 @@ class LoanRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteLoanDataSourceImpl,
     private val localDataSource: LocalLoanDataSourceImpl
 
-) {
-    suspend fun getLoanConditions(bearerToken: String?): Flow<ApiResult<Any>> {
+): LoanRepository {
+
+    override suspend fun getLoanConditions(bearerToken: String?): Flow<ApiResult<Any>> {
         return remoteDataSource.getLoanConditions(bearerToken = bearerToken)
     }
 
-    suspend fun applyLoan(bearerToken: String?, loanRequest: LoanRequest): Flow<ApiResult<Any>> {
+    override suspend fun applyLoan(bearerToken: String?, loanRequest: LoanRequest): Flow<ApiResult<Any>> {
         return remoteDataSource.applyLoan(
             bearerToken = bearerToken,
             loanRequest = loanRequest
         )
     }
 
-    suspend fun getLoansList(bearerToken: String?): Flow<ApiResult<Any>> {
+    override suspend fun getLoansList(bearerToken: String?): Flow<ApiResult<Any>> {
 
         lateinit var localDataSourceResult: List<Loan>
         localDataSource.getLoansList().collect { daoLoansList ->
@@ -45,7 +47,7 @@ class LoanRepositoryImpl @Inject constructor(
             }
     }
 
-    suspend fun getLoanById(bearerToken: String?, loanId: Long): Flow<ApiResult<Any>> {
+    override suspend fun getLoanById(bearerToken: String?, loanId: Long): Flow<ApiResult<Any>> {
 
         lateinit var localDataSourceResult: Loan
         localDataSource.getLoanById(loanId = loanId).collect { daoLoan ->

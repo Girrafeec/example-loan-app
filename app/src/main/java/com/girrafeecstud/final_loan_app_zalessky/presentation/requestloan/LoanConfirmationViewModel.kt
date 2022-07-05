@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiError
 import com.girrafeecstud.final_loan_app_zalessky.data.network.login.ApiResult
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.Loan
 import com.girrafeecstud.final_loan_app_zalessky.domain.entities.LoanRequest
 import com.girrafeecstud.final_loan_app_zalessky.domain.usecase.ApplyLoanUseCase
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class LoanConfirmationViewModel @Inject constructor(
     private val applyLoanUseCase: ApplyLoanUseCase,
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository
 ) : ViewModel() {
 
     private val state = MutableLiveData<MainState>()
@@ -27,7 +27,7 @@ class LoanConfirmationViewModel @Inject constructor(
     fun applyLoan(loanRequest: LoanRequest) {
         viewModelScope.launch {
             val bearerToken = async {
-                loginSharedPreferencesRepositoryImpl.getUserBearerToken()
+                loginSharedPreferencesRepository.getUserBearerToken()
             }
             applyLoanUseCase(bearerToken = bearerToken.await(), loanRequest = loanRequest)
                 .onStart {

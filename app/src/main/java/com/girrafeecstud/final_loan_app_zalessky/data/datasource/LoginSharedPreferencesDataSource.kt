@@ -3,7 +3,7 @@ package com.girrafeecstud.final_loan_app_zalessky.data.datasource
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
-class LoginSharedPreferencesDataSourceImpl(context: Context) {
+class LoginSharedPreferencesDataSource(context: Context) {
 
     private val context: Context
 

@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepositoryImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.repository.LoginSharedPreferencesRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
-    private val loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private val loginSharedPreferencesRepository: LoginSharedPreferencesRepository
 ): ViewModel() {
 
     private val userAuthorized = MutableLiveData<Boolean>()
@@ -23,7 +23,7 @@ class AuthorizationViewModel @Inject constructor(
         viewModelScope.launch {
 
             val authStatus = async {
-                loginSharedPreferencesRepositoryImpl.getUserAuthorizedStatus()
+                loginSharedPreferencesRepository.getUserAuthorizedStatus()
             }
             userAuthorized.value = authStatus.await()
         }

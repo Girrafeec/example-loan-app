@@ -4,44 +4,24 @@ import com.girrafeecstud.final_loan_app_zalessky.data.convertion.LocalDateTimeCo
 import com.girrafeecstud.final_loan_app_zalessky.data.datasource.*
 import com.girrafeecstud.final_loan_app_zalessky.data.repository.*
 import com.girrafeecstud.final_loan_app_zalessky.data.validation.InputValidators
+import com.girrafeecstud.final_loan_app_zalessky.domain.repository.LoanRepository
+import com.girrafeecstud.final_loan_app_zalessky.domain.repository.LoginRepository
+import com.girrafeecstud.final_loan_app_zalessky.domain.repository.RegistrationRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [RepositoryModule.RepositoryBindModule::class])
 class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLoginRepositoryImpl(dataSource: LoginDataSourceImpl): LoginRepositoryImpl {
-        return LoginRepositoryImpl(dataSource = dataSource)
-    }
-
-    @Provides
-    @Singleton
-    fun provideRegistrationRepositoryImpl(dataSource: RegistrationDataSourceImpl): RegistrationRepositoryImpl {
-        return RegistrationRepositoryImpl(dataSource = dataSource)
-    }
-
-    @Provides
-    @Singleton
-    fun provideLoanRepositoryImpl(
-        remoteLoanDataSourceImpl: RemoteLoanDataSourceImpl,
-        localLoanDataSourceImpl: LocalLoanDataSourceImpl
-    ): LoanRepositoryImpl {
-        return LoanRepositoryImpl(
-            remoteDataSource = remoteLoanDataSourceImpl,
-            localDataSource = localLoanDataSourceImpl
-        )
-    }
-
-    @Provides
-    @Singleton
     fun provideLoginSharedPreferencesRepositoryImpl(
-        loginSharedPreferencesDataSourceImpl: LoginSharedPreferencesDataSourceImpl
-    ): LoginSharedPreferencesRepositoryImpl {
-        return LoginSharedPreferencesRepositoryImpl(
-            loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl
+        loginSharedPreferencesDataSource: LoginSharedPreferencesDataSource
+    ): LoginSharedPreferencesRepository {
+        return LoginSharedPreferencesRepository(
+            loginSharedPreferencesDataSource = loginSharedPreferencesDataSource
         )
     }
 
@@ -57,6 +37,22 @@ class RepositoryModule {
         localDateTimeConverter: LocalDateTimeConverter
     ): LocalDateTimeConverterRepository {
         return LocalDateTimeConverterRepository(localDateTimeConverter = localDateTimeConverter)
+    }
+
+    @Module
+    interface RepositoryBindModule {
+
+        @Binds
+        @Singleton
+        fun bindLoanRepositoryImpl(impl: LoanRepositoryImpl): LoanRepository
+
+        @Binds
+        @Singleton
+        fun bindRegistrationRepositoryImpl(impl: RegistrationRepositoryImpl): RegistrationRepository
+
+        @Binds
+        @Singleton
+        fun bindLoginRepositoryImpl(impl: LoginRepositoryImpl): LoginRepository
     }
 
 }

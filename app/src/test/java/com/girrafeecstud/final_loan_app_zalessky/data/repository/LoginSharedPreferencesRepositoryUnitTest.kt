@@ -1,6 +1,6 @@
 package com.girrafeecstud.final_loan_app_zalessky.data.repository
 
-import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSourceImpl
+import com.girrafeecstud.final_loan_app_zalessky.data.datasource.LoginSharedPreferencesDataSource
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -15,14 +15,14 @@ class LoginSharedPreferencesRepositoryUnitTest {
         private const val USER_NAME = "string"
     }
 
-    private lateinit var loginSharedPreferencesRepositoryImpl: LoginSharedPreferencesRepositoryImpl
+    private lateinit var loginSharedPreferencesRepository: LoginSharedPreferencesRepository
 
-    private val loginSharedPreferencesDataSourceImpl: LoginSharedPreferencesDataSourceImpl = mock()
+    private val loginSharedPreferencesDataSource: LoginSharedPreferencesDataSource = mock()
 
     @Before
     fun setUp() {
-        loginSharedPreferencesRepositoryImpl =
-            LoginSharedPreferencesRepositoryImpl(loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSourceImpl)
+        loginSharedPreferencesRepository =
+            LoginSharedPreferencesRepository(loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSource)
     }
 
     @Test
@@ -30,9 +30,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
         runBlocking {
             val expectedResult = true
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserAuthorizedStatus()).thenReturn(true)
+            whenever(loginSharedPreferencesDataSource.getUserAuthorizedStatus()).thenReturn(true)
 
-            val actualResult = loginSharedPreferencesRepositoryImpl.getUserAuthorizedStatus()
+            val actualResult = loginSharedPreferencesRepository.getUserAuthorizedStatus()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -44,9 +44,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
 
             val expectedResult = false
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserAuthorizedStatus()).thenReturn(false)
+            whenever(loginSharedPreferencesDataSource.getUserAuthorizedStatus()).thenReturn(false)
 
-            val actualResult = loginSharedPreferencesRepositoryImpl.getUserAuthorizedStatus()
+            val actualResult = loginSharedPreferencesRepository.getUserAuthorizedStatus()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -58,9 +58,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
 
             val expectedResult = USER_AUTH_TOKEN
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserBearerToken()).thenReturn(USER_AUTH_TOKEN)
+            whenever(loginSharedPreferencesDataSource.getUserBearerToken()).thenReturn(USER_AUTH_TOKEN)
 
-            val actualResult = loginSharedPreferencesRepositoryImpl.getUserBearerToken()
+            val actualResult = loginSharedPreferencesRepository.getUserBearerToken()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -72,9 +72,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
 
             val expectedResult = ""
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserBearerToken()).thenReturn("")
+            whenever(loginSharedPreferencesDataSource.getUserBearerToken()).thenReturn("")
 
-            val actualResult = loginSharedPreferencesRepositoryImpl.getUserBearerToken()
+            val actualResult = loginSharedPreferencesRepository.getUserBearerToken()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -85,9 +85,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
         runBlocking {
             val expectedResult = USER_NAME
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserName()).thenReturn(USER_NAME)
+            whenever(loginSharedPreferencesDataSource.getUserName()).thenReturn(USER_NAME)
 
-            val actualResult = loginSharedPreferencesDataSourceImpl.getUserName()
+            val actualResult = loginSharedPreferencesDataSource.getUserName()
 
             assertEquals(expectedResult, actualResult)
         }
@@ -98,9 +98,9 @@ class LoginSharedPreferencesRepositoryUnitTest {
         runBlocking {
             val expectedResult = ""
 
-            whenever(loginSharedPreferencesDataSourceImpl.getUserName()).thenReturn("")
+            whenever(loginSharedPreferencesDataSource.getUserName()).thenReturn("")
 
-            val actualResult = loginSharedPreferencesRepositoryImpl.getUserName()
+            val actualResult = loginSharedPreferencesRepository.getUserName()
 
             assertEquals(expectedResult, actualResult)
         }

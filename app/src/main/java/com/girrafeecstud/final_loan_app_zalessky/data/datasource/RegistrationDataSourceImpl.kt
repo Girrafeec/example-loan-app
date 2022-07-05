@@ -16,9 +16,9 @@ class RegistrationDataSourceImpl @Inject constructor(
     private val registrationApi: RegistrationApi,
     private val registrationApiResponseConverter: RegistrationApiResponseConverter,
     private val apiErrorConverter: ApiErrorConverter
-) {
+): RegistrationDataSource {
 
-    suspend fun registration(userName: String, userPassword: String): Flow<ApiResult<Any>> {
+    override suspend fun registration(userName: String, userPassword: String): Flow<ApiResult<Any>> {
         val registrationRequest = RegistrationRequest(userName = userName, userPassword = userPassword)
         return flow {
 
