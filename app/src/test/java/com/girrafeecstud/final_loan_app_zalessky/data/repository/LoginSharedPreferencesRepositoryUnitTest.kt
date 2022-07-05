@@ -22,7 +22,7 @@ class LoginSharedPreferencesRepositoryUnitTest {
     @Before
     fun setUp() {
         loginSharedPreferencesRepository =
-            LoginSharedPreferencesRepository(loginSharedPreferencesDataSourceImpl = loginSharedPreferencesDataSource)
+            LoginSharedPreferencesRepository(loginSharedPreferencesDataSource = loginSharedPreferencesDataSource)
     }
 
     @Test

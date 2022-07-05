@@ -75,7 +75,6 @@ class LoginDataSourceUnitTest {
         val mockResponse = MockResponse()
         mockResponse.setBody(source.readString(Charsets.UTF_8))
         mockResponse.setResponseCode(errorCode)
-        print(mockResponse.toString())
         mockWebServer.enqueue(response = mockResponse)
     }
 
