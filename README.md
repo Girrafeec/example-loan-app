@@ -2,7 +2,7 @@
 A Loan App exmaple. Using Kotlin Flow, Retrofit and Dagger 2, etc.
 
 ## Sceenshots
-<img src="docs/Screenshot_sign_in.png" width="400" height="800">  <img src="docs/Screenshot_sign_up.png" width="400" height="800">
+<img src="docs/Screenshot_sign_in.png" width="400" height="auto">  <img src="docs/Screenshot_sign_up.png" width="400" height="auto">
 
 <img src="docs/Screenshot_loan_conditions.png" width="400" height="auto">  <img src="docs/Screenshot_loan_request_success.png" width="400" height="auto">
 
