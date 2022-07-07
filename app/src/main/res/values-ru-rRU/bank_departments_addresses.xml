@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bank_department_address_1">г. Санкт-Петербург, пр-кт Петровский, 136</string>
+    <string name="bank_department_address_2">г. Санкт-Петербург, ул. Жуковского, 999</string>
+    <string name="bank_department_address_3">г. Санкт-Петербург, ул. 500-я Советская, 1</string>
+    <string name="bank_department_address_4">г. Санкт-Петербург, пр-кт Красный, 34</string>
+    <string name="bank_department_address_5">г. Санкт-Петербург, ул. Неоригинальная, 5</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loan_amount">Loan amount</string>
+    <string name="loan_percent">Monthly interest value</string>
+    <string name="loan_period">Loan period</string>
+    <string name="loan_first_name">First name</string>
+    <string name="loan_last_name">Last name</string>
+    <string name="loan_phone_number">Phone number</string>
+    <string name="loan_id">Loan ID</string>
+    <string name="loan_date">Loan issue date and time</string>
+    <string name="loan_state">Loan state</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="enter_last_name">Enter last name</string>
+    <string name="enter_phone_number">Enter phone number</string>
+
+    <string name="loan_amount_value">%1$s ₽</string>
+    <string name="loan_percent_value">%1$s %%</string>
+    <string name="loan_period_value">%1$s %2$s</string>
+    <string name="loan_date_value">Loan from %1$s</string>
+    <string name="date_time_value">%1$s %2$s</string>
+
+    <string name="period_day_1">day</string>
+    <string name="period_day_2">day</string>
+    <string name="period_day_3">days</string>
+
+    <string name="loan_state_registereed">Registered</string>
+    <string name="loan_state_approved">Applied</string>
+    <string name="loan_state_rejected">Rejected</string>
+
+    <string name="request_state_registered">Registered</string>
+    <string name="request_state_approved">Applied</string>
+    <string name="request_state_rejected">Rejected</string>
+
+    <string name="sign_an_agreement">Sign an agreement</string>
+</resources>

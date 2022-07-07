@@ -35,20 +35,20 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
+            style="@style/Banner.Title.White"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Оформить заём"
-            style="@style/Banner.Title.White"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/get_loan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/getLoanFromLoansFragmentBtn"
-            android:text="оформить"
+            android:text="@string/get_it"
             style="@style/CommonButton.White"
             android:textColor="@color/purple_500"
             android:layout_marginTop="100dp"

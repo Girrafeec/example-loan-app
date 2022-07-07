@@ -17,7 +17,7 @@
 
     <string name="forbidden_error_title">Ошибка доступа</string>
     <string name="forbidden_error_message">Доступ к ресурсу закрыт</string>
-    
+
     <string name="phone_number_validation_error">Номер телефона может содержать знак + и от 10 до 13 цифр</string>
     <string name="first_name_validation_error">Имя может содержать только буквы</string>
     <string name="last_name_validation_error">Фамилия может содержать только буквы</string>

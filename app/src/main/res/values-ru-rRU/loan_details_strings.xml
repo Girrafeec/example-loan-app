@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loan_amount">Сумма займа</string>
+    <string name="loan_percent">Процентная ставка</string>
+    <string name="loan_period">Срок займа</string>
+    <string name="loan_first_name">Имя</string>
+    <string name="loan_last_name">Фамилия</string>
+    <string name="loan_phone_number">Номер телефона</string>
+    <string name="loan_id">Уникальный номер займа</string>
+    <string name="loan_date">Дата и время оформления заявки</string>
+    <string name="loan_state">Состояние заявки</string>
+    <string name="enter_first_name">Введите имя</string>
+    <string name="enter_last_name">Введите фамилию</string>
+    <string name="enter_phone_number">Введите номер телефона</string>
+
+    <string name="loan_amount_value">%1$s ₽</string>
+    <string name="loan_percent_value">%1$s %%</string>
+    <string name="loan_period_value">%1$s %2$s</string>
+    <string name="loan_date_value">Заём от %1$s</string>
+    <string name="date_time_value">%1$s %2$s</string>
+
+    <string name="period_day_1">день</string>
+    <string name="period_day_2">дня</string>
+    <string name="period_day_3">дней</string>
+
+    <string name="loan_state_registereed">Зарегестрирован</string>
+    <string name="loan_state_approved">Одобрен</string>
+    <string name="loan_state_rejected">Отклонён</string>
+
+    <string name="request_state_registered">Зарегестрирована</string>
+    <string name="request_state_approved">Одобрена</string>
+    <string name="request_state_rejected">Отклонена</string>
+
+    <string name="sign_an_agreement">Подписать договор</string>
+</resources>

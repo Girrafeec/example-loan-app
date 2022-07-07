@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="close">Close</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="get_it">Get it</string>
+    <string name="more">More</string>
+    <string name="exit">Exit</string>
+    <string name="exit_account">Exit account</string>
+    <string name="cancel">Cancel</string>
+    <string name="home">Home</string>
+    <string name="loans">Loans</string>
+    <string name="user_profile">Profile</string>
+
+</resources>
