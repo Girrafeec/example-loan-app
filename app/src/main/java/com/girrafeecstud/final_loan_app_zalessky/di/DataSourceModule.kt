@@ -5,9 +5,6 @@ import com.girrafeecstud.final_loan_app_zalessky.data.datasource.*
 import com.girrafeecstud.final_loan_app_zalessky.data.network.ApiErrorConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.LoanApiResponseConverter
 import com.girrafeecstud.final_loan_app_zalessky.data.network.loan.api.LoanApi
-import com.girrafeecstud.final_loan_app_zalessky.data.network.login.api.LoginApi
-import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.RegistrationApiResponseConverter
-import com.girrafeecstud.final_loan_app_zalessky.data.network.registration.api.RegistrationApi
 import com.girrafeecstud.final_loan_app_zalessky.data.room.MainDatabase
 import com.girrafeecstud.final_loan_app_zalessky.data.room.RoomLoanConverter
 import dagger.Binds

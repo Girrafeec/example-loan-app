@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fast_loans_percent">Short-term loans with 4% APR</string>
+    <string name="how_to_get_loan">Apply for a loan in 5 steps</string>
+    <string name="get_loan">Apply for a loan</string>
+    <string name="request_loan">Loan processing</string>
+    <string name="request_loan_success_title">Заявка на заём успешно оформлена</string>
+    <string name="request_loan_success_message">Изменения статуса заявки на заём отслеживайте в разделе Займы</string>
+    <string name="do_not_know_how_to_get_money">Оформили заём, но не знаете, как получить свои деньги?</string>
+
+    <string name="choose_loan_conditions_title">Выберете условия займа</string>
+    <string name="enter_personal_data_title">Введите персональные данные</string>
+    <string name="check_loan_conditions_title">Проверьте условия займа и ваши данные</string>
+    <string name="wait_loan_request_title">Оформите заём</string>
+    <string name="check_loans_title">Проверяйте состояние вашей заявки в разделе Займы</string>
+
+    <string name="get_money_credit_card">Для получения денег на карту подпишите договор</string>
+    <string name="get_money_bank">Деньги можно получить лично в одном из отделений</string>
+</resources>
